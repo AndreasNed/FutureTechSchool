@@ -6,6 +6,7 @@ package futuretechschool.domain;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,10 +32,10 @@ public class Course {
     @Basic
     private String primaryTeacher;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
     private List<Teacher> teachers;
 
     public int getId() {
@@ -60,15 +61,7 @@ public class Course {
     public void setPoints(int points) {
         this.points = points;
     }
-
-    public String getPrimaryTeacher() {
-        return this.primaryTeacher;
-    }
-
-    public void setPrimaryTeacher(String primaryTeacher) {
-        this.primaryTeacher = primaryTeacher;
-    }
-
+    
     public List<Student> getStudents() {
         if (students == null) {
             students = new ArrayList<>();
@@ -106,5 +99,15 @@ public class Course {
     public void removeTeacher(Teacher teacher) {
         getTeachers().remove(teacher);
     }
+
+    public String getPrimaryTeacher() {
+        return primaryTeacher;
+    }
+
+    public void setPrimaryTeacher(String primaryTeacher) {
+        this.primaryTeacher = primaryTeacher;
+    }
+
+
 
 }

@@ -6,6 +6,7 @@ package futuretechschool.domain;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Education {
     @OneToMany
     private List<Course> courses;
 
-    @OneToMany(mappedBy = "education")
+    @OneToMany(mappedBy = "education", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
     public int getId() {

@@ -1,5 +1,6 @@
 package futuretechschool;
 
+import DAO.DAO;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
 import futuretechschool.domain.Student;
@@ -15,43 +16,26 @@ public class Main {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-        EntityManager em = emf.createEntityManager();
+        DAO dao = new DAO();
+        Teacher teacher = new Teacher();
+        teacher.setName("Kalle Kula");
+        teacher.setBirthdate(LocalDate.now());
 
-        Teacher t1 = new Teacher();
-        t1.setBirthdate(LocalDate.now());
-        t1.setName("Ulf Bror");
+        Course course = new Course();
+        course.setName("Java one-o-one");
+        course.setPoints(100);
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.add(course);
 
-        Education e1 = new Education();
-        e1.setName("Construction Education");
+        dao.createTeacher(teacher);
+        dao.createCourse(course);
+        System.out.println(teacher.getId());
+        System.out.println(course.getId());
 
-        Course c1 = new Course();
-        c1.setName("Welding 1-0-1");
-        c1.setPoints(100);
-
-        Course c2 = new Course();
-        c2.setName("Hammering 1-0-1");
-        c2.setPoints(50);
-
-        List<Course> courseList = new ArrayList<>();
-        courseList.add(c1);
-        courseList.add(c2);
-
-        List<Teacher> teacherList = new ArrayList<>();
-        teacherList.add(t1);
-
-        e1.setCourse(courseList);
-
-        c1.setTeachers(teacherList);
-        c2.setTeachers(teacherList);
-        t1.setCourses(courseList);
-
-        em.getTransaction().begin();
-        em.persist(t1);
-        em.persist(e1);
-        em.persist(c1);
-        em.persist(c2);
-        em.getTransaction().commit();
+        dao.addTeacherToCourse(1, 2);
+        System.out.println(teacher.getCourses());
+        dao.removeTeacherFromCourse(1, 2);
+        System.out.println(teacher.getCourses());
 
     }
 
