@@ -6,9 +6,7 @@ package futuretechschool.domain;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +20,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     @Basic
     private String name;
@@ -33,20 +31,17 @@ public class Course {
     @Basic
     private String primaryTeacher;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "courses")
     private List<Student> students;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "courses")
     private List<Teacher> teachers;
 
-    public Course() {
-    }   
-
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

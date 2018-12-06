@@ -6,7 +6,6 @@ package futuretechschool.domain;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,26 +20,22 @@ public class Education {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     @Basic
     private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Student> student;
+    @OneToMany
+    private List<Course> courses;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Course> course;
+    @OneToMany(mappedBy = "education")
+    private List<Student> students;
 
-    public Education() {
-    }    
-    
-
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -52,42 +47,44 @@ public class Education {
         this.name = name;
     }
 
-    public List<Student> getStudent() {
-        if (student == null) {
-            student = new ArrayList<>();
+    public List<Course> getCourses() {
+        if (courses == null) {
+            courses = new ArrayList<>();
         }
-        return this.student;
+        return this.courses;
     }
 
-    public void setStudent(List<Student> student) {
-        this.student = student;
-    }
-
-    public void addStudent(Student student) {
-        getStudent().add(student);
-    }
-
-    public void removeStudent(Student student) {
-        getStudent().remove(student);
-    }
-
-    public List<Course> getCourse() {
-        if (course == null) {
-            course = new ArrayList<>();
-        }
-        return this.course;
-    }
-
-    public void setCourse(List<Course> course) {
-        this.course = course;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public void addCourse(Course course) {
-        getCourse().add(course);
+        getCourses().add(course);
     }
 
     public void removeCourse(Course course) {
-        getCourse().remove(course);
+        getCourses().remove(course);
+    }
+
+    public List<Student> getStudents() {
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+        return this.students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void addStudent(Student student) {
+        getStudents().add(student);
+        student.setEducation(this);
+    }
+
+    public void removeStudent(Student student) {
+        getStudents().remove(student);
+        student.setEducation(null);
     }
 
 }

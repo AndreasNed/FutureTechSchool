@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     @Basic
     private String name;
@@ -30,17 +29,14 @@ public class Teacher {
     @Basic
     private LocalDate birthdate;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     private List<Course> courses;
 
-    public Teacher() {
-    }
-
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -79,11 +75,6 @@ public class Teacher {
     public void removeCourse(Course course) {
         getCourses().remove(course);
         course.getTeachers().remove(this);
-    }
-
-    @Override
-    public String toString() {
-        return "Teacher{" + "id=" + id + ", name=" + name + ", birthdate=" + birthdate + ", courses=" + courses + '}';
     }
 
 }

@@ -7,13 +7,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Andreas N
@@ -23,7 +22,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
     @Basic
     private String name;
@@ -31,19 +30,17 @@ public class Student {
     @Basic
     private LocalDate birthdate;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne
+    private Education education;
+
+    @ManyToMany
     private List<Course> courses;
 
-    public Student() {
-    }
-    
-    
-
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,6 +58,14 @@ public class Student {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public Education getEducation() {
+        return this.education;
+    }
+
+    public void setEducation(Education education) {
+        this.education = education;
     }
 
     public List<Course> getCourses() {
