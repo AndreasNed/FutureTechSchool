@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class Teacher {
     @Basic
     private LocalDate birthdate;
 
-    @ManyToMany (cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Course> courses;
 
     public int getId() {
@@ -76,6 +77,11 @@ public class Teacher {
     public void removeCourse(Course course) {
         getCourses().remove(course);
         course.getTeachers().remove(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" + "id=" + id + ", name=" + name + '}';
     }
 
 }

@@ -3,13 +3,9 @@ package DAO;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Teacher;
 
-public interface DAOInterface {
+public interface CourseDAO {
 
-    //TEACHER
-    void createTeacher(Teacher teacher);
-    Teacher readTeacher(int id);
-    void updateTeacher(Teacher teacher, int id);
-    void deleteTeacher(int id);
+
     //COURSE
     void createCourse(Course course);
     Course readCourse(int id);

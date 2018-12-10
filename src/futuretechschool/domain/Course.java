@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Course {
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Teacher> teachers;
 
     public int getId() {
@@ -106,6 +107,11 @@ public class Course {
 
     public void setPrimaryTeacher(String primaryTeacher) {
         this.primaryTeacher = primaryTeacher;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" + "id=" + id + ", name=" + name + '}';
     }
 
 
