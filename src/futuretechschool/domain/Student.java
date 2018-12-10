@@ -35,7 +35,7 @@ public class Student {
     @ManyToOne (cascade = CascadeType.PERSIST)
     private Education education;
 
-    @ManyToMany (cascade = CascadeType.PERSIST)
+    @ManyToMany (cascade = CascadeType.ALL)
     private List<Course> courses;
 
     public int getId() {

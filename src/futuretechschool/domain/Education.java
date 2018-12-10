@@ -30,7 +30,7 @@ public class Education {
     @OneToMany
     private List<Course> courses;
 
-    @OneToMany(mappedBy = "education", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "Education", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
     public int getId() {
