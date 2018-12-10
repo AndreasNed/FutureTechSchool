@@ -8,6 +8,8 @@ package DAO;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Student;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -60,7 +62,6 @@ public class EducationDAOImpl implements EducationDAO {
         Education education = em.find(Education.class, educationId);
         Course course = em.find(Course.class, courseId);
         education.addCourse(course);
-        em.persist(education);
         em.getTransaction().commit();
         
     }
@@ -77,10 +78,11 @@ public class EducationDAOImpl implements EducationDAO {
 
     @Override
     public void addStudentToEducation(int studentId, int educationId) {
-        em.getTransaction().commit();
-        Education education = readEducation(educationId);
-        education.addStudent(em.find(Student.class, education));
         em.getTransaction().begin();
+        Education education = em.find(Education.class, educationId);
+        Student student = em.find(Student.class, studentId);
+        education.addStudent(student);
+        em.getTransaction().commit();
     }
 
     @Override

@@ -1,6 +1,12 @@
 package futuretechschool;
 
+import DAO.CourseDAO;
 import DAO.CourseDAOImpl;
+import DAO.EducationDAO;
+import DAO.EducationDAOImpl;
+import DAO.StudentDAO;
+import DAO.StudentDAOImpl;
+import DAO.TeacherDAO;
 import DAO.TeacherDAOImpl;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
@@ -11,39 +17,106 @@ import java.util.ArrayList;
 
 public class Main {
 
+    static EducationDAO educationDAO = new EducationDAOImpl();
+    static CourseDAO courseDAO = new CourseDAOImpl();
+    static StudentDAO studentDAO = new StudentDAOImpl();
+    static TeacherDAO teacherDAO = new TeacherDAOImpl();
+
     public static void main(String[] args) {
 
-        CourseDAOImpl courseDAO = new CourseDAOImpl();
-        TeacherDAOImpl teacherDAO = new TeacherDAOImpl();
-
-        Teacher teacher = new Teacher();
-        teacher.setName("Kalle Kula");
-        teacher.setBirthdate(LocalDate.now());
-
-        Course course = new Course();
-        course.setName("Java one-o-one");
-        course.setPoints(100);
-        ArrayList<Course> courses = new ArrayList<>();
-        courses.add(course);
-
-        teacherDAO.createTeacher(teacher);
-        courseDAO.createCourse(course);
-//
-//        System.out.println(teacherDAO.readTeacher(1));
-//        System.out.println(courseDAO.readCourse(2));
-//        System.out.println(teacher.getId());
-//        System.out.println(course.getId());
-//        
-//        System.out.println(teacher.getCourses());
-//
-        courseDAO.addTeacherToCourse(1, 2);
+        debugAddEducation();
+        debugAddCourse();
+        debugAddStudent();
+        debugAddTeacher();
         
-        teacher = teacherDAO.readTeacher(1);
-        
-        System.out.println(teacher.getCourses());
-//        courseDAO.deleteCourse(2);
-//        System.out.println(teacher.getCourses());
+        debugAddCourseToEducation();
+        debugAddStudentToEducation();
+        debugAddStudentToCourse();
+        debugAddTeacherToCourse();
+        //debugRemoveCourse();
+        //debugRemoveStudent();
 
+    }
+
+    public static void debugAddEducation() {
+
+        Education education1 = new Education();
+        education1.setName("Java Utvecklare");
+        educationDAO.createEducation(education1);
+
+        Education education2 = new Education();
+        education2.setName("Java Testare");
+        educationDAO.createEducation(education2);
+    }
+
+    public static void debugAddCourse() {
+
+        Course course1 = new Course();
+        course1.setName("Java Programmering");
+
+        Course course2 = new Course();
+        course2.setName("Java Databaser");
+
+        course1.setPoints(100);
+        course2.setPoints(200);
+
+        courseDAO.createCourse(course1);
+        courseDAO.createCourse(course2);
+
+    }
+
+    public static void debugAddStudent() {
+        Student student1 = new Student();
+        student1.setName("Andreas Nedbal");
+        student1.setBirthdate(LocalDate.now());
+
+        Student student2 = new Student();
+        student2.setName("Pontus P Paulsson");
+        student2.setBirthdate(LocalDate.now());
+
+        studentDAO.createStudent(student1);
+        studentDAO.createStudent(student2);
+
+    }
+
+    public static void debugAddTeacher() {
+
+        Teacher teacher1 = new Teacher();
+        Teacher teacher2 = new Teacher();
+
+        teacher1.setName("Ulf Bilting");
+        teacher2.setName("Bita Jibbari");
+
+        teacherDAO.createTeacher(teacher1);
+        teacherDAO.createTeacher(teacher2);
+    }
+
+    public static void debugAddCourseToEducation() {
+        educationDAO.addCourseToEducation(1, 3);
+        educationDAO.addCourseToEducation(2, 4);
+    }
+    
+    public static void debugAddStudentToEducation(){
+        educationDAO.addStudentToEducation(5, 1);
+        educationDAO.addStudentToEducation(6, 2);
+    }
+    public static void debugAddTeacherToCourse(){
+        courseDAO.addTeacherToCourse(7, 3);
+        courseDAO.addTeacherToCourse(8, 4);
+    }
+    public static void debugAddStudentToCourse(){
+        studentDAO.addToCourse(5, 3);
+        studentDAO.addToCourse(6, 4);
+    }
+    
+    public static void debugRemoveCourse(){
+        courseDAO.deleteCourse(3);
+    }
+    public static void debugRemoveStudent(){
+        studentDAO.deleteStudent(5);
+    }
+    public static void debugRemoveTeacher(){
+        teacherDAO.deleteTeacher(7);
     }
 
 }
