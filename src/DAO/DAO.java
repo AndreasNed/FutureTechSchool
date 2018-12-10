@@ -73,10 +73,11 @@ public class DAO implements DAOInterface {
         em.getTransaction().begin();
         Course course = em.find(Course.class, id);
         em.remove(course);
+        em.persist(course);
         em.getTransaction().commit();
     }
 
-    @Override
+    @Override //TESTAD FUNKAR
     public void addTeacherToCourse(int teacherId, int courseId) {
         Course c = em.find(Course.class, courseId);
         Teacher t = em.find(Teacher.class, teacherId);
@@ -88,13 +89,18 @@ public class DAO implements DAOInterface {
         em.getTransaction().commit();
     }
 
-    @Override
+    @Override //TESTAD FUNKAR
     public void removeTeacherFromCourse(int teacherId, int courseId) {
         Course c = em.find(Course.class, courseId);
         Teacher t = em.find(Teacher.class, teacherId);
         List<Course> courses = new ArrayList<>();
-        
-        
+        courses = t.getCourses();
+        courses.remove(c);
+        t.setCourses(courses);
+        em.getTransaction().begin();
+        em.persist(t);
+        em.getTransaction().commit();
+
     }
 
 }

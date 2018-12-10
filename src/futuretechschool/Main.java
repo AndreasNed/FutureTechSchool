@@ -7,16 +7,13 @@ import futuretechschool.domain.Student;
 import futuretechschool.domain.Course;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class Main {
 
+    static DAO dao = new DAO();
+
     public static void main(String[] args) {
 
-        DAO dao = new DAO();
         Teacher teacher = new Teacher();
         teacher.setName("Kalle Kula");
         teacher.setBirthdate(LocalDate.now());
@@ -34,7 +31,7 @@ public class Main {
 
         dao.addTeacherToCourse(1, 2);
         System.out.println(teacher.getCourses());
-        dao.removeTeacherFromCourse(1, 2);
+        dao.deleteCourse(2);
         System.out.println(teacher.getCourses());
 
     }
