@@ -26,29 +26,15 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public void updateCourse(Course course, int id) {
+    public void updateCourse(Course course) {
         em.getTransaction().begin();
-        Course c = em.find(Course.class, id);
-        
-        if(course.getName() != null)
-            c.setName(course.getName());
-        
-        c.setPoints(course.getPoints());
-        
-        if(course.getStudents().size() != 0)
-            c.setStudents(course.getStudents());
-        
-        if(course.getTeachers().size() != 0)
-            c.setTeachers(course.getTeachers());
-        
-        em.persist(c);
+        em.persist(course);
         em.getTransaction().commit();
     }
 
     @Override
-    public void deleteCourse(int id) {
+    public void deleteCourse(Course course) {
         em.getTransaction().begin();
-        Course course = em.find(Course.class, id);
         em.remove(course);
         em.getTransaction().commit();
     }

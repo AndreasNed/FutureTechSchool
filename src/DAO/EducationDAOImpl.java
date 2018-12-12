@@ -37,26 +37,17 @@ public class EducationDAOImpl implements EducationDAO {
     }
 
     @Override
-    public void updateEducation(Education education, int id) {
+    public void updateEducation(Education education) {
         em.getTransaction().begin();
-        Education foundEducation = em.find(Education.class, id);
-        
-        if(education.getName() != null)
-            foundEducation.setName(education.getName());
-        
-        if(education.getStudents().size() != 0)
-            foundEducation.setStudents(education.getStudents());
-        
-        if(education.getCourses().size() != 0)
-            foundEducation.setCourses(education.getCourses());
+        em.merge(education);
         em.getTransaction().commit();
         
     }
 
     @Override
-    public void deleteEducation(int id) {
+    public void deleteEducation(Education education) {
         em.getTransaction().begin();
-        em.remove(em.find(Education.class, id));
+        em.remove(education);
         em.getTransaction().commit();
     }
 
