@@ -33,10 +33,10 @@ public class Course {
     @Basic
     private String primaryTeacher;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Student> students;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Teacher> teachers;
 
     public int getId() {

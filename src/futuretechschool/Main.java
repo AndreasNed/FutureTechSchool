@@ -35,6 +35,8 @@ public class Main {
         debugAddTeacherToCourse();
         debugRemoveCourse();
         debugRemoveStudent();
+        debugRemoveTeacher();
+        debugRemoveEducation();
 
     }
 
@@ -118,5 +120,7 @@ public class Main {
     public static void debugRemoveTeacher(){
         teacherDAO.deleteTeacher(7);
     }
-
+    public static void debugRemoveEducation(){
+        educationDAO.deleteEducation(1);
+    }
 }
