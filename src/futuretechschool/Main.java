@@ -34,9 +34,11 @@ public class Main {
         debugAddStudentToCourse();
         debugAddTeacherToCourse();
         debugRemoveCourse();
-        debugRemoveStudent();
-        debugRemoveTeacher();
-        debugRemoveEducation();
+//        debugRemoveStudent();
+//        debugRemoveTeacher();
+//        debugRemoveEducation();
+//        debugUpdateCourse();
+//        debugUpdateEducation();
 
     }
 
@@ -112,7 +114,9 @@ public class Main {
     }
     
     public static void debugRemoveCourse(){
-        courseDAO.deleteCourse(3);
+        Course course = new Course();
+        course.setId(3);
+        courseDAO.deleteCourse(course);
     }
     public static void debugRemoveStudent(){
         studentDAO.deleteStudent(5);
@@ -121,6 +125,21 @@ public class Main {
         teacherDAO.deleteTeacher(7);
     }
     public static void debugRemoveEducation(){
-        educationDAO.deleteEducation(1);
+        Education education = new Education();
+        education.setId(1);
+        educationDAO.deleteEducation(education);
+    }
+    public static void debugUpdateCourse(){
+        Course course = new Course();
+        course.setName("Java Programmering 2.0");
+        course.setPoints(100);
+        //courseDAO.updateCourse(course, 3);
+    }
+    public static void debugUpdateEducation(){
+        Education edu = new Education();
+        edu.setName("ITHS Äger2");
+        edu.setId(2);
+        System.out.println(edu.getCourses());
+        //educationDAO.updateEducation(edu, 1);
     }
 }
