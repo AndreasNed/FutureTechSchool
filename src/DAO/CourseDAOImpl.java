@@ -29,7 +29,21 @@ public class CourseDAOImpl implements CourseDAO {
     public void updateCourse(Course course, int id) {
         em.getTransaction().begin();
         Course c = em.find(Course.class, id);
-        c = course;
+        
+        if(course.getName() != null)
+            c.setName(course.getName());
+        
+        c.setPoints(course.getPoints());
+        
+        if(course.getStudents().size() != 0)
+            c.setStudents(course.getStudents());
+        
+        if(course.getStudents().size() != 0)
+            c.setTeachers(course.getTeachers());
+        
+        if(course.getStudents().size() != 0)
+            c.setPrimaryTeacher(course.getPrimaryTeacher());
+        
         em.persist(c);
         em.getTransaction().commit();
     }
