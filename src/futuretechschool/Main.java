@@ -33,8 +33,8 @@ public class Main {
         debugAddStudentToEducation();
         debugAddStudentToCourse();
         debugAddTeacherToCourse();
-        //debugRemoveCourse();
-        //debugRemoveStudent();
+        debugRemoveCourse();
+        debugRemoveStudent();
 
     }
 

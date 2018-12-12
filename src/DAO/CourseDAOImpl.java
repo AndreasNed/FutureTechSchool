@@ -1,6 +1,7 @@
 package DAO;
 
 import futuretechschool.domain.Course;
+import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,23 +51,16 @@ public class CourseDAOImpl implements CourseDAO {
         em.getTransaction().begin();
         Course c = em.find(Course.class, courseId);
         Teacher t = em.find(Teacher.class, teacherId);
-        List<Course> courses = new ArrayList<>();
-        courses.add(c);
-        t.setCourses(courses);
-        em.persist(t);
+        t.addCourse(c);
         em.getTransaction().commit();
     }
 
     @Override //TESTAD FUNKAR
     public void removeTeacherFromCourse(int teacherId, int courseId) {
+        em.getTransaction().begin();
         Course c = em.find(Course.class, courseId);
         Teacher t = em.find(Teacher.class, teacherId);
-        List<Course> courses = new ArrayList<>();
-        courses = t.getCourses();
-        courses.remove(c);
-        t.setCourses(courses);
-        em.getTransaction().begin();
-        em.persist(t);
+        t.removeCourse(c);
         em.getTransaction().commit();
 
     }
