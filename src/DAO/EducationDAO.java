@@ -18,9 +18,10 @@ Education readEducation(int id);
 void updateEducation(Education education);
 void deleteEducation (int id);
 
-void addCourseToEducation(int educationId, int courseId);
-void removeCourseFromEducation(int educationId, int courseId);
-void addStudentToEducation (int studentId, int educationId);
-void removeStudentFromEducation (int studentId, int educationId);
+//Dessa ska inte behövas.
+//void addCourseToEducation(int educationId, int courseId);
+//void removeCourseFromEducation(int educationId, int courseId);
+//void addStudentToEducation (int studentId, int educationId);
+//void removeStudentFromEducation (int studentId, int educationId);
 
 }

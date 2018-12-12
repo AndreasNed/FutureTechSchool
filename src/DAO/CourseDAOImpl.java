@@ -28,34 +28,35 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public void updateCourse(Course course) {
         em.getTransaction().begin();
-        em.persist(course);
+        em.merge(course);
         em.getTransaction().commit();
     }
 
     @Override
     public void deleteCourse(int id) {
         em.getTransaction().begin();
-        em.remove(em.find(Course.class, id));
+        Course course = em.find(Course.class, id);
+        em.remove(course);
         em.getTransaction().commit();
     }
 
-    @Override //TESTAD FUNKAR
-    public void addTeacherToCourse(int teacherId, int courseId) {
-        em.getTransaction().begin();
-        Course c = em.find(Course.class, courseId);
-        Teacher t = em.find(Teacher.class, teacherId);
-        t.addCourse(c);
-        em.getTransaction().commit();
-    }
+//    @Override //TESTAD FUNKAR
+//    public void addTeacherToCourse(int teacherId, int courseId) {
+//        em.getTransaction().begin();
+//        Course c = em.find(Course.class, courseId);
+//        Teacher t = em.find(Teacher.class, teacherId);
+//        t.addCourse(c);
+//        em.getTransaction().commit();
+//    }
 
-    @Override //TESTAD FUNKAR
-    public void removeTeacherFromCourse(int teacherId, int courseId) {
-        em.getTransaction().begin();
-        Course c = em.find(Course.class, courseId);
-        Teacher t = em.find(Teacher.class, teacherId);
-        t.removeCourse(c);
-        em.getTransaction().commit();
-
-    }
+//    @Override //TESTAD FUNKAR
+//    public void removeTeacherFromCourse(int teacherId, int courseId) {
+//        em.getTransaction().begin();
+//        Course c = em.find(Course.class, courseId);
+//        Teacher t = em.find(Teacher.class, teacherId);
+//        t.removeCourse(c);
+//        em.getTransaction().commit();
+//
+//    }
 
 }

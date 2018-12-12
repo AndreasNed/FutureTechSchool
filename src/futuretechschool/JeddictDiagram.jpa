@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" ptype="MONOLITH" ppkg="futuretechschool" epkg="domain" v="4.9" rws="_15440811839292" Pws="_15440811839292" cws="_15440811839292" persistenceUnitName="DEFAULT_PU" sm="false" xs="false" id="_15440811839281" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
-    <jpa:entity compositePrimaryKeyClass="StudentPK" abs="false" class="Student" v="true" xre="false" m="false" rootElement="_15440811839281" id="_15440812115733">
+    <jpa:entity compositePrimaryKeyClass="StudentPK" abs="false" class="Student" v="true" jbn="false" xre="false" m="false" rootElement="_15440811839281" id="_15440812115733">
         <jpa:ath>Andreas N</jpa:ath>
         <jpa:attributes>
             <jpa:basic attribute-type="String" v="true" xvt="" name="name" id="_1544082670270236">
@@ -11,8 +11,14 @@
                 <jpa:xwm/>
                 <jpa:xm/>
             </jpa:basic>
-            <jpa:many-to-one primaryKey="false" connected-entity-id="_154408125134612" connected-attribute-id="_1544090332380560" v="true" name="education" id="_1544090332378559"/>
-            <jpa:many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812450289" connected-attribute-id="_1544082385456174" v="true" name="courses" id="_1544082385455173"/>
+            <jpa:many-to-one optional="true" primaryKey="false" connected-entity-id="_154408125134612" connected-attribute-id="_1544090332380560" v="true" xvt="" name="education" id="_1544090332378559">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-one>
+            <jpa:many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812450289" connected-attribute-id="_1544082385456174" v="true" xvt="" name="courses" id="_1544082385455173">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
             <jpa:id attribute-type="int" v="true" xvt="" name="id" id="_15440812116104">
                 <jpa:xwm/>
                 <jpa:xm/>
@@ -29,10 +35,13 @@
             <jpa:query>Select s from Student s where s.birthdate=:birthdate</jpa:query>
         </jpa:nq>
     </jpa:entity>
-    <jpa:entity compositePrimaryKeyClass="TeacherPK" abs="false" class="Teacher" v="true" xre="false" m="false" rootElement="_15440811839281" id="_15440812400976">
+    <jpa:entity compositePrimaryKeyClass="TeacherPK" abs="false" class="Teacher" v="true" jbn="false" xre="false" m="false" rootElement="_15440811839281" id="_15440812400976">
         <jpa:ath>Andreas N</jpa:ath>
         <jpa:attributes>
-            <jpa:basic attribute-type="String" v="true" name="name" id="_154408201988784"/>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="name" id="_154408201988784">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
             <jpa:basic attribute-type="java.time.LocalDate" v="true" xvt="" name="birthdate" id="_154408206068785">
                 <jpa:xwm/>
                 <jpa:xm/>
@@ -57,10 +66,13 @@
             <jpa:query>Select t from Teacher t where t.birthdate=:birthdate</jpa:query>
         </jpa:nq>
     </jpa:entity>
-    <jpa:entity compositePrimaryKeyClass="CoursePK" abs="false" class="Course" v="true" xre="false" m="false" rootElement="_15440811839281" id="_15440812450289">
+    <jpa:entity compositePrimaryKeyClass="CoursePK" abs="false" class="Course" v="true" jbn="false" xre="false" m="false" rootElement="_15440811839281" id="_15440812450289">
         <jpa:ath>Andreas N</jpa:ath>
         <jpa:attributes>
-            <jpa:basic attribute-type="String" v="true" name="name" id="_154408208207086"/>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="name" id="_154408208207086">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
             <jpa:basic attribute-type="int" v="true" xvt="" name="points" id="_154408208951187">
                 <jpa:xwm/>
                 <jpa:xm/>
@@ -69,8 +81,18 @@
                 <jpa:xwm/>
                 <jpa:xm/>
             </jpa:basic>
-            <jpa:many-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812115733" connected-attribute-id="_1544082385455173" v="true" name="students" id="_1544082385456174"/>
-            <jpa:many-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812400976" connected-attribute-id="_1544082389487176" v="true" name="teachers" id="_1544082389488177"/>
+            <jpa:many-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812115733" connected-attribute-id="_1544082385455173" v="true" xvt="" name="students" id="_1544082385456174">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
+            <jpa:many-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812400976" connected-attribute-id="_1544082389487176" v="true" xvt="" name="teachers" id="_1544082389488177">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
+            <jpa:many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_154408125134612" connected-attribute-id="_154461816084035" v="true" xvt="" name="educations" id="_154461816084034">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
             <jpa:id attribute-type="int" v="true" xvt="" name="id" id="_154408124502810">
                 <jpa:xwm/>
                 <jpa:xm/>
@@ -93,15 +115,21 @@
             <jpa:query>Select c from Course c where c.primaryTeacher=:primaryTeacher</jpa:query>
         </jpa:nq>
     </jpa:entity>
-    <jpa:entity compositePrimaryKeyClass="EducationPK" abs="false" class="Education" v="true" xre="false" m="false" rootElement="_15440811839281" id="_154408125134612">
+    <jpa:entity compositePrimaryKeyClass="EducationPK" abs="false" class="Education" v="true" jbn="false" xre="false" m="false" rootElement="_15440811839281" id="_154408125134612">
         <jpa:ath>Andreas N</jpa:ath>
         <jpa:attributes>
-            <jpa:basic attribute-type="String" v="true" name="name" id="_1544082225222164"/>
-            <jpa:one-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812450289" v="true" xvt="" name="courses" id="_154408183914431">
+            <jpa:basic attribute-type="String" v="true" xvt="" name="name" id="_1544082225222164">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:one-to-many orp="false" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812115733" connected-attribute-id="_1544090332378559" v="true" xvt="" name="students" id="_1544090332380560">
                 <jpa:xwm/>
                 <jpa:xm/>
             </jpa:one-to-many>
-            <jpa:one-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812115733" connected-attribute-id="_1544090332378559" v="true" name="students" id="_1544090332380560"/>
+            <jpa:many-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_15440812450289" connected-attribute-id="_154461816084034" v="true" xvt="" name="courses" id="_154461816084035">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
             <jpa:id attribute-type="int" v="true" xvt="" name="id" id="_154408125134613">
                 <jpa:xwm/>
                 <jpa:xm/>
@@ -132,10 +160,10 @@
     </jpa:c>
     <jpa:wsl>
         <jpa:ws n="Main" id="_15440811839292">
-            <i ref="_15440812115733" x="603" y="327"/>
-            <i ref="_154408125134612" x="398" y="162"/>
+            <i ref="_15440812115733" x="539" y="348"/>
+            <i ref="_154408125134612" x="421" y="166"/>
             <i ref="_15440812400976" x="21" y="369"/>
-            <i ref="_15440812450289" x="218" y="327"/>
+            <i ref="_15440812450289" x="179" y="190"/>
         </jpa:ws>
     </jpa:wsl>
 </jpa:entity-mappings>

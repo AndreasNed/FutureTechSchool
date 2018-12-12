@@ -51,42 +51,42 @@ public class EducationDAOImpl implements EducationDAO {
         em.getTransaction().commit();
     }
 
-    @Override
-    public void addCourseToEducation(int educationId, int courseId) {
-        em.getTransaction().begin();
-        Education education = em.find(Education.class, educationId);
-        Course course = em.find(Course.class, courseId);
-        education.addCourse(course);
-        em.getTransaction().commit();
-        
-    }
-
-    @Override
-    public void removeCourseFromEducation(int educationId, int courseId) {
-        em.getTransaction().begin();
-        Education education = readEducation(educationId);
-        Course course = em.find(Course.class, courseId);
-        education.removeCourse(course);
-        em.getTransaction().commit();
-        
-    }
-
-    @Override
-    public void addStudentToEducation(int studentId, int educationId) {
-        em.getTransaction().begin();
-        Education education = em.find(Education.class, educationId);
-        Student student = em.find(Student.class, studentId);
-        education.addStudent(student);
-        em.getTransaction().commit();
-    }
-
-    @Override
-    public void removeStudentFromEducation(int studentId, int educationId) {
-        em.getTransaction().begin();
-        Education education = readEducation(educationId);
-        education.removeStudent(em.find(Student.class, studentId));
-        em.getTransaction().commit();
-        
-    }
+//    @Override
+//    public void addCourseToEducation(int educationId, int courseId) {
+//        em.getTransaction().begin();
+//        Education education = em.find(Education.class, educationId);
+//        Course course = em.find(Course.class, courseId);
+//        education.addCourse(course);
+//        em.getTransaction().commit();
+//        
+//    }
+//
+//    @Override
+//    public void removeCourseFromEducation(int educationId, int courseId) {
+//        em.getTransaction().begin();
+//        Education education = readEducation(educationId);
+//        Course course = em.find(Course.class, courseId);
+//        education.removeCourse(course);
+//        em.getTransaction().commit();
+//        
+//    }
+//
+//    @Override
+//    public void addStudentToEducation(int studentId, int educationId) {
+//        em.getTransaction().begin();
+//        Education education = em.find(Education.class, educationId);
+//        Student student = em.find(Student.class, studentId);
+//        education.addStudent(student);
+//        em.getTransaction().commit();
+//    }
+//
+//    @Override
+//    public void removeStudentFromEducation(int studentId, int educationId) {
+//        em.getTransaction().begin();
+//        Education education = readEducation(educationId);
+//        education.removeStudent(em.find(Student.class, studentId));
+//        em.getTransaction().commit();
+//        
+//    }
         
 }

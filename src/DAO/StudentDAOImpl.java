@@ -48,31 +48,31 @@ public class StudentDAOImpl implements StudentDAO {
         em.getTransaction().commit();
     }
 
-    @Override
-    public void addToCourse(int studentId, int courseId) {
-        try {
-            em.getTransaction().begin();
-            Course c = em.find(Course.class, courseId);
-            Student s = em.find(Student.class, studentId);
-            s.addCourse(c);
-            em.getTransaction().commit();
-        } catch (PersistenceException e) {
-            em.getTransaction().rollback();
-        }
-    }
-
-    @Override
-    public void removeFromCourse(int studentId, int courseId) {
-        try {
-            em.getTransaction().begin();
-            Course c = em.find(Course.class, courseId);
-            Student s = em.find(Student.class, studentId);
-            s.removeCourse(c);
-            em.getTransaction().commit();
-        } catch (PersistenceException e) {
-            em.getTransaction().rollback();
-        }
-    }
+//    @Override
+//    public void addToCourse(int studentId, int courseId) {
+//        try {
+//            em.getTransaction().begin();
+//            Course c = em.find(Course.class, courseId);
+//            Student s = em.find(Student.class, studentId);
+//            s.addCourse(c);
+//            em.getTransaction().commit();
+//        } catch (PersistenceException e) {
+//            em.getTransaction().rollback();
+//        }
+//    }
+//
+//    @Override
+//    public void removeFromCourse(int studentId, int courseId) {
+//        try {
+//            em.getTransaction().begin();
+//            Course c = em.find(Course.class, courseId);
+//            Student s = em.find(Student.class, studentId);
+//            s.removeCourse(c);
+//            em.getTransaction().commit();
+//        } catch (PersistenceException e) {
+//            em.getTransaction().rollback();
+//        }
+//    }
     
     
 //    private void executeInsideTransaction(Consumer<EntityManager> action) {

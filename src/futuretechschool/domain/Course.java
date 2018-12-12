@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,11 +29,15 @@ public class Course {
     @Basic
     private int points;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
     private List<Student> students;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
     private List<Teacher> teachers;
+
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    private List<Education> educations;
 
     public int getId() {
         return this.id;
@@ -59,7 +62,7 @@ public class Course {
     public void setPoints(int points) {
         this.points = points;
     }
-    
+
     public List<Student> getStudents() {
         if (students == null) {
             students = new ArrayList<>();
@@ -98,11 +101,25 @@ public class Course {
         getTeachers().remove(teacher);
     }
 
-    @Override
-    public String toString() {
-        return "Course{" + "id=" + id + ", name=" + name + '}';
+    public List<Education> getEducations() {
+        if (educations == null) {
+            educations = new ArrayList<>();
+        }
+        return this.educations;
     }
 
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
+    }
 
+    public void addEducation(Education education) {
+        getEducations().add(education);
+        education.getCourses().add(this);
+    }
+
+    public void removeEducation(Education education) {
+        getEducations().remove(education);
+        education.getCourses().remove(this);
+    }
 
 }

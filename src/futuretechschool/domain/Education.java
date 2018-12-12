@@ -8,10 +8,10 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -27,11 +27,13 @@ public class Education {
     @Basic
     private String name;
 
-    @OneToMany
-    private List<Course> courses;
-
-    @OneToMany(mappedBy = "Education", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "Education", cascade = CascadeType.ALL)
     private List<Student> students;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Course> courses;
+    
+    
 
     public int getId() {
         return this.id;
@@ -47,25 +49,6 @@ public class Education {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Course> getCourses() {
-        if (courses == null) {
-            courses = new ArrayList<>();
-        }
-        return this.courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-
-    public void addCourse(Course course) {
-        getCourses().add(course);
-    }
-
-    public void removeCourse(Course course) {
-        getCourses().remove(course);
     }
 
     public List<Student> getStudents() {
@@ -87,6 +70,25 @@ public class Education {
     public void removeStudent(Student student) {
         getStudents().remove(student);
         student.setEducation(null);
+    }
+
+    public List<Course> getCourses() {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        return this.courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public void addCourse(Course course) {
+        getCourses().add(course);
+    }
+
+    public void removeCourse(Course course) {
+        getCourses().remove(course);
     }
 
 }

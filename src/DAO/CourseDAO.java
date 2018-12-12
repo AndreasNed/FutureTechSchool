@@ -10,7 +10,8 @@ public interface CourseDAO {
     Course readCourse(int id);
     void updateCourse(Course course);
     void deleteCourse(int id);
-    void addTeacherToCourse(int teacherId, int courseId);
-    void removeTeacherFromCourse(int teacherId, int courseId);
+//    Ska inte behövas.
+//    void addTeacherToCourse(int teacherId, int courseId);
+//    void removeTeacherFromCourse(int teacherId, int courseId);
 
 }
