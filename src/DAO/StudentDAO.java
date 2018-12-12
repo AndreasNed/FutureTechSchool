@@ -1,8 +1,7 @@
 package DAO;
 
-import futuretechschool.domain.Course;
 import futuretechschool.domain.Student;
-import java.util.List;
+
 
 public interface StudentDAO {
 

@@ -8,8 +8,6 @@ package DAO;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Student;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

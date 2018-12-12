@@ -1,7 +1,6 @@
 package DAO;
 
 import futuretechschool.domain.Course;
-import futuretechschool.domain.Teacher;
 
 public interface CourseDAO {
 
