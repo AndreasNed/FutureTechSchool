@@ -40,9 +40,15 @@ public class EducationDAOImpl implements EducationDAO {
     public void updateEducation(Education education, int id) {
         em.getTransaction().begin();
         Education foundEducation = em.find(Education.class, id);
-        foundEducation.setName(education.getName());
-        foundEducation.setStudents(education.getStudents());
-        foundEducation.setCourses(education.getCourses());
+        
+        if(education.getName() != null)
+            foundEducation.setName(education.getName());
+        
+        if(education.getStudents().size() != 0)
+            foundEducation.setStudents(education.getStudents());
+        
+        if(education.getCourses().size() != 0)
+            foundEducation.setCourses(education.getCourses());
         em.getTransaction().commit();
         
     }

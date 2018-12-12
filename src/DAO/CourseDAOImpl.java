@@ -38,11 +38,8 @@ public class CourseDAOImpl implements CourseDAO {
         if(course.getStudents().size() != 0)
             c.setStudents(course.getStudents());
         
-        if(course.getStudents().size() != 0)
+        if(course.getTeachers().size() != 0)
             c.setTeachers(course.getTeachers());
-        
-        if(course.getStudents().size() != 0)
-            c.setPrimaryTeacher(course.getPrimaryTeacher());
         
         em.persist(c);
         em.getTransaction().commit();

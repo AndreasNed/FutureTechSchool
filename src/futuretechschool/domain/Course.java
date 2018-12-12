@@ -30,9 +30,6 @@ public class Course {
     @Basic
     private int points;
 
-    @Basic
-    private String primaryTeacher;
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Student> students;
 
@@ -99,14 +96,6 @@ public class Course {
 
     public void removeTeacher(Teacher teacher) {
         getTeachers().remove(teacher);
-    }
-
-    public String getPrimaryTeacher() {
-        return primaryTeacher;
-    }
-
-    public void setPrimaryTeacher(String primaryTeacher) {
-        this.primaryTeacher = primaryTeacher;
     }
 
     @Override
