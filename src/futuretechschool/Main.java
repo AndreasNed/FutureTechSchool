@@ -33,7 +33,7 @@ public class Main {
         debugAddStudentToEducation();
         debugAddStudentToCourse();
         debugAddTeacherToCourse();
-        debugRemoveCourse();
+//        debugRemoveCourse();
 //        debugRemoveStudent();
 //        debugRemoveTeacher();
 //        debugRemoveEducation();
@@ -114,9 +114,7 @@ public class Main {
     }
     
     public static void debugRemoveCourse(){
-        Course course = new Course();
-        course.setId(3);
-        courseDAO.deleteCourse(course);
+        courseDAO.deleteCourse(3);
     }
     public static void debugRemoveStudent(){
         studentDAO.deleteStudent(5);
@@ -125,9 +123,7 @@ public class Main {
         teacherDAO.deleteTeacher(7);
     }
     public static void debugRemoveEducation(){
-        Education education = new Education();
-        education.setId(1);
-        educationDAO.deleteEducation(education);
+        educationDAO.deleteEducation(1);
     }
     public static void debugUpdateCourse(){
         Course course = new Course();

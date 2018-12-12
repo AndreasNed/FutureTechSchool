@@ -33,9 +33,9 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public void deleteCourse(Course course) {
+    public void deleteCourse(int id) {
         em.getTransaction().begin();
-        em.remove(course);
+        em.remove(em.find(Course.class, id));
         em.getTransaction().commit();
     }
 

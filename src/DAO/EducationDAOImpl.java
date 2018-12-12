@@ -45,9 +45,9 @@ public class EducationDAOImpl implements EducationDAO {
     }
 
     @Override
-    public void deleteEducation(Education education) {
+    public void deleteEducation(int id) {
         em.getTransaction().begin();
-        em.remove(education);
+        em.remove(em.find(Education.class, id));
         em.getTransaction().commit();
     }
 

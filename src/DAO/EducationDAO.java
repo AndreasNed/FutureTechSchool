@@ -16,7 +16,7 @@ public interface EducationDAO {
 void createEducation(Education education);
 Education readEducation(int id);
 void updateEducation(Education education);
-void deleteEducation (Education education);
+void deleteEducation (int id);
 
 void addCourseToEducation(int educationId, int courseId);
 void removeCourseFromEducation(int educationId, int courseId);
