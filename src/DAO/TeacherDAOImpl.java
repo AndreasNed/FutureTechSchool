@@ -1,6 +1,5 @@
 package DAO;
 
-import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -29,7 +28,10 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public Teacher readTeacher(int id) {
         Teacher teacher = em.find(Teacher.class, id);
-        return teacher;
+        if(teacher != null){
+            return teacher;
+        }
+        return null;
     }
 
     @Override

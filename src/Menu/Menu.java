@@ -49,7 +49,11 @@ public class Menu {
             }
             System.out.print("Input: ");
             int input = readNumber();
-            menuMain.get(input).getMenu().menuMethod();
+            try {
+                menuMain.get(input).getMenu().menuMethod();
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println("Invalid input - Type a number between 0-" + (menuMain.size() - 1));
+            }
         }
     }
 
@@ -75,7 +79,11 @@ public class Menu {
             if (input == 0) {
                 run = false;
             } else {
-                menuStudent.get(input).getMenu().menuMethod();
+                try {
+                    menuStudent.get(input).getMenu().menuMethod();
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Invalid input - Type a number between 0-" + (menuStudent.size() - 1));
+                }
             }
         }
     }
@@ -101,7 +109,11 @@ public class Menu {
             if (input == 0) {
                 run = false;
             } else {
-                menuTeacher.get(input).getMenu().menuMethod();
+                try {
+                    menuTeacher.get(input).getMenu().menuMethod();
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Invalid input - Type a number between 0-" + (menuTeacher.size() - 1));
+                }
             }
         }
 
@@ -126,7 +138,11 @@ public class Menu {
             if (input == 0) {
                 run = false;
             } else {
-                menuCourse.get(input).getMenu().menuMethod();
+                try {
+                    menuCourse.get(input).getMenu().menuMethod();
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Invalid input - Type a number between 0-" + (menuCourse.size() - 1));
+                }
             }
         }
     }
@@ -151,7 +167,12 @@ public class Menu {
             if (input == 0) {
                 run = false;
             } else {
-                menuEducation.get(input).getMenu().menuMethod();
+                try {
+                    menuEducation.get(input).getMenu().menuMethod();
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Invalid input - Type a number between 0-" + (menuEducation.size() - 1));
+                }
+
             }
         }
     }
@@ -232,7 +253,7 @@ public class Menu {
             teacher.setBirthdate(parsedDate);
 
         }
-        
+
         return teacher;
     }
 
