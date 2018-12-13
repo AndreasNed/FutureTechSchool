@@ -8,6 +8,7 @@ import DAO.StudentDAO;
 import DAO.StudentDAOImpl;
 import DAO.TeacherDAO;
 import DAO.TeacherDAOImpl;
+import Menu.Menu;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
 import futuretechschool.domain.Student;
@@ -24,14 +25,16 @@ public class PontusMain {
     static TeacherDAO teacherDAO = new TeacherDAOImpl();
 
     public static void main(String[] args) {
+        
+        Menu.menu();
 
-        debugAddEducation(); // funkar
-        debugAddCourse(); // funkar
-        debugAddStudent(); // funkar
-        debugAddTeacher(); // funkar
-
+//        debugAddEducation(); // funkar
+//        debugAddCourse(); // funkar
+//        debugAddStudent(); // funkar
+//        debugAddTeacher(); // funkar
+//
 //        debugAddCourseToEducation(); // funkar
-        debugAddStudentToEducation(); // funkar
+//        debugAddStudentToEducation(); // funkar
 //        debugAddStudentToCourse(); // funkar
 //        debugAddTeacherToCourse(); // funkar
 //        debugRemoveCourse(); // funkar

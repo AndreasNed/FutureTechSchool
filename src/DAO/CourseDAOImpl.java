@@ -59,6 +59,6 @@ public class CourseDAOImpl implements CourseDAO {
     
     @Override
     public List<Course> readAllCourses(){
-        return em.createNamedQuery("Select c from Course c").getResultList();
+        return em.createQuery("Select c from Course c").getResultList();
     }
 }

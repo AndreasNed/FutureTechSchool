@@ -61,6 +61,6 @@ public class EducationDAOImpl implements EducationDAO {
     }
     @Override
     public List<Education> readAllEducations(){
-        return em.createNamedQuery("Select e from Education e").getResultList();
+        return em.createQuery("Select e from Education e").getResultList();
     }
 }

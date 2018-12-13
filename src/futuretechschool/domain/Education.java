@@ -27,7 +27,7 @@ public class Education {
     @Basic
     private String name;
 
-    @OneToMany(mappedBy = "Education", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Education", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
     @ManyToMany(cascade = CascadeType.PERSIST)

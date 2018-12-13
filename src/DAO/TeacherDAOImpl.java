@@ -58,6 +58,6 @@ public class TeacherDAOImpl implements TeacherDAO {
     
     @Override
     public List<Teacher> readAllTeachers(){
-        return em.createNamedQuery("Select t from Teacher t").getResultList();
+        return em.createQuery("Select t from Teacher t").getResultList();
     }
 }

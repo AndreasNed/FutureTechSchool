@@ -52,6 +52,6 @@ public class StudentDAOImpl implements StudentDAO {
     
     @Override
     public List<Student> readAllStudents(){
-        return em.createNamedQuery("Select s from Student s").getResultList();
+        return em.createQuery("Select s from Student s").getResultList();
     }
 }
