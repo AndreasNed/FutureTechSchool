@@ -34,12 +34,13 @@ public class PontusMain {
         debugAddStudentToEducation(); // funkar
         debugAddStudentToCourse(); // funkar
         debugAddTeacherToCourse(); // funkar
-        debugRemoveCourse(); // funkar
-        debugRemoveStudent(); // funkar
-        debugRemoveTeacher(); // funkar
+//        debugRemoveCourse(); // funkar
+//        debugRemoveStudent(); // funkar
+//        debugRemoveTeacher(); // funkar
 //        debugRemoveEducation(); // funkar inte. Går inte ta bort education då den är FK i Student-tabellen.
 //        debugUpdateCourse();
 //        debugUpdateEducation();
+        debugRemoveStudentCourse();
 
     }
 
@@ -190,5 +191,13 @@ public class PontusMain {
         edu.setId(2);
         System.out.println(edu.getCourses());
         //educationDAO.updateEducation(edu, 1);
+    }
+    public static void debugRemoveStudentCourse(){
+        Course course = courseDAO.readCourse(3);
+        Student student = studentDAO.readStudent(5);
+        
+        
+        
+        
     }
 }
