@@ -1,7 +1,9 @@
 package DAO;
 
 import futuretechschool.domain.Course;
+import futuretechschool.domain.Education;
 import futuretechschool.domain.Student;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -47,47 +49,9 @@ public class StudentDAOImpl implements StudentDAO {
         em.remove(s);
         em.getTransaction().commit();
     }
-
-//    @Override
-//    public void addToCourse(int studentId, int courseId) {
-//        try {
-//            em.getTransaction().begin();
-//            Course c = em.find(Course.class, courseId);
-//            Student s = em.find(Student.class, studentId);
-//            s.addCourse(c);
-//            em.getTransaction().commit();
-//        } catch (PersistenceException e) {
-//            em.getTransaction().rollback();
-//        }
-//    }
-//
-//    @Override
-//    public void removeFromCourse(int studentId, int courseId) {
-//        try {
-//            em.getTransaction().begin();
-//            Course c = em.find(Course.class, courseId);
-//            Student s = em.find(Student.class, studentId);
-//            s.removeCourse(c);
-//            em.getTransaction().commit();
-//        } catch (PersistenceException e) {
-//            em.getTransaction().rollback();
-//        }
-//    }
     
-    
-//    private void executeInsideTransaction(Consumer<EntityManager> action) {
-//        final EntityTransaction tx = entityManager.getTransaction();
-//        try {
-//            tx.begin();
-//            action.accept(entityManager);
-//            tx.commit(); 
-//        }
-//        catch (RuntimeException e) {
-//            tx.rollback();
-//            throw e;
-//        }
-//    }
-    
-//    executeInsideTransaction(entityManager -> entityManager.remove(user));
-
+    @Override
+    public List<Student> readAllStudents(){
+        return em.createNamedQuery("Select s from Student s").getResultList();
+    }
 }

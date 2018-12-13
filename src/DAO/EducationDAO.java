@@ -6,22 +6,18 @@
 package DAO;
 
 import futuretechschool.domain.Education;
+import java.util.List;
 
 /**
  *
  * @author GasCan
  */
 public interface EducationDAO {
-    
 void createEducation(Education education);
 Education readEducation(int id);
 void updateEducation(Education education);
 void deleteEducation (int id);
 
-//Dessa ska inte behövas.
-//void addCourseToEducation(int educationId, int courseId);
-//void removeCourseFromEducation(int educationId, int courseId);
-//void addStudentToEducation (int studentId, int educationId);
-//void removeStudentFromEducation (int studentId, int educationId);
+List<Education> readAllEducations();
 
 }

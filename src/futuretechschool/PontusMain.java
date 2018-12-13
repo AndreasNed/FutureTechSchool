@@ -30,10 +30,10 @@ public class PontusMain {
         debugAddStudent(); // funkar
         debugAddTeacher(); // funkar
 
-        debugAddCourseToEducation(); // funkar
+//        debugAddCourseToEducation(); // funkar
         debugAddStudentToEducation(); // funkar
-        debugAddStudentToCourse(); // funkar
-        debugAddTeacherToCourse(); // funkar
+//        debugAddStudentToCourse(); // funkar
+//        debugAddTeacherToCourse(); // funkar
 //        debugRemoveCourse(); // funkar
 //        debugRemoveStudent(); // funkar
 //        debugRemoveTeacher(); // funkar
@@ -41,7 +41,8 @@ public class PontusMain {
 //        debugUpdateCourse();
 //        debugUpdateEducation();
 //        debugRemoveStudentCourse();
-        debugRemoveTeacherCourse(); //funkar
+//        debugRemoveTeacherCourse(); //funkar
+          
 
     }
 
@@ -119,12 +120,16 @@ public class PontusMain {
     public static void debugAddStudentToEducation() {
 //        educationDAO.addStudentToEducation(5, 1);
 //        educationDAO.addStudentToEducation(6, 2);
-        Education education = educationDAO.readEducation(1);
-        Education education1 = educationDAO.readEducation(2);
-        education.addStudent(studentDAO.readStudent(5));
-        education.addStudent(studentDAO.readStudent(6));
-        educationDAO.updateEducation(education);
-        educationDAO.updateEducation(education1);
+//        Education education = educationDAO.readEducation(1);
+//        Education education1 = educationDAO.readEducation(2);
+//        education.addStudent(studentDAO.readStudent(5));
+//        education.addStudent(studentDAO.readStudent(6));
+//        educationDAO.updateEducation(education);
+//        educationDAO.updateEducation(education1);
+          Student s = studentDAO.readStudent(5);
+          s.setEducation(educationDAO.readEducation(1));
+          studentDAO.updateStudent(s);
+        
 
     }
     public static void debugAddTeacherToCourse(){

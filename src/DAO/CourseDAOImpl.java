@@ -1,10 +1,13 @@
 package DAO;
 
 import futuretechschool.domain.Course;
+import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 
 public class CourseDAOImpl implements CourseDAO {
 
@@ -14,9 +17,13 @@ public class CourseDAOImpl implements CourseDAO {
     //COURSE
     @Override
     public void createCourse(Course course) {
-        em.getTransaction().begin();
-        em.persist(course);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(course);
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
@@ -27,36 +34,31 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public void updateCourse(Course course) {
-        em.getTransaction().begin();
-        em.merge(course);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.merge(course);
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().rollback();
+        }
+
     }
 
     @Override
     public void deleteCourse(int id) {
-        em.getTransaction().begin();
-        Course course = em.find(Course.class, id);
-        em.remove(course);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            Course course = em.find(Course.class, id);
+            em.remove(course);
+            em.getTransaction().commit();
+        } catch(PersistenceException ex){
+            em.getTransaction().rollback();
+        }
+
     }
-
-//    @Override //TESTAD FUNKAR
-//    public void addTeacherToCourse(int teacherId, int courseId) {
-//        em.getTransaction().begin();
-//        Course c = em.find(Course.class, courseId);
-//        Teacher t = em.find(Teacher.class, teacherId);
-//        t.addCourse(c);
-//        em.getTransaction().commit();
-//    }
-
-//    @Override //TESTAD FUNKAR
-//    public void removeTeacherFromCourse(int teacherId, int courseId) {
-//        em.getTransaction().begin();
-//        Course c = em.find(Course.class, courseId);
-//        Teacher t = em.find(Teacher.class, teacherId);
-//        t.removeCourse(c);
-//        em.getTransaction().commit();
-//
-//    }
-
+    
+    @Override
+    public List<Course> readAllCourses(){
+        return em.createNamedQuery("Select c from Course c").getResultList();
+    }
 }
