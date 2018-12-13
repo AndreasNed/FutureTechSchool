@@ -27,7 +27,7 @@ public class Education {
     @Basic
     private String name;
 
-    @OneToMany(mappedBy = "Education", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "Education", cascade = CascadeType.ALL)
     private List<Student> students;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -96,5 +96,8 @@ public class Education {
         return this.getId() == ((Education)obj).getId();
     }
     
+    public String toString() {
+        return "Education " + " | id: " + id + "| name: " + name + " | courses: " + "\n" + courses;
+    }
 
 }

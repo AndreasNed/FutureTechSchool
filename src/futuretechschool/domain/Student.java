@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class Student {
     @ManyToOne
     private Education education;
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Course> courses;
 
     public int getId() {
@@ -90,4 +91,12 @@ public class Student {
         course.getStudents().remove(this);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId() == ((Student) obj).getId();
+    }
+
+    public String toString() {
+        return "Student" + " | id: " + id + " | name: " + name + " | birthdate: " + birthdate + " | education: " + education + " | courses: "  + "\n" + courses;
+    }
 }

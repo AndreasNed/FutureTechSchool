@@ -30,7 +30,6 @@ public class Course {
     @Basic
     private int points;
 
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Student> students;
 
@@ -106,7 +105,7 @@ public class Course {
 //            }
 //        }
 //    }
-    public void removeTeacher(Teacher teacher){
+    public void removeTeacher(Teacher teacher) {
         teachers.remove(teacher);
     }
 
@@ -135,6 +134,8 @@ public class Course {
     public boolean equals(Object obj) {
         return this.getId() == ((Course) obj).getId();
     }
-    
 
+    public String toString() {
+        return "Course " + " | id: " + id + " | name: " + name + "\n";
+    }
 }

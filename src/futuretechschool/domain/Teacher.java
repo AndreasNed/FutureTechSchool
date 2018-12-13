@@ -83,6 +83,8 @@ public class Teacher {
         return this.getId() == ((Teacher)obj).getId();
     }
     
-    
+    public String toString() {
+        return "Teacher " + " | id:  " + id + " | name: " + name + " | courses: " + "\n" + courses;
+    }
 
 }
