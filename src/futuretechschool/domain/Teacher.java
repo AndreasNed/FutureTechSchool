@@ -80,15 +80,15 @@ public class Teacher {
 
     @Override
     public boolean equals(Object obj) {
-        return this.getId() == ((Teacher)obj).getId();
+        return this.getId() == ((Teacher) obj).getId();
     }
-    
-    public String toString() {
+
+    public String toStringSimple() {
         return "Teacher " + " | id:  " + id + " | name: " + name + " | courses: " + "\n" + courses;
     }
-    
-    public String toStringSimple(){
-        return String.format("%7s|%-3s|%-20s|", "Teacher",this.getId(),this.getName());        
+
+    public String toString() {
+        return String.format("%7s|%-3s|%-20s", "Teacher", this.getId(), this.getName()).toUpperCase();
     }
 
 }

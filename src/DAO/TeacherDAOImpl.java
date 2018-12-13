@@ -21,6 +21,8 @@ public class TeacherDAOImpl implements TeacherDAO {
             em.getTransaction().commit();
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
+        } catch (IllegalArgumentException ex){
+            System.out.println("Could not insert teacher to database. Exception: " + ex);
         }
 
     }

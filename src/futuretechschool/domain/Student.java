@@ -96,7 +96,11 @@ public class Student {
         return this.getId() == ((Student) obj).getId();
     }
 
+    public String toStringSimple() {
+        return "Student" + " | id: " + id + " | name: " + name + " | birthdate: " + birthdate + " | education: " + education + " | courses: " + "\n" + courses;
+    }
+
     public String toString() {
-        return "Student" + " | id: " + id + " | name: " + name + " | birthdate: " + birthdate + " | education: " + education + " | courses: "  + "\n" + courses;
+        return String.format("%6s|%-3s|%-20s", "Student", this.getId(), this.getName()).toUpperCase();
     }
 }

@@ -14,6 +14,7 @@ import futuretechschool.domain.Student;
 import futuretechschool.domain.Teacher;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -68,6 +69,7 @@ public class Menu {
         menuStudent.add(new MenuOption("4) Delete Student By ID", () -> studentDAO.deleteStudent(readId())));
         menuStudent.add(new MenuOption("5) Add Student to Education", () -> addStudentToEducation()));
         menuStudent.add(new MenuOption("6) Add Student to Course", () -> addStudentToCourse()));
+        menuStudent.add(new MenuOption("7) List all Students", () -> printList(studentDAO.readAllStudents())));
 
         while (run) {
             System.out.println("--STUDENT MENU--");
@@ -98,7 +100,7 @@ public class Menu {
         menuTeacher.add(new MenuOption("3) Update Teacher By ID", () -> teacherDAO.updateTeacher(updateTeacher())));
         menuTeacher.add(new MenuOption("4) Delete Teacher By ID", () -> teacherDAO.deleteTeacher(readId())));
         menuTeacher.add(new MenuOption("5) Add Teacher To Course", () -> addTeacherToCourse()));
-
+        menuTeacher.add(new MenuOption("6) List all Teachers", () -> printList(teacherDAO.readAllTeachers())));
         while (run) {
             System.out.println("--TEACHER MENU--");
             for (MenuOption menuOption : menuTeacher) {
@@ -128,6 +130,7 @@ public class Menu {
         menuCourse.add(new MenuOption("2) Read Course By ID", () -> System.out.println(courseDAO.readCourse(readId()))));
         menuCourse.add(new MenuOption("3) Update Course By ID", () -> courseDAO.updateCourse(updateCourse())));
         menuCourse.add(new MenuOption("4) Delete Course By ID", () -> courseDAO.deleteCourse(readId())));
+        menuCourse.add(new MenuOption("5) List all Courses", () -> printList(courseDAO.readAllCourses())));
         while (run) {
             System.out.println("--COURSE MENU--");
             for (MenuOption menuOption : menuCourse) {
@@ -157,6 +160,7 @@ public class Menu {
         menuEducation.add(new MenuOption("3) Update Education By ID", () -> educationDAO.updateEducation(updateEducation())));
         menuEducation.add(new MenuOption("4) Delete Education By ID", () -> educationDAO.deleteEducation(readId())));
         menuEducation.add(new MenuOption("5) Add Course To Education", () -> addCourseToEducation()));
+        menuEducation.add(new MenuOption("6) List all Educations", () -> printList(educationDAO.readAllEducations())));
         while (run) {
             System.out.println("--EDUCATION MENU--");
             for (MenuOption menuOption : menuEducation) {
@@ -184,9 +188,14 @@ public class Menu {
         student.setName(name);
         System.out.print("Birthdate(yyyyMMdd): ");
         String bday = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate parsedDate = LocalDate.parse(bday, formatter);
-        student.setBirthdate(parsedDate);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            LocalDate parsedDate = LocalDate.parse(bday, formatter);
+            student.setBirthdate(parsedDate);
+        } catch (DateTimeParseException ex) {
+            System.out.println("Invalid dateformat. Try again.");
+        }
+
         return student;
     }
 
@@ -205,9 +214,14 @@ public class Menu {
             student.setName(newName);
         }
         if (!newBday.equals("")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-            LocalDate parsedDate = LocalDate.parse(newBday, formatter);
-            student.setBirthdate(parsedDate);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                LocalDate parsedDate = LocalDate.parse(newBday, formatter);
+                student.setBirthdate(parsedDate);
+
+            } catch (DateTimeParseException ex) {
+                System.out.println("Invalid dateformat. Try again.");
+            }
 
         }
         return student;
@@ -227,9 +241,14 @@ public class Menu {
         teacher.setName(name);
         System.out.print("Birthdate(yyyyMMdd): ");
         String bday = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate parsedDate = LocalDate.parse(bday, formatter);
-        teacher.setBirthdate(parsedDate);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            LocalDate parsedDate = LocalDate.parse(bday, formatter);
+            teacher.setBirthdate(parsedDate);
+        } catch (DateTimeParseException ex) {
+            System.out.println("Invalid dateformat. Please try again.");
+            return null;
+        }
         return teacher;
     }
 
@@ -248,12 +267,14 @@ public class Menu {
             teacher.setName(newName);
         }
         if (!newBday.equals("")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-            LocalDate parsedDate = LocalDate.parse(newBday, formatter);
-            teacher.setBirthdate(parsedDate);
-
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                LocalDate parsedDate = LocalDate.parse(newBday, formatter);
+                teacher.setBirthdate(parsedDate);
+            }catch(DateTimeParseException ex){
+                System.out.println("Invalid dateformat. Try again.");
+            }
         }
-
         return teacher;
     }
 
@@ -304,7 +325,7 @@ public class Menu {
         System.out.print("ID of course to Update(0 to cancel): "); //TODOD        
         int id = readNumber();
         Course course = courseDAO.readCourse(id);
-        System.out.println("Current name: " + course.getName() + "Leave 'New Name' empty to skip");
+        System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
         String newName = sc.nextLine();
         if (!newName.equals("")) {
@@ -378,19 +399,19 @@ public class Menu {
         courses = courseDAO.readAllCourses();
         System.out.println("List of teachers: ");
         for (Teacher teacher : teachers) {
-            System.out.println(teacher.toStringSimple());
+            System.out.println(teacher.toString());
         }
 
         System.out.print("Select teacher ID: ");
         int teacherID = readNumber();
         Teacher teacher = teacherDAO.readTeacher(teacherID);
 
-        System.out.println("Avalible Courses: ");
+        System.out.println("Available Courses: ");
         for (Course course : courses) {
             System.out.println(course);
         }
 
-        System.out.print("Add Teacher, " + teacher.getName() + "To Course: ");
+        System.out.print("Add Teacher '" + teacher.getName() + "' to course: ");
         int courseID = readNumber();
         Course course = courseDAO.readCourse(courseID);
 
@@ -414,6 +435,12 @@ public class Menu {
 
         education.addCourse(courseDAO.readCourse(courseID));
         educationDAO.updateEducation(education);
+    }
+
+    private static <T> void printList(List<T> list) {
+        System.out.println("_________________________________");
+        list.stream().forEach(System.out::println);
+        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
     }
 
 }

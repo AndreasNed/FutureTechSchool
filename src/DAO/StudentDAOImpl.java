@@ -1,7 +1,5 @@
 package DAO;
 
-import futuretechschool.domain.Course;
-import futuretechschool.domain.Education;
 import futuretechschool.domain.Student;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,7 +11,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
     EntityManager em = emf.createEntityManager();
-    
+
     @Override
     public void createStudent(Student student) {
         try {
@@ -22,13 +20,19 @@ public class StudentDAOImpl implements StudentDAO {
             em.getTransaction().commit();
         } catch (PersistenceException e) {
             em.getTransaction().rollback();
+        } catch (IllegalArgumentException ex){
+            System.out.println("Could not insert student to database. Exception: " + ex);
         }
     }
 
     @Override
     public Student readStudent(int id) {
-            Student s = em.find(Student.class, id);
+        Student s = em.find(Student.class, id);
+        if (s != null) {
             return s;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -49,9 +53,9 @@ public class StudentDAOImpl implements StudentDAO {
         em.remove(s);
         em.getTransaction().commit();
     }
-    
+
     @Override
-    public List<Student> readAllStudents(){
+    public List<Student> readAllStudents() {
         return em.createQuery("Select s from Student s").getResultList();
     }
 }

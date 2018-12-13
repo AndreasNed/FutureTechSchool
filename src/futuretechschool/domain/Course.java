@@ -135,9 +135,12 @@ public class Course {
         return this.getId() == ((Course) obj).getId();
     }
 
-    public String toString() {
+    public String toStringSimple() {
         return "Course " + " | id: " + id + " | name: " + name + "\n";
     }
-    
-    
+
+    public String toString() {
+        return String.format("%6s|%-3s|%-20s", "Course", this.getId(), this.getName()).toUpperCase();
+    }
+
 }

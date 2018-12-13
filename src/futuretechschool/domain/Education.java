@@ -32,8 +32,6 @@ public class Education {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Course> courses;
-    
-    
 
     public int getId() {
         return this.id;
@@ -93,11 +91,15 @@ public class Education {
 
     @Override
     public boolean equals(Object obj) {
-        return this.getId() == ((Education)obj).getId();
+        return this.getId() == ((Education) obj).getId();
     }
-    
-    public String toString() {
+
+    public String toStringSimple() {
         return "Education " + " | id: " + id + "| name: " + name + " | courses: " + "\n" + courses;
+    }
+
+    public String toString() {
+        return String.format("%9s|%-3s|%-20s", "Education", this.getId(), this.getName()).toUpperCase();
     }
 
 }
