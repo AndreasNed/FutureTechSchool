@@ -98,13 +98,16 @@ public class Course {
         getTeachers().add(teacher);
     }
 
-    public void removeTeacher(Teacher teacher) {
-        Iterator<Teacher> t = teachers.iterator();
-        while(t.hasNext()){
-            if(t.next().getId() == teacher.getId()){
-                t.remove();
-            }
-        }
+//    public void removeTeacher(Teacher teacher) {
+//        Iterator<Teacher> t = teachers.iterator();
+//        while(t.hasNext()){
+//            if(t.next().getId() == teacher.getId()){
+//                t.remove();
+//            }
+//        }
+//    }
+    public void removeTeacher(Teacher teacher){
+        teachers.remove(teacher);
     }
 
     public List<Education> getEducations() {
@@ -127,5 +130,11 @@ public class Course {
         getEducations().remove(education);
         education.getCourses().remove(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId() == ((Course) obj).getId();
+    }
+    
 
 }

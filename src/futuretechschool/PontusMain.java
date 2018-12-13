@@ -40,8 +40,8 @@ public class PontusMain {
 //        debugRemoveEducation(); // funkar inte. Går inte ta bort education då den är FK i Student-tabellen.
 //        debugUpdateCourse();
 //        debugUpdateEducation();
-        debugRemoveStudentCourse();
-        debugRemoveTeacherCourse();
+//        debugRemoveStudentCourse();
+        debugRemoveTeacherCourse(); //funkar
 
     }
 

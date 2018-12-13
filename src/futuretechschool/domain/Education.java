@@ -91,4 +91,10 @@ public class Education {
         getCourses().remove(course);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId() == ((Education)obj).getId();
+    }
+    
+
 }

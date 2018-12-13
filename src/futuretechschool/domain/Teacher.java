@@ -78,4 +78,11 @@ public class Teacher {
         course.getTeachers().remove(this);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.getId() == ((Teacher)obj).getId();
+    }
+    
+    
+
 }
