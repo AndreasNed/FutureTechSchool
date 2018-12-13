@@ -29,9 +29,9 @@ public class PontusMain {
         debugAddCourse();
         debugAddStudent();
         debugAddTeacher();
-        
+
         debugAddCourseToEducation();
-//        debugAddStudentToEducation();
+        debugAddStudentToEducation();
         debugAddStudentToCourse();
 //        debugAddTeacherToCourse();
 //        debugRemoveCourse();
@@ -99,67 +99,76 @@ public class PontusMain {
     public static void debugAddCourseToEducation() {
 //        educationDAO.addCourseToEducation(1, 3);
 //        educationDAO.addCourseToEducation(2, 4);
-          Course course = courseDAO.readCourse(3);
-          Course course2 = courseDAO.readCourse(4);
-          System.out.println(course.getId());
-          List<Course> courseList = new ArrayList<Course>();
-          courseList.add(course);
-          courseList.add(course2);
-          Education education = educationDAO.readEducation(1);
-          System.out.println(education.getId());
-          education.setCourses(courseList);
-          System.out.println(education.getCourses());
-          education.setName("Pontus PaulzZON");
-          educationDAO.updateEducation(education);
-          
+        Course course = courseDAO.readCourse(3);
+        Course course2 = courseDAO.readCourse(4);
+        System.out.println(course.getId());
+        List<Course> courseList = new ArrayList<Course>();
+        courseList.add(course);
+        courseList.add(course2);
+        Education education = educationDAO.readEducation(1);
+        System.out.println(education.getId());
+        education.setCourses(courseList);
+        System.out.println(education.getCourses());
+        education.setName("Pontus PaulzZON");
+        educationDAO.updateEducation(education);
+
     }
-    
-//    public static void debugAddStudentToEducation(){
+
+    public static void debugAddStudentToEducation() {
 //        educationDAO.addStudentToEducation(5, 1);
 //        educationDAO.addStudentToEducation(6, 2);
-//    }
+        Education education = educationDAO.readEducation(1);
+        Education education1 = educationDAO.readEducation(2);
+        education.addStudent(studentDAO.readStudent(5));
+        education.addStudent(studentDAO.readStudent(6));
+        educationDAO.updateEducation(education);
+        educationDAO.updateEducation(education1);
+
+    }
 //    public static void debugAddTeacherToCourse(){
 //        courseDAO.addTeacherToCourse(7, 3);
 //        courseDAO.addTeacherToCourse(8, 4);
 //    }
-    public static void debugAddStudentToCourse(){
+
+    public static void debugAddStudentToCourse() {
         Student s1 = studentDAO.readStudent(5);
-        Student s2 = studentDAO.readStudent(6);
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(s1);
+        Course course = courseDAO.readCourse(3);
         
-        Course c1 = courseDAO.readCourse(3);
-        Course c2 = courseDAO.readCourse(4);
-        
-        c1.addStudent(s1);
-        c2.addStudent(s2);
-        
-        courseDAO.updateCourse(c1);
-        courseDAO.updateCourse(c2);
-        
-        
-        
+        course.setStudents(studentList);
+        System.out.println(studentList);
+        System.out.println(course);
+        course.addStudent(s1);
+        courseDAO.updateCourse(course);
 //        studentDAO.addToCourse(5, 3);
 //        studentDAO.addToCourse(6, 4);
     }
-    
-    public static void debugRemoveCourse(){
+
+    public static void debugRemoveCourse() {
         courseDAO.deleteCourse(3);
     }
-    public static void debugRemoveStudent(){
+
+    public static void debugRemoveStudent() {
         studentDAO.deleteStudent(5);
     }
-    public static void debugRemoveTeacher(){
+
+    public static void debugRemoveTeacher() {
         teacherDAO.deleteTeacher(7);
     }
-    public static void debugRemoveEducation(){
+
+    public static void debugRemoveEducation() {
         educationDAO.deleteEducation(1);
     }
-    public static void debugUpdateCourse(){
+
+    public static void debugUpdateCourse() {
         Course course = new Course();
         course.setName("Java Programmering 2.0");
         course.setPoints(100);
         //courseDAO.updateCourse(course, 3);
     }
-    public static void debugUpdateEducation(){
+
+    public static void debugUpdateEducation() {
         Education edu = new Education();
         edu.setName("ITHS Äger2");
         edu.setId(2);
