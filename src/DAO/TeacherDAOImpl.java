@@ -26,11 +26,9 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     @Override
-    public void updateTeacher(Teacher teacher, int id) {
+    public void updateTeacher(Teacher teacher) {
         em.getTransaction().begin();
-        Teacher t1 = em.find(Teacher.class, id);
-        t1 = teacher;
-        em.persist(t1);
+        em.merge(teacher);
         em.getTransaction().commit();
     }
 

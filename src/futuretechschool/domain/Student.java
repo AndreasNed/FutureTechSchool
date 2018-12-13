@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Student {
     @ManyToOne
     private Education education;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST)
     private List<Course> courses;
 
     public int getId() {

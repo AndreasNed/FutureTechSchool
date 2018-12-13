@@ -7,7 +7,7 @@ public interface StudentDAO {
 
     public void createStudent(Student student);
     public Student readStudent(int id);
-    public void updateStudent(Student newStudentInfo, int id);
+    public void updateStudent(Student student);
     public void deleteStudent(int id);
     
 //    Dessa ska inte behövas.

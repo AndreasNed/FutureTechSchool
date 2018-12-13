@@ -30,10 +30,10 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public void updateStudent(Student newStudentInfo, int id) {//INTE TESTAT
+    public void updateStudent(Student student) {//INTE TESTAT
         try {
             em.getTransaction().begin();
-            em.merge(newStudentInfo);
+            em.merge(student);
             em.getTransaction().commit();
         } catch (PersistenceException e) {
             em.getTransaction().rollback();

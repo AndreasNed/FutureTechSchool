@@ -25,19 +25,19 @@ public class PontusMain {
 
     public static void main(String[] args) {
 
-        debugAddEducation();
-        debugAddCourse();
-        debugAddStudent();
-        debugAddTeacher();
+        debugAddEducation(); // funkar
+        debugAddCourse(); // funkar
+        debugAddStudent(); // funkar
+        debugAddTeacher(); // funkar
 
-        debugAddCourseToEducation();
-        debugAddStudentToEducation();
-        debugAddStudentToCourse();
-//        debugAddTeacherToCourse();
-//        debugRemoveCourse();
-//        debugRemoveStudent();
-//        debugRemoveTeacher();
-//        debugRemoveEducation();
+        debugAddCourseToEducation(); // funkar
+        debugAddStudentToEducation(); // funkar
+        debugAddStudentToCourse(); // funkar
+        debugAddTeacherToCourse(); // funkar
+        debugRemoveCourse(); // funkar
+        debugRemoveStudent(); // funkar
+        debugRemoveTeacher(); // funkar
+//        debugRemoveEducation(); // funkar inte. Går inte ta bort education då den är FK i Student-tabellen.
 //        debugUpdateCourse();
 //        debugUpdateEducation();
 
@@ -125,24 +125,40 @@ public class PontusMain {
         educationDAO.updateEducation(education1);
 
     }
-//    public static void debugAddTeacherToCourse(){
+    public static void debugAddTeacherToCourse(){
+        Teacher t1 = teacherDAO.readTeacher(7);
+        Teacher t2 = teacherDAO.readTeacher(8);
+        
+        Course c1 = courseDAO.readCourse(3);
+        Course c2 = courseDAO.readCourse(4);
+        
+        //c1.addTeacher(t1);
+        //c2.addTeacher(t2);
+        
+        List<Teacher> teacherList = new ArrayList<>();
+        teacherList.add(t1);
+        c1.setTeachers(teacherList);
+        
+        courseDAO.updateCourse(c1);
 //        courseDAO.addTeacherToCourse(7, 3);
 //        courseDAO.addTeacherToCourse(8, 4);
-//    }
+    }
 
     public static void debugAddStudentToCourse() {
         Student s1 = studentDAO.readStudent(5);
+        Student s2 = studentDAO.readStudent(6);
+        Course course = courseDAO.readCourse(3);
+        //Course course2 = courseDAO.readCourse(4);
+        
+//        course.addStudent(s1);
+//        course.addStudent(s2);
         List<Student> studentList = new ArrayList<>();
         studentList.add(s1);
-        Course course = courseDAO.readCourse(3);
-        
+        studentList.add(s2);
         course.setStudents(studentList);
-        System.out.println(studentList);
-        System.out.println(course);
-        course.addStudent(s1);
+
         courseDAO.updateCourse(course);
-//        studentDAO.addToCourse(5, 3);
-//        studentDAO.addToCourse(6, 4);
+        //courseDAO.updateCourse(course2);
     }
 
     public static void debugRemoveCourse() {

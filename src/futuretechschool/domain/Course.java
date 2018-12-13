@@ -30,13 +30,13 @@ public class Course {
     private int points;
 
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Student> students;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Teacher> teachers;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
     private List<Education> educations;
 
     public int getId() {
