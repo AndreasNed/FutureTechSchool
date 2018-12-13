@@ -37,6 +37,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         try {
             em.getTransaction().begin();
             em.merge(teacher);
+            em.getTransaction().commit();
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }
@@ -55,9 +56,9 @@ public class TeacherDAOImpl implements TeacherDAO {
         }
 
     }
-    
+
     @Override
-    public List<Teacher> readAllTeachers(){
+    public List<Teacher> readAllTeachers() {
         return em.createQuery("Select t from Teacher t").getResultList();
     }
 }

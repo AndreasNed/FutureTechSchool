@@ -47,6 +47,7 @@ public class Menu {
             for (MenuOption menuOption : menuMain) {
                 System.out.println(menuOption.getString());
             }
+            System.out.print("Input: ");
             int input = readNumber();
             menuMain.get(input).getMenu().menuMethod();
         }
@@ -172,21 +173,21 @@ public class Menu {
         System.out.print("ID of student to Update(0 to cancel): ");
         int id = readNumber();
         Student student = studentDAO.readStudent(id);
-        System.out.println("Current name: " + student.getName() + "Leave 'New Name' empty to skip");
+        System.out.println("Current name: '" + student.getName() + "' Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
         String newName = sc.nextLine();
-        System.out.println("Current Birthday: " + student.getBirthdate().toString() + "Leave 'New Birthday' empty to skip");
+        System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "' Leave 'New Birthday' empty to skip");
         System.out.println("New Birthday(yyyyMMdd): ");
         String newBday = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate parsedDate = LocalDate.parse(newBday, formatter);
-        student.setBirthdate(parsedDate);
 
         if (!newName.equals("")) {
             student.setName(newName);
         }
         if (!newBday.equals("")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            LocalDate parsedDate = LocalDate.parse(newBday, formatter);
             student.setBirthdate(parsedDate);
+
         }
         return student;
     }
@@ -215,22 +216,23 @@ public class Menu {
         System.out.print("ID of teacher to Update(0 to cancel): "); //TODOD        
         int id = readNumber();
         Teacher teacher = teacherDAO.readTeacher(id);
-        System.out.println("Current name: " + teacher.getName() + "Leave 'New Name' empty to skip");
+        System.out.println("Current name: '" + teacher.getName() + "', leave 'New Name' empty to skip");
         System.out.print("New Name: ");
         String newName = sc.nextLine();
-        System.out.println("Current Birthday: " + teacher.getBirthdate().toString() + "Leave 'New Birthday' empty to skip");
+        System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "', leave 'New Birthday' empty to skip");
         System.out.println("New Birthday(yyyyMMdd): ");
         String newBday = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate parsedDate = LocalDate.parse(newBday, formatter);
-        teacher.setBirthdate(parsedDate);
 
         if (!newName.equals("")) {
             teacher.setName(newName);
         }
         if (!newBday.equals("")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            LocalDate parsedDate = LocalDate.parse(newBday, formatter);
             teacher.setBirthdate(parsedDate);
+
         }
+        
         return teacher;
     }
 
@@ -355,7 +357,7 @@ public class Menu {
         courses = courseDAO.readAllCourses();
         System.out.println("List of teachers: ");
         for (Teacher teacher : teachers) {
-            System.out.println(teacher);
+            System.out.println(teacher.toStringSimple());
         }
 
         System.out.print("Select teacher ID: ");
@@ -378,17 +380,19 @@ public class Menu {
     }
 
     private static void addCourseToEducation() {
+
         System.out.println(courseDAO.readAllCourses());
-        
+
         System.out.print("Course ID: ");
         int courseID = readNumber();
-        
+
         System.out.println(educationDAO.readAllEducations());
-        System.out.print("Add course #"+courseID+" to Education ID: ");
+        System.out.print("Add course #" + courseID + " to Education ID: ");
         int educationID = readNumber();
         Education education = educationDAO.readEducation(educationID);
 
         education.addCourse(courseDAO.readCourse(courseID));
         educationDAO.updateEducation(education);
     }
+
 }

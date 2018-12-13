@@ -86,5 +86,9 @@ public class Teacher {
     public String toString() {
         return "Teacher " + " | id:  " + id + " | name: " + name + " | courses: " + "\n" + courses;
     }
+    
+    public String toStringSimple(){
+        return String.format("%7s|%-3s|%-20s|", "Teacher",this.getId(),this.getName());        
+    }
 
 }
