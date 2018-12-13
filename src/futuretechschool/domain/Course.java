@@ -4,6 +4,7 @@
 package futuretechschool.domain;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -98,7 +99,12 @@ public class Course {
     }
 
     public void removeTeacher(Teacher teacher) {
-        getTeachers().remove(teacher);
+        Iterator<Teacher> t = teachers.iterator();
+        while(t.hasNext()){
+            if(t.next().getId() == teacher.getId()){
+                t.remove();
+            }
+        }
     }
 
     public List<Education> getEducations() {

@@ -41,6 +41,7 @@ public class PontusMain {
 //        debugUpdateCourse();
 //        debugUpdateEducation();
         debugRemoveStudentCourse();
+        debugRemoveTeacherCourse();
 
     }
 
@@ -196,7 +197,20 @@ public class PontusMain {
         Course course = courseDAO.readCourse(3);
         Student student = studentDAO.readStudent(5);
         
+        System.out.println(course.getStudents());
+        System.out.println(student);
+        course.removeStudent(student);
+        System.out.println(course.getStudents());
+        courseDAO.updateCourse(course);
         
+        
+    }
+    public static void debugRemoveTeacherCourse(){
+        Course course = courseDAO.readCourse(3);
+        Teacher teacher = teacherDAO.readTeacher(7);
+        
+        course.removeTeacher(teacher);
+        courseDAO.updateCourse(course);
         
         
     }
