@@ -39,10 +39,11 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public void updateTeacher(Teacher teacher) {
         try {
+            em.getTransaction().begin();
             if (teacher == null) {
                 em.getTransaction().rollback();
             } else {
-                em.getTransaction().begin();
+
                 em.merge(teacher);
                 em.getTransaction().commit();
             }

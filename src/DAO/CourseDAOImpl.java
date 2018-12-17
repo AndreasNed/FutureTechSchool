@@ -40,10 +40,11 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public void updateCourse(Course course) {
         try {
+            em.getTransaction().begin();
             if (course == null) {
                 em.getTransaction().rollback();
             } else {
-                em.getTransaction().begin();
+
                 em.merge(course);
                 em.getTransaction().commit();
             }
