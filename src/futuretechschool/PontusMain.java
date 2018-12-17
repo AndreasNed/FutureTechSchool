@@ -268,22 +268,6 @@ public class PontusMain {
         course3.setName("Spelling 1-0-1 Course");
         course3.setPoints(1000);
 
-        student1.addCourse(course1);
-        student1.addCourse(course2);
-
-        student2.setEducation(education1);
-
-        student3.addCourse(course3);
-        student3.setEducation(education2);
-
-        teacher1.addCourse(course1);
-        teacher2.addCourse(course2);
-        teacher3.addCourse(course3);
-
-        education1.addCourse(course1);
-        education2.addCourse(course2);
-        education3.addCourse(course3);
-
         educationDAO.createEducation(education1);
         educationDAO.createEducation(education2);
         educationDAO.createEducation(education3);
@@ -299,6 +283,34 @@ public class PontusMain {
         studentDAO.createStudent(student1);
         studentDAO.createStudent(student2);
         studentDAO.createStudent(student3);
+
+        student1.addCourse(course1);
+        student1.addCourse(course2);
+
+        student2.setEducation(education1);
+
+        student3.addCourse(course3);
+        student3.setEducation(education2);
+
+        teacher1.addCourse(course1);
+        teacher2.addCourse(course2);
+        teacher3.addCourse(course3);
+
+        education1.addCourse(course1);
+        education2.addCourse(course2);
+        education3.addCourse(course3);
+        
+        studentDAO.updateStudent(student1);
+        studentDAO.updateStudent(student2);
+        studentDAO.updateStudent(student3);
+        
+        educationDAO.updateEducation(education1);
+        educationDAO.updateEducation(education2);
+        educationDAO.updateEducation(education3);
+        
+        teacherDAO.updateTeacher(teacher1);
+        teacherDAO.updateTeacher(teacher2);
+        teacherDAO.updateTeacher(teacher3);
 
     }
 }
