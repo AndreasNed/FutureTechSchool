@@ -42,7 +42,7 @@ public class GradeDAOImpl implements GradeDAO {
 
     @Override
     public List<Grade> readGradesByStudent(Student student) {
-        Query query = em.createQuery("Select g from Grade where Student = :student");
+        Query query = em.createQuery("SELECT g from Grade g INNER JOIN g.student s WHERE s = :student");
         query.setParameter("student", student);
         return query.getResultList();
     }

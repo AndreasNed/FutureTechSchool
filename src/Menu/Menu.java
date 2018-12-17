@@ -48,6 +48,7 @@ public class Menu {
         menuMain.add(new MenuOption("2) Teacher Menu", () -> teacherMenu()));
         menuMain.add(new MenuOption("3) Course Menu", () -> courseMenu()));
         menuMain.add(new MenuOption("4) Education Menu", () -> educationMenu()));
+        menuMain.add(new MenuOption("5) Grade Menu", () -> gradeMenu()));
 
         while (true) {
             System.out.println("--MAIN MENU--");
@@ -194,7 +195,7 @@ public class Menu {
 
         menuGrade.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuGrade.add(new MenuOption("1) Create Grade", () -> gradeDAO.createGrade(createGrade())));
-        menuGrade.add(new MenuOption("2) Read Grades by Student", () -> System.out.println(gradeDAO.readGradesByStudent(studentDAO.readStudent(readId())))));
+        menuGrade.add(new MenuOption("2) Read Grades by Student", () -> readGrades()));
         menuGrade.add(new MenuOption("3) Update Grade", () -> gradeDAO.updateGrade(updateGrade())));
         menuGrade.add(new MenuOption("4) Delete Grade", () -> gradeDAO.deleteGrade(readId())));
         menuGrade.add(new MenuOption("5) List all Grades", () -> printList(gradeDAO.readAllGrade())));
@@ -218,6 +219,11 @@ public class Menu {
         }
     }
 
+    private static void readGrades(){
+        printList(studentDAO.readAllStudents());       
+        printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(readId())));   
+    }
+    
     private static Student createStudent() {
         Student student = new Student();
         System.out.print("Name: ");
@@ -487,7 +493,7 @@ public class Menu {
         printList(studentDAO.readAllCourses(studentDAO.readStudent(studentId)));
         System.out.print("Course ID: ");
         int courseId = readNumber();
-        System.out.println("Grade (IG / G / VG): ");
+        System.out.print("Grade (IG / G / VG): ");
         String gradeString = sc.next();
         
         Grade grade = new Grade();
