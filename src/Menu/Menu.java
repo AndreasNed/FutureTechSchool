@@ -424,15 +424,18 @@ public class Menu {
         for (Course course : courses) {
             System.out.println(course);
         }
+        
+        try {
+            System.out.print("Add Student, " + student.getName() + "To Course: ");
+            int courseID = readNumber();
+            Course course = courseDAO.readCourse(courseID);
 
-        System.out.print("Add Student, " + student.getName() + "To Course: ");
-        int courseID = readNumber();
-        Course course = courseDAO.readCourse(courseID);
-
-        course.addStudent(student);
-        courseDAO.updateCourse(course);
-
-        System.out.println(student.getName() + " added to course " + course.getName());
+            course.addStudent(student);
+            courseDAO.updateCourse(course);
+            System.out.println(student.getName() + " added to course " + course.getName());
+        } catch (NullPointerException e) {
+            System.out.println("No such course");
+        }
     }
 
     private static void addTeacherToCourse() {
