@@ -235,10 +235,6 @@ public class PontusMain {
         student3.setName("Patrik Freij");
         student3.setBirthdate(LocalDate.now());
 
-        studentDAO.createStudent(student1);
-        studentDAO.createStudent(student2);
-        studentDAO.createStudent(student3);
-
         Teacher teacher1 = new Teacher();
         teacher1.setName("Morgan Malm");
         teacher1.setBirthdate(LocalDate.now());
@@ -251,10 +247,6 @@ public class PontusMain {
         teacher3.setName("Anastasiya Smirnov");
         teacher3.setBirthdate(LocalDate.now());
 
-        teacherDAO.createTeacher(teacher1);
-        teacherDAO.createTeacher(teacher2);
-        teacherDAO.createTeacher(teacher3);
-
         Education education1 = new Education();
         education1.setName("Java Education");
 
@@ -263,10 +255,6 @@ public class PontusMain {
 
         Education education3 = new Education();
         education3.setName("Spelling Education");
-
-        educationDAO.createEducation(education1);
-        educationDAO.createEducation(education2);
-        educationDAO.createEducation(education3);
 
         Course course1 = new Course();
         course1.setName("Java Course");
@@ -279,22 +267,38 @@ public class PontusMain {
         Course course3 = new Course();
         course3.setName("Spelling 1-0-1 Course");
         course3.setPoints(1000);
-        
+
+        student1.addCourse(course1);
+        student1.addCourse(course2);
+
+        student2.setEducation(education1);
+
+        student3.addCourse(course3);
+        student3.setEducation(education2);
+
+        teacher1.addCourse(course1);
+        teacher2.addCourse(course2);
+        teacher3.addCourse(course3);
+
+        education1.addCourse(course1);
+        education2.addCourse(course2);
+        education3.addCourse(course3);
+
+        educationDAO.createEducation(education1);
+        educationDAO.createEducation(education2);
+        educationDAO.createEducation(education3);
+
         courseDAO.createCourse(course1);
         courseDAO.createCourse(course2);
         courseDAO.createCourse(course3);
-        
-        student1.addCourse(course1);
-        student1.addCourse(course2);
-        
-        student2.setEducation(education1);
-        student2.setEducation(education3);
-        
-        student3.addCourse(course3);
-        student3.setEducation(education2);
-        
-        
-        
+
+        teacherDAO.createTeacher(teacher1);
+        teacherDAO.createTeacher(teacher2);
+        teacherDAO.createTeacher(teacher3);
+
+        studentDAO.createStudent(student1);
+        studentDAO.createStudent(student2);
+        studentDAO.createStudent(student3);
 
     }
 }
