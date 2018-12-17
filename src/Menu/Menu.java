@@ -249,26 +249,27 @@ public class Menu {
             return null;
         }
         Student student = studentDAO.readStudent(id);
-        System.out.println("Current name: '" + student.getName() + "' Leave 'New Name' empty to skip");
-        System.out.print("New Name: ");
-        String newName = sc.nextLine();
-        System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "' Leave 'New Birthday' empty to skip");
-        System.out.println("New Birthday(yyyyMMdd): ");
-        String newBday = sc.nextLine();
-
-        if (!newName.equals("")) {
-            student.setName(newName);
-        }
-        if (!newBday.equals("")) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-                LocalDate parsedDate = LocalDate.parse(newBday, formatter);
-                student.setBirthdate(parsedDate);
-
-            } catch (DateTimeParseException ex) {
-                System.out.println("Invalid dateformat. Try again.");
+        if (student == null) {
+            return null;
+        } else {
+            System.out.println("Current name: '" + student.getName() + "' Leave 'New Name' empty to skip");
+            System.out.print("New Name: ");
+            String newName = sc.nextLine();
+            System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "' Leave 'New Birthday' empty to skip");
+            System.out.println("New Birthday(yyyyMMdd): ");
+            String newBday = sc.nextLine();
+            if (!newName.equals("")) {
+                student.setName(newName);
             }
-
+            if (!newBday.equals("")) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                    LocalDate parsedDate = LocalDate.parse(newBday, formatter);
+                    student.setBirthdate(parsedDate);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("Invalid dateformat. Try again.");
+                }
+            }
         }
         return student;
     }
@@ -510,8 +511,9 @@ public class Menu {
         int courseId = readNumber();
         System.out.print("Grade (IG / G / VG): ");
         String gradeString = sc.nextLine();
-        
-        
+
+        Course course = courseDAO.readCourse(courseId);
+        course.removeStudent(studentDAO.readStudent(studentId));
 
         Grade grade = new Grade();
         grade.setCourse(courseDAO.readCourse(courseId));
