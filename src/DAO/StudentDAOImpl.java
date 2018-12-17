@@ -2,6 +2,7 @@ package DAO;
 
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Student;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -55,10 +56,15 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public void deleteStudent(int id) {
-        em.getTransaction().begin();
-        Student s = em.find(Student.class, id);
-        em.remove(s);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            Student s = em.find(Student.class, id);
+            em.remove(s);
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().rollback();
+        }
+
     }
 
     @Override
@@ -80,4 +86,13 @@ public class StudentDAOImpl implements StudentDAO {
         return courseList;
 
     }
+
+    @Override
+    public int getTotalPoints(Student student) {
+        Query query = em.createNativeQuery("select sum(points) from course as c inner join grade as g on g.course_id = c.id where g.student_id = :student");
+        query.setParameter("student", student.getId());
+
+        return ((BigInteger)query.getSingleResult()).intValue();
+    }
+
 }

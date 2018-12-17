@@ -3,6 +3,8 @@
  */
 package futuretechschool.domain;
 
+import DAO.StudentDAO;
+import DAO.StudentDAOImpl;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,6 +104,7 @@ public class Student implements Serializable{
     }
 
     public String toString() {
-        return String.format("%6s|%-3s|%-20s", "Student", "#"+this.getId(), this.getName()).toUpperCase();
+        StudentDAO studentDAO = new StudentDAOImpl();
+        return String.format("%6s|%-3s|%-20s|%-20s", "Student", "#"+this.getId(), this.getName(), "Points: " + studentDAO.getTotalPoints(this)).toUpperCase();
     }
 }

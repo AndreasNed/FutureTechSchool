@@ -7,10 +7,12 @@ import java.util.List;
 
 public interface StudentDAO {
 
-    public void createStudent(Student student);
-    public Student readStudent(int id);
-    public void updateStudent(Student student);
-    public void deleteStudent(int id);
+    void createStudent(Student student);
+    Student readStudent(int id);
+    void updateStudent(Student student);
+    void deleteStudent(int id);
+    int getTotalPoints(Student student);
+    
     List<Student> readAllStudents();
     List<Course> readAllCourses(Student student);
   
