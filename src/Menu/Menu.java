@@ -188,7 +188,7 @@ public class Menu {
             }
         }
     }
-    
+
     private static void gradeMenu() {
         menuGrade.clear();
         boolean run = true;
@@ -219,11 +219,11 @@ public class Menu {
         }
     }
 
-    private static void readGrades(){
-        printList(studentDAO.readAllStudents());       
-        printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(readId())));   
+    private static void readGrades() {
+        printList(studentDAO.readAllStudents());
+        printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(readId())));
     }
-    
+
     private static Student createStudent() {
         Student student = new Student();
         System.out.print("Name: ");
@@ -245,6 +245,9 @@ public class Menu {
     private static Student updateStudent() {
         System.out.print("ID of student to Update(0 to cancel): ");
         int id = readNumber();
+        if (id == 0) {
+            return null;
+        }
         Student student = studentDAO.readStudent(id);
         System.out.println("Current name: '" + student.getName() + "' Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
@@ -314,7 +317,7 @@ public class Menu {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
                 LocalDate parsedDate = LocalDate.parse(newBday, formatter);
                 teacher.setBirthdate(parsedDate);
-            }catch(DateTimeParseException ex){
+            } catch (DateTimeParseException ex) {
                 System.out.println("Invalid dateformat. Try again.");
             }
         }
@@ -424,7 +427,7 @@ public class Menu {
         for (Course course : courses) {
             System.out.println(course);
         }
-        
+
         try {
             System.out.print("Add Student, " + student.getName() + "To Course: ");
             int courseID = readNumber();
@@ -498,14 +501,14 @@ public class Menu {
         int courseId = readNumber();
         System.out.print("Grade (IG / G / VG): ");
         String gradeString = sc.next();
-        
+
         Grade grade = new Grade();
         grade.setCourse(courseDAO.readCourse(courseId));
         grade.setStudent(studentDAO.readStudent(studentId));
         grade.setGrade(GradeEnum.valueOf(gradeString));
-       
+
         return grade;
-        
+
     }
 
     private static Grade updateGrade() {
@@ -519,11 +522,9 @@ public class Menu {
         String gradeString = sc.next();
         Grade grade = gradeDAO.readGrade(gradeId);
         grade.setGrade(GradeEnum.valueOf(gradeString));
-        
+
         return grade;
-        
+
     }
-    
-    
 
 }

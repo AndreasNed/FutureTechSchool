@@ -42,8 +42,12 @@ public class StudentDAOImpl implements StudentDAO {
     public void updateStudent(Student student) {//INTE TESTAT
         try {
             em.getTransaction().begin();
-            em.merge(student);
-            em.getTransaction().commit();
+            if (student == null) {
+                em.getTransaction().rollback();
+            } else {
+                em.merge(student);
+                em.getTransaction().commit();
+            }
         } catch (PersistenceException e) {
             em.getTransaction().rollback();
         }
