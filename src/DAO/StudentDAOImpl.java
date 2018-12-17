@@ -90,7 +90,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public int getTotalPoints(Student student) {
-        Query query = em.createNativeQuery("select sum(points) from course as c inner join grade as g on g.course_id = c.id where g.student_id = " + student.getId());
+        Query query = em.createNativeQuery("select sum(points) from COURSE as c inner join GRADE as g on g.course_id = c.id where g.student_id = " + student.getId());
 
         BigDecimal points = (BigDecimal)query.getSingleResult();
         if(points != null){
