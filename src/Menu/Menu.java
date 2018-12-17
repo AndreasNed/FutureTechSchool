@@ -510,6 +510,8 @@ public class Menu {
         int courseId = readNumber();
         System.out.print("Grade (IG / G / VG): ");
         String gradeString = sc.nextLine();
+        
+        
 
         Grade grade = new Grade();
         grade.setCourse(courseDAO.readCourse(courseId));

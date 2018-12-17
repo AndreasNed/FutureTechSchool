@@ -2,6 +2,7 @@ package DAO;
 
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Student;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,10 +90,14 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public int getTotalPoints(Student student) {
-        Query query = em.createNativeQuery("select sum(points) from course as c inner join grade as g on g.course_id = c.id where g.student_id = :student");
-        query.setParameter("student", student.getId());
+        Query query = em.createNativeQuery("select sum(points) from course as c inner join grade as g on g.course_id = c.id where g.student_id = " + student.getId());
 
-        return ((BigInteger)query.getSingleResult()).intValue();
+        BigDecimal points = (BigDecimal)query.getSingleResult();
+        if(points != null){
+            return points.intValue();
+        }else{
+            return 0;
+        }
     }
 
 }
