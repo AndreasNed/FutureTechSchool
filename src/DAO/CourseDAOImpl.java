@@ -40,9 +40,13 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public void updateCourse(Course course) {
         try {
-            em.getTransaction().begin();
-            em.merge(course);
-            em.getTransaction().commit();
+            if (course == null) {
+                em.getTransaction().rollback();
+            } else {
+                em.getTransaction().begin();
+                em.merge(course);
+                em.getTransaction().commit();
+            }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }
@@ -50,7 +54,8 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public void deleteCourse(int id) {
+    public void deleteCourse(int id
+    ) {
         try {
             em.getTransaction().begin();
             Course course = em.find(Course.class, id);

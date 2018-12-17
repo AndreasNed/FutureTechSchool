@@ -21,7 +21,7 @@ public class TeacherDAOImpl implements TeacherDAO {
             em.getTransaction().commit();
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
-        } catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             System.out.println("Could not insert teacher to database. Exception: " + ex);
         }
 
@@ -30,7 +30,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public Teacher readTeacher(int id) {
         Teacher teacher = em.find(Teacher.class, id);
-        if(teacher != null){
+        if (teacher != null) {
             return teacher;
         }
         return null;
@@ -39,9 +39,13 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public void updateTeacher(Teacher teacher) {
         try {
-            em.getTransaction().begin();
-            em.merge(teacher);
-            em.getTransaction().commit();
+            if (teacher == null) {
+                em.getTransaction().rollback();
+            } else {
+                em.getTransaction().begin();
+                em.merge(teacher);
+                em.getTransaction().commit();
+            }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }

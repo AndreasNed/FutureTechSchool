@@ -301,6 +301,9 @@ public class Menu {
     private static Teacher updateTeacher() {
         System.out.print("ID of teacher to Update(0 to cancel): "); //TODOD        
         int id = readNumber();
+        if (id == 0) {
+            return null;
+        }
         Teacher teacher = teacherDAO.readTeacher(id);
         System.out.println("Current name: '" + teacher.getName() + "', leave 'New Name' empty to skip");
         System.out.print("New Name: ");
@@ -336,6 +339,9 @@ public class Menu {
 
         System.out.print("ID of education to Update(0 to cancel): "); //TODOD        
         int id = readNumber();
+        if (id == 0) {
+            return null;
+        }
         Education education = educationDAO.readEducation(id);
         System.out.println("Current name: " + education.getName() + "Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
@@ -370,6 +376,9 @@ public class Menu {
     private static Course updateCourse() {
         System.out.print("ID of course to Update(0 to cancel): "); //TODOD        
         int id = readNumber();
+        if (id == 0) {
+            return null;
+        }
         Course course = courseDAO.readCourse(id);
         System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
