@@ -35,18 +35,15 @@ public class StudentDAOImpl implements StudentDAO {
         Student s = em.find(Student.class, id);
         if (s != null) {
             return s;
-        } else {
-            return null;
         }
+        return null;
     }
 
     @Override
     public void updateStudent(Student student) {//INTE TESTAT
         try {
-            em.getTransaction().begin();
-            if (student == null) {
-                em.getTransaction().rollback();
-            } else {
+            if (student != null) {
+                em.getTransaction().begin();
                 em.merge(student);
                 em.getTransaction().commit();
             }
@@ -58,10 +55,12 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public void deleteStudent(int id) {
         try {
-            em.getTransaction().begin();
             Student s = em.find(Student.class, id);
-            em.remove(s);
-            em.getTransaction().commit();
+            if (s != null) {
+                em.getTransaction().begin();
+                em.remove(s);
+                em.getTransaction().commit();
+            }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }
@@ -92,10 +91,10 @@ public class StudentDAOImpl implements StudentDAO {
     public int getTotalPoints(Student student) {
         Query query = em.createNativeQuery("select sum(points) from COURSE as c inner join GRADE as g on g.course_id = c.id where g.student_id = " + student.getId());
 
-        BigDecimal points = (BigDecimal)query.getSingleResult();
-        if(points != null){
+        BigDecimal points = (BigDecimal) query.getSingleResult();
+        if (points != null) {
             return points.intValue();
-        }else{
+        } else {
             return 0;
         }
     }

@@ -250,6 +250,7 @@ public class Menu {
         }
         Student student = studentDAO.readStudent(id);
         if (student == null) {
+            System.out.println("Invalid Student ID");
             return null;
         } else {
             System.out.println("Current name: '" + student.getName() + "' Leave 'New Name' empty to skip");
@@ -306,23 +307,28 @@ public class Menu {
             return null;
         }
         Teacher teacher = teacherDAO.readTeacher(id);
-        System.out.println("Current name: '" + teacher.getName() + "', leave 'New Name' empty to skip");
-        System.out.print("New Name: ");
-        String newName = sc.nextLine();
-        System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "', leave 'New Birthday' empty to skip");
-        System.out.println("New Birthday(yyyyMMdd): ");
-        String newBday = sc.nextLine();
+        if (teacher == null) {
+            System.out.println("Invalid teacher ID");
+            return null;
+        } else {
+            System.out.println("Current name: '" + teacher.getName() + "', leave 'New Name' empty to skip");
+            System.out.print("New Name: ");
+            String newName = sc.nextLine();
+            System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "', leave 'New Birthday' empty to skip");
+            System.out.println("New Birthday(yyyyMMdd): ");
+            String newBday = sc.nextLine();
 
-        if (!newName.equals("")) {
-            teacher.setName(newName);
-        }
-        if (!newBday.equals("")) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-                LocalDate parsedDate = LocalDate.parse(newBday, formatter);
-                teacher.setBirthdate(parsedDate);
-            } catch (DateTimeParseException ex) {
-                System.out.println("Invalid dateformat. Try again.");
+            if (!newName.equals("")) {
+                teacher.setName(newName);
+            }
+            if (!newBday.equals("")) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                    LocalDate parsedDate = LocalDate.parse(newBday, formatter);
+                    teacher.setBirthdate(parsedDate);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("Invalid dateformat. Try again.");
+                }
             }
         }
         return teacher;
@@ -403,20 +409,29 @@ public class Menu {
         System.out.print("Select Student ID: ");
         int studentID = readNumber();
         Student student = studentDAO.readStudent(studentID);
+        if (student != null) {
 
-        System.out.println("Avalible Educations: ");
-        for (Education education : educations) {
-            System.out.println(education);
+            System.out.println("Available Educations: ");
+            for (Education education : educations) {
+                System.out.println(education);
+            }
+
+            System.out.print("Add Student " + student.getName() + " to Education: ");
+            int educationID = readNumber();
+            Education education = educationDAO.readEducation(educationID);
+            if (education != null) {
+
+                student.setEducation(education);
+                studentDAO.updateStudent(student);
+
+                System.out.println(student.getName() + " added to education " + education.getName());
+            } else {
+                System.out.println("Invalid Education ID");
+            }
+
+        } else {
+            System.out.println("Invalid Student ID");
         }
-
-        System.out.print("Add Student, " + student.getName() + "To Education: ");
-        int educationID = readNumber();
-        Education education = educationDAO.readEducation(educationID);
-
-        student.setEducation(education);
-        studentDAO.updateStudent(student);
-
-        System.out.println(student.getName() + " added to education " + education.getName());
     }
 
     private static void addStudentToCourse() {
@@ -432,23 +447,28 @@ public class Menu {
         System.out.print("Select Student ID: ");
         int studentID = readNumber();
         Student student = studentDAO.readStudent(studentID);
+        if (student != null) {
+            System.out.println("Available Courses: ");
+            for (Course course : courses) {
+                System.out.println(course);
+            }
 
-        System.out.println("Avalible Courses: ");
-        for (Course course : courses) {
-            System.out.println(course);
-        }
-
-        try {
-            System.out.print("Add Student, " + student.getName() + "To Course: ");
+            System.out.print("Add Student " + student.getName() + " to Course: ");
             int courseID = readNumber();
             Course course = courseDAO.readCourse(courseID);
+            if (course != null) {
+                course.addStudent(student);
+                courseDAO.updateCourse(course);
+                System.out.println(student.getName() + " added to course " + course.getName());
 
-            course.addStudent(student);
-            courseDAO.updateCourse(course);
-            System.out.println(student.getName() + " added to course " + course.getName());
-        } catch (NullPointerException e) {
-            System.out.println("No such course");
+            } else {
+                System.out.println("Invalid Course ID");
+            }
+
+        } else {
+            System.out.println("Invalid Student ID");
         }
+
     }
 
     private static void addTeacherToCourse() {
