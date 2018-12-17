@@ -4,12 +4,16 @@ import DAO.CourseDAO;
 import DAO.CourseDAOImpl;
 import DAO.EducationDAO;
 import DAO.EducationDAOImpl;
+import DAO.GradeDAO;
+import DAO.GradeDAOImpl;
 import DAO.StudentDAO;
 import DAO.StudentDAOImpl;
 import DAO.TeacherDAO;
 import DAO.TeacherDAOImpl;
+import futuretechschool.GradeEnum;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Education;
+import futuretechschool.domain.Grade;
 import futuretechschool.domain.Student;
 import futuretechschool.domain.Teacher;
 import java.time.LocalDate;
@@ -27,12 +31,14 @@ public class Menu {
     static CourseDAO courseDAO = new CourseDAOImpl();
     static StudentDAO studentDAO = new StudentDAOImpl();
     static TeacherDAO teacherDAO = new TeacherDAOImpl();
+    static GradeDAO gradeDAO = new GradeDAOImpl();
 
     static List<MenuOption> menuMain = new ArrayList<>();
     static List<MenuOption> menuStudent = new ArrayList<>();
     static List<MenuOption> menuTeacher = new ArrayList<>();
     static List<MenuOption> menuCourse = new ArrayList<>();
     static List<MenuOption> menuEducation = new ArrayList<>();
+    static List<MenuOption> menuGrade = new ArrayList<>();
 
     public static void menu() {
         menuMain.clear();
@@ -70,6 +76,7 @@ public class Menu {
         menuStudent.add(new MenuOption("5) Add Student to Education", () -> addStudentToEducation()));
         menuStudent.add(new MenuOption("6) Add Student to Course", () -> addStudentToCourse()));
         menuStudent.add(new MenuOption("7) List all Students", () -> printList(studentDAO.readAllStudents())));
+        menuStudent.add(new MenuOption("8) List all Courses by StudentID", () -> printList(studentDAO.readAllCourses(studentDAO.readStudent(readId())))));
 
         while (run) {
             System.out.println("--STUDENT MENU--");
@@ -175,6 +182,36 @@ public class Menu {
                     menuEducation.get(input).getMenu().menuMethod();
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Invalid input - Type a number between 0-" + (menuEducation.size() - 1));
+                }
+
+            }
+        }
+    }
+    
+    private static void gradeMenu() {
+        menuGrade.clear();
+        boolean run = true;
+
+        menuGrade.add(new MenuOption("0) Back", () -> System.out.println("back")));
+        menuGrade.add(new MenuOption("1) Create Grade", () -> gradeDAO.createGrade(createGrade())));
+        menuGrade.add(new MenuOption("2) Read Grades by Student", () -> System.out.println(gradeDAO.readGradesByStudent(studentDAO.readStudent(readId())))));
+        menuGrade.add(new MenuOption("3) Update Grade", () -> gradeDAO.updateGrade(updateGrade())));
+        menuGrade.add(new MenuOption("4) Delete Grade", () -> gradeDAO.deleteGrade(readId())));
+        menuGrade.add(new MenuOption("5) List all Grades", () -> printList(gradeDAO.readAllGrade())));
+        while (run) {
+            System.out.println("--GRADE MENU--");
+            for (MenuOption menuOption : menuGrade) {
+                System.out.println(menuOption.getString());
+            }
+            System.out.print("Input: ");
+            int input = readNumber();
+            if (input == 0) {
+                run = false;
+            } else {
+                try {
+                    menuGrade.get(input).getMenu().menuMethod();
+                } catch (IndexOutOfBoundsException ex) {
+                    System.out.println("Invalid input - Type a number between 0-" + (menuGrade.size() - 1));
                 }
 
             }
@@ -423,7 +460,7 @@ public class Menu {
 
     private static void addCourseToEducation() {
 
-        System.out.println(courseDAO.readAllCourses());
+        printList(courseDAO.readAllCourses());
 
         System.out.print("Course ID: ");
         int courseID = readNumber();
@@ -442,5 +479,42 @@ public class Menu {
         list.stream().forEach(System.out::println);
         System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
     }
+
+    private static Grade createGrade() {
+        printList(studentDAO.readAllStudents());
+        System.out.print("Student ID: ");
+        int studentId = readNumber();
+        printList(studentDAO.readAllCourses(studentDAO.readStudent(studentId)));
+        System.out.print("Course ID: ");
+        int courseId = readNumber();
+        System.out.println("Grade (IG / G / VG): ");
+        String gradeString = sc.next();
+        
+        Grade grade = new Grade();
+        grade.setCourse(courseDAO.readCourse(courseId));
+        grade.setStudent(studentDAO.readStudent(studentId));
+        grade.setGrade(GradeEnum.valueOf(gradeString));
+       
+        return grade;
+        
+    }
+
+    private static Grade updateGrade() {
+        printList(studentDAO.readAllStudents());
+        System.out.print("Student ID: ");
+        int studentId = readNumber();
+        printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(studentId)));
+        System.out.print("ID of Grade to Update: ");
+        int gradeId = readNumber();
+        System.out.println("New Grade (IG / G / VG): ");
+        String gradeString = sc.next();
+        Grade grade = gradeDAO.readGrade(gradeId);
+        grade.setGrade(GradeEnum.valueOf(gradeString));
+        
+        return grade;
+        
+    }
+    
+    
 
 }

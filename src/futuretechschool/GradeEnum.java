@@ -12,5 +12,5 @@ import javafx.scene.shape.SVGPath;
  * @author GasCan
  */
 public enum GradeEnum {
-    G, VG, U;
+    IG, VG, U;
 }

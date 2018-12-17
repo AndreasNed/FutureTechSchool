@@ -34,9 +34,14 @@ public class GradeDAOImpl implements GradeDAO {
             em.getTransaction().rollback();
         }
     }
+    
+    @Override
+    public Grade readGrade(int id){
+        return em.find(Grade.class, id);
+    }
 
     @Override
-    public List<Grade> readGrades(Student student) {
+    public List<Grade> readGradesByStudent(Student student) {
         Query query = em.createQuery("Select g from Grade where Student = :student");
         query.setParameter("student", student);
         return query.getResultList();

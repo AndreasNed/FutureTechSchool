@@ -26,7 +26,7 @@ public class PontusMain {
 
     public static void main(String[] args) {
 
-        andreasDeBugg();
+//        andreasDeBugg();
 
         Menu.menu();
 

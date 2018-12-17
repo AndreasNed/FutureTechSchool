@@ -3,6 +3,7 @@
  */
 package futuretechschool.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import javax.persistence.ManyToOne;
  * @author Andreas N
  */
 @Entity
-public class Student {
+public class Student implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -101,6 +102,6 @@ public class Student {
     }
 
     public String toString() {
-        return String.format("%6s|%-3s|%-20s", "Student", this.getId(), this.getName()).toUpperCase();
+        return String.format("%6s|%-3s|%-20s", "Student", "#"+this.getId(), this.getName()).toUpperCase();
     }
 }

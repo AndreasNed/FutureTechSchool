@@ -64,10 +64,10 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public List<Course> readAllCourses(Student student) {
-        Query query = em.createQuery("Select c from Course c where student = :student");
+        Query query = em.createQuery("SELECT c from Student s INNER JOIN s.courses c WHERE s = :student");
         query.setParameter("student", student);
 
-        Query query1 = em.createQuery("SELECT c3 FROM Student c1 INNER JOIN c1.education c2 INNER JOIN c2.courses c3 WHERE c1 = :student");
+        Query query1 = em.createQuery("SELECT e FROM Student s INNER JOIN s.education c INNER JOIN c.courses e WHERE s = :student");
         query1.setParameter("student", student);
 
         List<Course> courseList = new ArrayList<>();

@@ -3,6 +3,7 @@
  */
 package futuretechschool.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.persistence.ManyToMany;
  * @author Andreas N
  */
 @Entity
-public class Teacher {
+public class Teacher implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -88,7 +89,7 @@ public class Teacher {
     }
 
     public String toString() {
-        return String.format("%7s|%-3s|%-20s", "Teacher", this.getId(), this.getName()).toUpperCase();
+        return String.format("%7s|%-3s|%-20s", "Teacher", "#"+this.getId(), this.getName()).toUpperCase();
     }
 
 }

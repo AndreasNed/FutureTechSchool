@@ -15,9 +15,10 @@ import java.util.List;
  */
 public interface GradeDAO {
     void createGrade(Grade grade);
-    List<Grade> readGrades(Student student);
+    Grade readGrade(int id);
     void updateGrade(Grade grade);
     void deleteGrade(int id);
-    
+   
+    List<Grade> readGradesByStudent(Student student);
     List<Grade> readAllGrade();
 }
