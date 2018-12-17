@@ -484,20 +484,30 @@ public class Menu {
         System.out.print("Select teacher ID: ");
         int teacherID = readNumber();
         Teacher teacher = teacherDAO.readTeacher(teacherID);
+        if (teacher != null) {
+            System.out.println("Available Courses: ");
+            for (Course course : courses) {
+                System.out.println(course);
+            }
 
-        System.out.println("Available Courses: ");
-        for (Course course : courses) {
-            System.out.println(course);
+            System.out.print("Add Teacher '" + teacher.getName() + "' to course: ");
+            int courseID = readNumber();
+            Course course = courseDAO.readCourse(courseID);
+            if (course != null) {
+
+                course.addTeacher(teacher);
+                courseDAO.updateCourse(course);
+
+                System.out.println(teacher.getName() + " added to course " + course.getName());
+
+            } else {
+                System.out.println("Invalid Course ID");
+            }
+
+        } else {
+            System.out.println("Invalid Student ID");
         }
 
-        System.out.print("Add Teacher '" + teacher.getName() + "' to course: ");
-        int courseID = readNumber();
-        Course course = courseDAO.readCourse(courseID);
-
-        course.addTeacher(teacher);
-        courseDAO.updateCourse(course);
-
-        System.out.println(teacher.getName() + " added to course " + course.getName());
     }
 
     private static void addCourseToEducation() {

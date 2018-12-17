@@ -105,6 +105,6 @@ public class Student implements Serializable{
 
     public String toString() {
         StudentDAO studentDAO = new StudentDAOImpl();
-        return String.format("%6s|%-3s|%-20s|%-20s", "Student", "#"+this.getId(), this.getName(), "Points: " + studentDAO.getTotalPoints(this)).toUpperCase();
+        return String.format("%6s|%-4s|%-20s|%-20s", "Student", "#"+this.getId(), this.getName(), "Points: " + studentDAO.getTotalPoints(this)).toUpperCase();
     }
 }

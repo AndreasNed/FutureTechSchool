@@ -39,13 +39,12 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public void updateTeacher(Teacher teacher) {
         try {
-            em.getTransaction().begin();
-            if (teacher == null) {
-                em.getTransaction().rollback();
-            } else {
 
+            if (teacher != null) {
+                em.getTransaction().begin();
                 em.merge(teacher);
                 em.getTransaction().commit();
+
             }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
@@ -56,10 +55,13 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public void deleteTeacher(int id) {
         try {
-            em.getTransaction().begin();
+
             Teacher teacher = em.find(Teacher.class, id);
-            em.remove(teacher);
-            em.getTransaction().commit();
+            if (teacher != null) {
+                em.getTransaction().begin();
+                em.remove(teacher);
+                em.getTransaction().commit();
+            }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }
