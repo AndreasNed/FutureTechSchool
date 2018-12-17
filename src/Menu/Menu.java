@@ -509,13 +509,12 @@ public class Menu {
         System.out.print("Course ID: ");
         int courseId = readNumber();
         System.out.print("Grade (IG / G / VG): ");
-        String gradeString = sc.next();
+        String gradeString = sc.nextLine();
 
         Grade grade = new Grade();
         grade.setCourse(courseDAO.readCourse(courseId));
         grade.setStudent(studentDAO.readStudent(studentId));
         grade.setGrade(GradeEnum.valueOf(gradeString));
-
         return grade;
 
     }

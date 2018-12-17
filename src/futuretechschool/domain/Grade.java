@@ -67,7 +67,7 @@ public class Grade implements Serializable {
     }
 
     public String toString() {
-        return String.format("%6s|%-3s|%-10s|%-10s", "Grade", "#" + this.getId(), this.getStudent().getName() + this.getCourse().getName() + this.getGrade()).toUpperCase();
+        return String.format("%5s|%-3s|%-10s|%-10s|%-10s", "Grade", "#" + this.getId(), this.getStudent().getName(), this.getCourse().getName(), this.getGrade()).toUpperCase();
     }
 
 }
