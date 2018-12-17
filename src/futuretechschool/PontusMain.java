@@ -8,7 +8,7 @@ import DAO.StudentDAO;
 import DAO.StudentDAOImpl;
 import DAO.TeacherDAO;
 import DAO.TeacherDAOImpl;
-import Menu.Menu;
+import Menu.MainMenu;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
 import futuretechschool.domain.Student;
@@ -28,7 +28,7 @@ public class PontusMain {
 
         andreasDeBugg();
 
-        Menu.menu();
+        MainMenu.menu();
 
 //        debugAddEducation(); // funkar
 //        debugAddCourse(); // funkar

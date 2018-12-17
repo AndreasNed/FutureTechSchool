@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
+public class MainMenu {
 
     static Scanner sc = new Scanner(System.in);
 
@@ -44,12 +44,13 @@ public class Menu {
         menuMain.clear();
 
         menuMain.add(new MenuOption("0) Exit", () -> System.exit(1)));
-        menuMain.add(new MenuOption("1) Student Menu", () -> studentMenu()));
-        menuMain.add(new MenuOption("2) Teacher Menu", () -> teacherMenu()));
-        menuMain.add(new MenuOption("3) Course Menu", () -> courseMenu()));
-        menuMain.add(new MenuOption("4) Education Menu", () -> educationMenu()));
-        menuMain.add(new MenuOption("5) Grade Menu", () -> gradeMenu()));
+        menuMain.add(new MenuOption("1) Student Menu", () -> new StudentMenu()));
+        menuMain.add(new MenuOption("2) Teacher Menu", () -> new TeacherMenu()));
+        menuMain.add(new MenuOption("3) Course Menu", () -> new CourseMenu()));
+        menuMain.add(new MenuOption("4) Education Menu", () -> new EducationMenu()));
+        menuMain.add(new MenuOption("5) Grade Menu", () -> new GradeMenu()));
 
+        
         while (true) {
             System.out.println("--MAIN MENU--");
             for (MenuOption menuOption : menuMain) {
@@ -68,7 +69,6 @@ public class Menu {
     private static void studentMenu() {
         menuStudent.clear();
         boolean run = true;
-
         menuStudent.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuStudent.add(new MenuOption("1) Create New Student", () -> studentDAO.createStudent(createStudent())));
         menuStudent.add(new MenuOption("2) Read Student", () -> System.out.println(studentDAO.readStudent(readId()))));
@@ -101,7 +101,6 @@ public class Menu {
     private static void teacherMenu() {
         menuTeacher.clear();
         boolean run = true;
-
         menuTeacher.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuTeacher.add(new MenuOption("1) Create New Teacher", () -> teacherDAO.createTeacher(createTeacher())));
         menuTeacher.add(new MenuOption("2) Read Teacher", () -> System.out.println(teacherDAO.readTeacher(readId()))));
@@ -126,13 +125,11 @@ public class Menu {
                 }
             }
         }
-
     }
 
     private static void courseMenu() {
         menuCourse.clear();
         boolean run = true;
-
         menuCourse.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuCourse.add(new MenuOption("1) Create New Course", () -> courseDAO.createCourse(createCourse())));
         menuCourse.add(new MenuOption("2) Read Course", () -> System.out.println(courseDAO.readCourse(readId()))));
@@ -161,7 +158,6 @@ public class Menu {
     private static void educationMenu() {
         menuEducation.clear();
         boolean run = true;
-
         menuEducation.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuEducation.add(new MenuOption("1) Create Education", () -> educationDAO.createEducation(createEducation())));
         menuEducation.add(new MenuOption("2) Read Education", () -> System.out.println(educationDAO.readEducation(readId()))));
@@ -184,7 +180,6 @@ public class Menu {
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Invalid input - Type a number between 0-" + (menuEducation.size() - 1));
                 }
-
             }
         }
     }
@@ -192,7 +187,6 @@ public class Menu {
     private static void gradeMenu() {
         menuGrade.clear();
         boolean run = true;
-
         menuGrade.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuGrade.add(new MenuOption("1) Create Grade", () -> gradeDAO.createGrade(createGrade())));
         menuGrade.add(new MenuOption("2) Read Grades by Student", () -> readGrades()));
@@ -214,7 +208,6 @@ public class Menu {
                 } catch (IndexOutOfBoundsException ex) {
                     System.out.println("Invalid input - Type a number between 0-" + (menuGrade.size() - 1));
                 }
-
             }
         }
     }
@@ -238,7 +231,6 @@ public class Menu {
         } catch (DateTimeParseException ex) {
             System.out.println("Invalid dateformat. Try again.");
         }
-
         return student;
     }
 
@@ -274,15 +266,14 @@ public class Menu {
         }
         return student;
     }
-
-    private static int readId() {
+    
+    public static int readId() {
         System.out.print("Enter ID: ");
         int i = readNumber();
         return i;
     }
 
     private static Teacher createTeacher() {
-
         Teacher teacher = new Teacher();
         System.out.print("Name: ");
         String name = sc.nextLine();
@@ -317,7 +308,6 @@ public class Menu {
             System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "', leave 'New Birthday' empty to skip");
             System.out.println("New Birthday(yyyyMMdd): ");
             String newBday = sc.nextLine();
-
             if (!newName.equals("")) {
                 teacher.setName(newName);
             }
@@ -420,15 +410,12 @@ public class Menu {
             int educationID = readNumber();
             Education education = educationDAO.readEducation(educationID);
             if (education != null) {
-
                 student.setEducation(education);
                 studentDAO.updateStudent(student);
-
                 System.out.println(student.getName() + " added to education " + education.getName());
             } else {
                 System.out.println("Invalid Education ID");
             }
-
         } else {
             System.out.println("Invalid Student ID");
         }
@@ -452,7 +439,6 @@ public class Menu {
             for (Course course : courses) {
                 System.out.println(course);
             }
-
             System.out.print("Add Student " + student.getName() + " to Course: ");
             int courseID = readNumber();
             Course course = courseDAO.readCourse(courseID);
@@ -460,11 +446,9 @@ public class Menu {
                 course.addStudent(student);
                 courseDAO.updateCourse(course);
                 System.out.println(student.getName() + " added to course " + course.getName());
-
             } else {
                 System.out.println("Invalid Course ID");
             }
-
         } else {
             System.out.println("Invalid Student ID");
         }
@@ -494,20 +478,16 @@ public class Menu {
             int courseID = readNumber();
             Course course = courseDAO.readCourse(courseID);
             if (course != null) {
-
                 course.addTeacher(teacher);
                 courseDAO.updateCourse(course);
-
                 System.out.println(teacher.getName() + " added to course " + course.getName());
 
             } else {
                 System.out.println("Invalid Course ID");
             }
-
         } else {
             System.out.println("Invalid Student ID");
         }
-
     }
 
     private static void addCourseToEducation() {
@@ -526,10 +506,10 @@ public class Menu {
         educationDAO.updateEducation(education);
     }
 
-    private static <T> void printList(List<T> list) {
-        System.out.println("_________________________________");
+    public static <T> void printList(List<T> list) {
+        System.out.println("__________________________________________________________________");
         list.stream().forEach(System.out::println);
-        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
     }
 
     private static Grade createGrade() {
