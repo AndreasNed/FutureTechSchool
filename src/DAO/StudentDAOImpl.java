@@ -1,11 +1,14 @@
 package DAO;
 
+import futuretechschool.domain.Course;
 import futuretechschool.domain.Student;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 public class StudentDAOImpl implements StudentDAO {
 
@@ -20,7 +23,7 @@ public class StudentDAOImpl implements StudentDAO {
             em.getTransaction().commit();
         } catch (PersistenceException e) {
             em.getTransaction().rollback();
-        } catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             System.out.println("Could not insert student to database. Exception: " + ex);
         }
     }
@@ -57,5 +60,20 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public List<Student> readAllStudents() {
         return em.createQuery("Select s from Student s").getResultList();
+    }
+
+    @Override
+    public List<Course> readAllCourses(Student student) {
+        Query query = em.createQuery("Select c from Course c where student = :student");
+        query.setParameter("student", student);
+
+        Query query1 = em.createQuery("SELECT c3 FROM Student c1 INNER JOIN c1.education c2 INNER JOIN c2.courses c3 WHERE c1 = :student");
+        query1.setParameter("student", student);
+
+        List<Course> courseList = new ArrayList<>();
+        courseList.addAll(query.getResultList());
+        courseList.addAll(query1.getResultList());
+        return courseList;
+
     }
 }

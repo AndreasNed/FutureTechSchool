@@ -64,9 +64,9 @@ public class Menu {
 
         menuStudent.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuStudent.add(new MenuOption("1) Create New Student", () -> studentDAO.createStudent(createStudent())));
-        menuStudent.add(new MenuOption("2) Read Student By ID", () -> System.out.println(studentDAO.readStudent(readId()))));
-        menuStudent.add(new MenuOption("3) Update Student By ID", () -> studentDAO.updateStudent(updateStudent())));
-        menuStudent.add(new MenuOption("4) Delete Student By ID", () -> studentDAO.deleteStudent(readId())));
+        menuStudent.add(new MenuOption("2) Read Student", () -> System.out.println(studentDAO.readStudent(readId()))));
+        menuStudent.add(new MenuOption("3) Update Student", () -> studentDAO.updateStudent(updateStudent())));
+        menuStudent.add(new MenuOption("4) Delete Student", () -> studentDAO.deleteStudent(readId())));
         menuStudent.add(new MenuOption("5) Add Student to Education", () -> addStudentToEducation()));
         menuStudent.add(new MenuOption("6) Add Student to Course", () -> addStudentToCourse()));
         menuStudent.add(new MenuOption("7) List all Students", () -> printList(studentDAO.readAllStudents())));
@@ -96,9 +96,9 @@ public class Menu {
 
         menuTeacher.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuTeacher.add(new MenuOption("1) Create New Teacher", () -> teacherDAO.createTeacher(createTeacher())));
-        menuTeacher.add(new MenuOption("2) Read Teacher By ID", () -> System.out.println(teacherDAO.readTeacher(readId()))));
-        menuTeacher.add(new MenuOption("3) Update Teacher By ID", () -> teacherDAO.updateTeacher(updateTeacher())));
-        menuTeacher.add(new MenuOption("4) Delete Teacher By ID", () -> teacherDAO.deleteTeacher(readId())));
+        menuTeacher.add(new MenuOption("2) Read Teacher", () -> System.out.println(teacherDAO.readTeacher(readId()))));
+        menuTeacher.add(new MenuOption("3) Update Teacher", () -> teacherDAO.updateTeacher(updateTeacher())));
+        menuTeacher.add(new MenuOption("4) Delete Teacher", () -> teacherDAO.deleteTeacher(readId())));
         menuTeacher.add(new MenuOption("5) Add Teacher To Course", () -> addTeacherToCourse()));
         menuTeacher.add(new MenuOption("6) List all Teachers", () -> printList(teacherDAO.readAllTeachers())));
         while (run) {
@@ -127,9 +127,9 @@ public class Menu {
 
         menuCourse.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuCourse.add(new MenuOption("1) Create New Course", () -> courseDAO.createCourse(createCourse())));
-        menuCourse.add(new MenuOption("2) Read Course By ID", () -> System.out.println(courseDAO.readCourse(readId()))));
-        menuCourse.add(new MenuOption("3) Update Course By ID", () -> courseDAO.updateCourse(updateCourse())));
-        menuCourse.add(new MenuOption("4) Delete Course By ID", () -> courseDAO.deleteCourse(readId())));
+        menuCourse.add(new MenuOption("2) Read Course", () -> System.out.println(courseDAO.readCourse(readId()))));
+        menuCourse.add(new MenuOption("3) Update Course", () -> courseDAO.updateCourse(updateCourse())));
+        menuCourse.add(new MenuOption("4) Delete Course", () -> courseDAO.deleteCourse(readId())));
         menuCourse.add(new MenuOption("5) List all Courses", () -> printList(courseDAO.readAllCourses())));
         while (run) {
             System.out.println("--COURSE MENU--");
@@ -156,9 +156,9 @@ public class Menu {
 
         menuEducation.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuEducation.add(new MenuOption("1) Create Education", () -> educationDAO.createEducation(createEducation())));
-        menuEducation.add(new MenuOption("2) Read Education By ID", () -> System.out.println(educationDAO.readEducation(readId()))));
-        menuEducation.add(new MenuOption("3) Update Education By ID", () -> educationDAO.updateEducation(updateEducation())));
-        menuEducation.add(new MenuOption("4) Delete Education By ID", () -> educationDAO.deleteEducation(readId())));
+        menuEducation.add(new MenuOption("2) Read Education", () -> System.out.println(educationDAO.readEducation(readId()))));
+        menuEducation.add(new MenuOption("3) Update Education", () -> educationDAO.updateEducation(updateEducation())));
+        menuEducation.add(new MenuOption("4) Delete Education", () -> educationDAO.deleteEducation(readId())));
         menuEducation.add(new MenuOption("5) Add Course To Education", () -> addCourseToEducation()));
         menuEducation.add(new MenuOption("6) List all Educations", () -> printList(educationDAO.readAllEducations())));
         while (run) {
