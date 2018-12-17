@@ -256,33 +256,43 @@ public class PontusMain {
         teacherDAO.createTeacher(teacher3);
 
         Education education1 = new Education();
-        education1.setName("Education 1");
+        education1.setName("Java Education");
 
         Education education2 = new Education();
-        education2.setName("Education 2");
+        education2.setName("Cockstudy Education");
 
         Education education3 = new Education();
-        education3.setName("Education 3");
+        education3.setName("Spelling Education");
 
         educationDAO.createEducation(education1);
         educationDAO.createEducation(education2);
         educationDAO.createEducation(education3);
 
         Course course1 = new Course();
-        course1.setName("Course 1");
+        course1.setName("Java Course");
         course1.setPoints(10);
 
         Course course2 = new Course();
-        course2.setName("Course 2");
+        course2.setName("Anatomy Course");
         course2.setPoints(100);
 
         Course course3 = new Course();
-        course3.setName("Course 3");
+        course3.setName("Spelling 1-0-1 Course");
         course3.setPoints(1000);
         
         courseDAO.createCourse(course1);
         courseDAO.createCourse(course2);
         courseDAO.createCourse(course3);
+        
+        student1.addCourse(course1);
+        student1.addCourse(course2);
+        
+        student2.setEducation(education1);
+        student2.setEducation(education3);
+        
+        student3.addCourse(course3);
+        student3.setEducation(education2);
+        
         
         
 
