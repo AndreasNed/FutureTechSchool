@@ -86,10 +86,10 @@ public class StudentMenu {
             System.out.println("Invalid Student ID");
             return null;
         } else {
-            System.out.println("Current name: '" + student.getName() + "' Leave 'New Name' empty to skip");
+            System.out.println("Current name: '" + student.getName() + "'. Leave 'New Name' empty to skip");
             System.out.print("New Name: ");
             String newName = Utilities.sc.nextLine();
-            System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "' Leave 'New Birthday' empty to skip");
+            System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip");
             System.out.println("New Birthday(yyyyMMdd): ");
             String newBday = Utilities.sc.nextLine();
             if (!newName.equals("")) {

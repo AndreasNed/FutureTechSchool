@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Menu;
 
 import DAO.CourseDAO;
@@ -14,13 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author GasCan
- */
 public class CourseMenu {
   
     static List<MenuOption> menuCourse = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
     
     public CourseMenu(){
         courseMenu();
@@ -56,7 +49,7 @@ public class CourseMenu {
         private static Course createCourse() {
         Course course = new Course();
         System.out.print("Name: ");
-        String name = Utilities.sc.nextLine();
+        String name = sc.nextLine();
         course.setName(name);
         return course;
     }
@@ -70,7 +63,7 @@ public class CourseMenu {
         Course course = Utilities.courseDAO.readCourse(id);
         System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
-        String newName = Utilities.sc.nextLine();
+        String newName = sc.nextLine();
         if (!newName.equals("")) {
             course.setName(newName);
         }

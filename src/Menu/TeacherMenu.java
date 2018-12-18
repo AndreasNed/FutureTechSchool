@@ -85,10 +85,10 @@ public class TeacherMenu {
             System.out.println("Invalid teacher ID");
             return null;
         } else {
-            System.out.println("Current name: '" + teacher.getName() + "', leave 'New Name' empty to skip");
+            System.out.println("Current name: '" + teacher.getName() + "'. Leave 'New Name' empty to skip");
             System.out.print("New Name: ");
             String newName = Utilities.sc.nextLine();
-            System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "', leave 'New Birthday' empty to skip");
+            System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip");
             System.out.println("New Birthday(yyyyMMdd): ");
             String newBday = Utilities.sc.nextLine();
             if (!newName.equals("")) {
