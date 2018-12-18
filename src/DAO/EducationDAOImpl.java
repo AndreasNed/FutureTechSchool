@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DAO;
 
 import futuretechschool.domain.Education;
@@ -12,10 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
-/**
- *
- * @author GasCan
- */
 public class EducationDAOImpl implements EducationDAO {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
@@ -28,7 +20,7 @@ public class EducationDAOImpl implements EducationDAO {
             em.persist(education);
             em.getTransaction().commit();
         } catch (PersistenceException ex) {
-
+            em.getTransaction().rollback();
         } catch (IllegalArgumentException ex) {
             System.out.println("Could not insert education to database. Exception: " + ex);
         }
@@ -41,6 +33,7 @@ public class EducationDAOImpl implements EducationDAO {
         if (education != null) {
             return education;
         } else {
+            System.out.println("No such education");
             return null;
         }
     }
@@ -52,7 +45,6 @@ public class EducationDAOImpl implements EducationDAO {
             if (education == null) {
                 em.getTransaction().rollback();
             } else {
-
                 em.merge(education);
                 em.getTransaction().commit();
             }
@@ -62,12 +54,16 @@ public class EducationDAOImpl implements EducationDAO {
     }
 
     @Override
-    public void deleteEducation(int id
-    ) {
+    public void deleteEducation(int id) {
+        Education e = em.find(Education.class, id);
         try {
-            em.getTransaction().begin();
-            em.remove(em.find(Education.class, id));
-            em.getTransaction().commit();
+            if (e != null) {
+                em.getTransaction().begin();
+                em.remove(em.find(Education.class, id));
+                em.getTransaction().commit();
+            } else {
+                System.out.println("No such education");
+            }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }
