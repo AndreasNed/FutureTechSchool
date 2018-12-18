@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Menu;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOImpl;
 import DAO.EducationDAO;
 import DAO.EducationDAOImpl;
-import DAO.StudentDAO;
-import DAO.StudentDAOImpl;
 import static Menu.MainMenu.menuEducation;
 import static Menu.MainMenu.printList;
 import Utilities.Utilities;
@@ -20,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author GasCan
- */
 public class EducationMenu {
+    
+    static Scanner sc = new Scanner(System.in);
     
     public EducationMenu(){
         educationMenu();
@@ -62,25 +52,26 @@ public class EducationMenu {
     private static Education createEducation() {
         Education education = new Education();
         System.out.print("Name: ");
-        String name = Utilities.sc.nextLine();
+        String name = sc.nextLine();
         education.setName(name);
-        return education;
+        if(!name.equals(""))
+            return education;
+        else
+            System.out.println("Must input proper name");
+        return null;
     }
 
     private static Education updateEducation() {
-
         System.out.print("ID of education to Update(0 to cancel): "); //TODOD        
         int id = Utilities.readNumber();
-        if (id == 0) {
+        if (id == 0)
             return null;
-        }
         Education education = Utilities.educationDAO.readEducation(id);
-        System.out.println("Current name: " + education.getName() + "Leave 'New Name' empty to skip");
+        System.out.println("Current name: '" + education.getName() + "'. Leave 'New Name' empty to skip");
         System.out.print("New Name: ");
         String newName = Utilities.sc.nextLine();
-        if (!newName.equals("")) {
+        if (!newName.equals(""))
             education.setName(newName);
-        }
         return education;
 
     }
@@ -94,17 +85,14 @@ public class EducationMenu {
         for (Student student : students) {
             System.out.println(student);
         }
-
         System.out.print("Select Student ID: ");
         int studentID = Utilities.readNumber();
         Student student = Utilities.studentDAO.readStudent(studentID);
         if (student != null) {
-
             System.out.println("Available Educations: ");
             for (Education education : educations) {
                 System.out.println(education);
             }
-
             System.out.print("Add Student " + student.getName() + " to Education: ");
             int educationID = Utilities.readNumber();
             Education education = Utilities.educationDAO.readEducation(educationID);
@@ -121,7 +109,6 @@ public class EducationMenu {
     }
     
     private static void addCourseToEducation() {
-
         printList(Utilities.courseDAO.readAllCourses());
 
         System.out.print("Course ID: ");

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Menu;
 
 import DAO.GradeDAO;
@@ -18,19 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author GasCan
- */
 public class GradeMenu {
+
     static GradeDAO gradeDAO = new GradeDAOImpl();
     static List<MenuOption> menuGrade = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
-    
-    public GradeMenu(){
+
+    public GradeMenu() {
         gradeMenu();
     }
-    
+
     private static void gradeMenu() {
         menuGrade.clear();
         boolean run = true;
@@ -58,11 +50,13 @@ public class GradeMenu {
             }
         }
     }
+
     private static void readGrades() {
         MainMenu.printList(studentDAO.readAllStudents());
         MainMenu.printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(Utilities.readId())));
     }
-        private static Grade createGrade() {
+
+    private static Grade createGrade() {
         MainMenu.printList(studentDAO.readAllStudents());
         System.out.print("Student ID: ");
         int studentId = MainMenu.readNumber();
