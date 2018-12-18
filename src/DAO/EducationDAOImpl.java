@@ -24,7 +24,6 @@ public class EducationDAOImpl implements EducationDAO {
         } catch (IllegalArgumentException ex) {
             System.out.println("Could not insert education to database. Exception: " + ex);
         }
-
     }
 
     @Override
