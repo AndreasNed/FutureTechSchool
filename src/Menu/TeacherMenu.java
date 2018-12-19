@@ -22,11 +22,11 @@ import java.util.List;
 public class TeacherMenu {
 
     static List<MenuOption> menuTeacher = new ArrayList<>();
-    
-    public TeacherMenu(){
+
+    public TeacherMenu() {
         teacherMenu();
     }
-    
+
     private static void teacherMenu() {
         menuTeacher.clear();
         boolean run = true;
@@ -105,42 +105,31 @@ public class TeacherMenu {
         }
         return teacher;
     }
+
     private static void addTeacherToCourse() {
-        List<Teacher> teachers = new ArrayList<>();
-        List<Course> courses = new ArrayList<>();
-        teachers = Utilities.teacherDAO.readAllTeachers();
-        courses = Utilities.courseDAO.readAllCourses();
         System.out.println("List of teachers: ");
-        for (Teacher teacher : teachers) {
-            System.out.println(teacher.toString());
-        }
+        Utilities.printList(Utilities.teacherDAO.readAllTeachers());
 
         System.out.print("Select teacher ID: ");
         int teacherID = Utilities.readNumber();
         Teacher teacher = Utilities.teacherDAO.readTeacher(teacherID);
+
         if (teacher != null) {
             System.out.println("Available Courses: ");
-            for (Course course : courses) {
-                System.out.println(course);
-            }
-
-            System.out.print("Add Teacher '" + teacher.getName() + "' to course: ");
+            Utilities.printList(Utilities.courseDAO.readAllCourses());
             int courseID = Utilities.readNumber();
             Course course = courseDAO.readCourse(courseID);
             if (course != null) {
                 course.addTeacher(teacher);
                 courseDAO.updateCourse(course);
                 System.out.println(teacher.getName() + " added to course " + course.getName());
-            } else {
-                System.out.println("Invalid Course ID");
             }
-        } else {
-            System.out.println("Invalid Teacher ID");
         }
     }
-    private static void readTeacher(){
+
+    private static void readTeacher() {
         Teacher teacher = Utilities.teacherDAO.readTeacher(Utilities.readId());
-        if(teacher != null){
+        if (teacher != null) {
             System.out.println(teacher);
         }
     }

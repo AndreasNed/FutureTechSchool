@@ -114,22 +114,23 @@ public class StudentMenu {
         System.out.print("Select Student ID: ");
         int studentID = Utilities.readNumber();
         Student student = Utilities.studentDAO.readStudent(studentID);
-        if (student != null) {
-            System.out.println("Available Educations: ");
-            for (Education education : educations) {
-                System.out.println(education);
-            }
-            int educationID = Utilities.readNumber();
-            Education education = Utilities.educationDAO.readEducation(educationID);
-            if (education != null) {
-                student.setEducation(education);
-                Utilities.studentDAO.updateStudent(student);
-                System.out.println(student.getName() + " added to education " + education.getName());
-            } else {
-                System.out.println("Invalid Education ID");
+        if (student.getEducation() == null) {
+            if (student != null) {
+                System.out.println("Available Educations: ");
+                for (Education education : educations) {
+                    System.out.println(education);
+                }
+                System.out.print("Select Education ID: ");
+                int educationID = Utilities.readNumber();
+                Education education = Utilities.educationDAO.readEducation(educationID);
+                if (education != null) {
+                    student.setEducation(education);
+                    Utilities.studentDAO.updateStudent(student);
+                    System.out.println(student.getName() + " added to education " + education.getName());
+                }
             }
         } else {
-            System.out.println("Invalid Student ID");
+            System.out.println("Student " + student.getName() + " is already in an Education.");
         }
     }
 
@@ -161,7 +162,7 @@ public class StudentMenu {
                 } else {
                     System.out.println("Invalid Course ID");
                 }
-            }else{
+            } else {
                 System.out.println("Student " + student.getName() + " is already in course " + course.getName());
             }
         } else {
