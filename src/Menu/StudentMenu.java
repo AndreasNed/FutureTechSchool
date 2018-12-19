@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StudentMenu {
-    
+
     static Scanner sc = new Scanner(System.in);
-    
-    public StudentMenu(){
+
+    public StudentMenu() {
         studentMenu();
     }
 
@@ -119,7 +119,6 @@ public class StudentMenu {
             for (Education education : educations) {
                 System.out.println(education);
             }
-            System.out.print("Add Student " + student.getName() + " to Education: ");
             int educationID = Utilities.readNumber();
             Education education = Utilities.educationDAO.readEducation(educationID);
             if (education != null) {
@@ -151,24 +150,28 @@ public class StudentMenu {
             for (Course course : courses) {
                 System.out.println(course);
             }
-            System.out.print("Add Student " + student.getName() + " to Course: ");
             int courseID = Utilities.readNumber();
             Course course = Utilities.courseDAO.readCourse(courseID);
-            if (course != null) {
-                course.addStudent(student);
-                Utilities.courseDAO.updateCourse(course);
-                System.out.println(student.getName() + " added to course " + course.getName());
-            } else {
-                System.out.println("Invalid Course ID");
+            List<Course> courseList = Utilities.studentDAO.readAllCourses(student);
+            if (!courseList.contains(course)) {
+                if (course != null) {
+                    course.addStudent(student);
+                    Utilities.courseDAO.updateCourse(course);
+                    System.out.println(student.getName() + " added to course " + course.getName());
+                } else {
+                    System.out.println("Invalid Course ID");
+                }
+            }else{
+                System.out.println("Student " + student.getName() + " is already in course " + course.getName());
             }
         } else {
             System.out.println("Invalid Student ID");
         }
     }
-    
-    private static void readStudent(){
+
+    private static void readStudent() {
         Student student = Utilities.studentDAO.readStudent(Utilities.readId());
-        if(student != null){
+        if (student != null) {
             System.out.println(student);
         }
     }
