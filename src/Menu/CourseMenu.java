@@ -62,7 +62,6 @@ public class CourseMenu {
         }
         Course course = Utilities.courseDAO.readCourse(id);
         if (course == null) {
-            System.out.println("Invalid Course ID");
             return null;
         } else {
             System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");

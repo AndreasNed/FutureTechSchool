@@ -69,12 +69,11 @@ public class EducationMenu {
         }
         Education education = Utilities.educationDAO.readEducation(id);
         if (education == null) {
-            System.out.println("Invalid Education ID");
             return null;
         } else {
             System.out.println("Current name: '" + education.getName() + "'. Leave 'New Name' empty to skip");
             System.out.print("New Name: ");
-            String newName = Utilities.sc.nextLine();
+            String newName = sc.nextLine();
             if (!newName.equals("")) {
                 education.setName(newName);
             }

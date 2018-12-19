@@ -82,7 +82,6 @@ public class TeacherMenu {
         }
         Teacher teacher = Utilities.teacherDAO.readTeacher(id);
         if (teacher == null) {
-            System.out.println("Invalid teacher ID");
             return null;
         } else {
             System.out.println("Current name: '" + teacher.getName() + "'. Leave 'New Name' empty to skip");
