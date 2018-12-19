@@ -95,6 +95,7 @@ public class EducationMenu {
         education.addCourse(Utilities.courseDAO.readCourse(courseID));
         Utilities.educationDAO.updateEducation(education);
     }
+    
     private static void readEducation(){
         Education education = Utilities.educationDAO.readEducation(Utilities.readId());
         if(education != null){

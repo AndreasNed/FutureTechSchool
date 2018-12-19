@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Menu;
 
 import static Menu.MainMenu.menuStudent;
@@ -15,12 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-/**
- *
- * @author GasCan
- */
 public class StudentMenu {
+    
+    static Scanner sc = new Scanner(System.in);
     
     public StudentMenu(){
         studentMenu();
@@ -61,10 +55,10 @@ public class StudentMenu {
     private static Student createStudent() {
         Student student = new Student();
         System.out.print("Name: ");
-        String name = Utilities.sc.nextLine();
+        String name = sc.nextLine();
         student.setName(name);
         System.out.print("Birthdate(yyyyMMdd): ");
-        String bday = Utilities.sc.nextLine();
+        String bday = sc.nextLine();
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
             LocalDate parsedDate = LocalDate.parse(bday, formatter);
@@ -88,10 +82,10 @@ public class StudentMenu {
         } else {
             System.out.println("Current name: '" + student.getName() + "'. Leave 'New Name' empty to skip");
             System.out.print("New Name: ");
-            String newName = Utilities.sc.nextLine();
+            String newName = sc.nextLine();
             System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip");
             System.out.println("New Birthday(yyyyMMdd): ");
-            String newBday = Utilities.sc.nextLine();
+            String newBday = sc.nextLine();
             if (!newName.equals("")) {
                 student.setName(newName);
             }
@@ -117,17 +111,14 @@ public class StudentMenu {
         for (Student student : students) {
             System.out.println(student);
         }
-
         System.out.print("Select Student ID: ");
         int studentID = Utilities.readNumber();
         Student student = Utilities.studentDAO.readStudent(studentID);
         if (student != null) {
-
             System.out.println("Available Educations: ");
             for (Education education : educations) {
                 System.out.println(education);
             }
-
             System.out.print("Add Student " + student.getName() + " to Education: ");
             int educationID = Utilities.readNumber();
             Education education = Utilities.educationDAO.readEducation(educationID);
@@ -152,7 +143,6 @@ public class StudentMenu {
         for (Student student : students) {
             System.out.println(student);
         }
-
         System.out.print("Select Student ID: ");
         int studentID = Utilities.readNumber();
         Student student = Utilities.studentDAO.readStudent(studentID);
@@ -175,6 +165,7 @@ public class StudentMenu {
             System.out.println("Invalid Student ID");
         }
     }
+    
     private static void readStudent(){
         Student student = Utilities.studentDAO.readStudent(Utilities.readId());
         if(student != null){
