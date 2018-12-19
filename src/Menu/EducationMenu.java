@@ -24,7 +24,7 @@ public class EducationMenu {
         boolean run = true;
         menuEducation.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuEducation.add(new MenuOption("1) Create Education", () -> Utilities.educationDAO.createEducation(createEducation())));
-        menuEducation.add(new MenuOption("2) Read Education", () -> System.out.println(Utilities.educationDAO.readEducation(Utilities.readId()))));
+        menuEducation.add(new MenuOption("2) Read Education", () -> readEducation()));
         menuEducation.add(new MenuOption("3) Update Education", () -> Utilities.educationDAO.updateEducation(updateEducation())));
         menuEducation.add(new MenuOption("4) Delete Education", () -> Utilities.educationDAO.deleteEducation(Utilities.readId())));
         menuEducation.add(new MenuOption("5) Add Course To Education", () -> addCourseToEducation()));
@@ -95,5 +95,11 @@ public class EducationMenu {
 
         education.addCourse(Utilities.courseDAO.readCourse(courseID));
         Utilities.educationDAO.updateEducation(education);
+    }
+    private static void readEducation(){
+        Education education = Utilities.educationDAO.readEducation(Utilities.readId());
+        if(education != null){
+            System.out.println(education);
+        }
     }
 }

@@ -52,8 +52,8 @@ public class GradeMenu {
     }
 
     private static void readGrades() {
-        MainMenu.printList(studentDAO.readAllStudents());
-        MainMenu.printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(Utilities.readId())));
+        Utilities.printList(studentDAO.readAllStudents());
+        Utilities.printList(gradeDAO.readGradesByStudent(studentDAO.readStudent(Utilities.readId())));
     }
 
     private static Grade createGrade() {

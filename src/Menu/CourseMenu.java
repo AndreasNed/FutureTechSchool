@@ -23,7 +23,7 @@ public class CourseMenu {
         boolean run = true;
         menuCourse.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuCourse.add(new MenuOption("1) Create New Course", () -> Utilities.courseDAO.createCourse(createCourse())));
-        menuCourse.add(new MenuOption("2) Read Course", () -> System.out.println(Utilities.courseDAO.readCourse(Utilities.readId()))));
+        menuCourse.add(new MenuOption("2) Read Course", () -> readCourse()));
         menuCourse.add(new MenuOption("3) Update Course", () -> Utilities.courseDAO.updateCourse(updateCourse())));
         menuCourse.add(new MenuOption("4) Delete Course", () -> Utilities.courseDAO.deleteCourse(Utilities.readId())));
         menuCourse.add(new MenuOption("5) List all Courses", () -> Utilities.printList(Utilities.courseDAO.readAllCourses())));
@@ -73,5 +73,11 @@ public class CourseMenu {
             }
         }
         return course;
+    }
+    private static void readCourse(){
+        Course course = Utilities.courseDAO.readCourse(Utilities.readId());
+        if(course != null){
+            System.out.println(course);
+        }
     }
 }

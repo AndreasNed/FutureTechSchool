@@ -139,4 +139,10 @@ public class TeacherMenu {
             System.out.println("Invalid Teacher ID");
         }
     }
+    private static void readTeacher(){
+        Teacher teacher = Utilities.teacherDAO.readTeacher(Utilities.readId());
+        if(teacher != null){
+            System.out.println(teacher);
+        }
+    }
 }

@@ -31,7 +31,7 @@ public class StudentMenu {
         boolean run = true;
         menuStudent.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuStudent.add(new MenuOption("1) Create New Student", () -> Utilities.studentDAO.createStudent(createStudent())));
-        menuStudent.add(new MenuOption("2) Read Student", () -> System.out.println(Utilities.studentDAO.readStudent(Utilities.readId()))));
+        menuStudent.add(new MenuOption("2) Read Student", () -> readStudent()));
         menuStudent.add(new MenuOption("3) Update Student", () -> Utilities.studentDAO.updateStudent(updateStudent())));
         menuStudent.add(new MenuOption("4) Delete Student", () -> Utilities.studentDAO.deleteStudent(Utilities.readId())));
         menuStudent.add(new MenuOption("5) Add Student to Education", () -> addStudentToEducation()));
@@ -173,6 +173,12 @@ public class StudentMenu {
             }
         } else {
             System.out.println("Invalid Student ID");
+        }
+    }
+    private static void readStudent(){
+        Student student = Utilities.studentDAO.readStudent(Utilities.readId());
+        if(student != null){
+            System.out.println(student);
         }
     }
 }
