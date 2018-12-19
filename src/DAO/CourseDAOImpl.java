@@ -12,7 +12,6 @@ public class CourseDAOImpl implements CourseDAO {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
     EntityManager em = emf.createEntityManager();
 
-    //COURSE
     @Override
     public void createCourse(Course course) {
         try {
