@@ -1,11 +1,13 @@
 package DAO;
 
+import futuretechschool.domain.Course;
 import futuretechschool.domain.Teacher;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 public class TeacherDAOImpl implements TeacherDAO {
 
@@ -32,7 +34,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         Teacher teacher = em.find(Teacher.class, id);
         if (teacher != null) {
             return teacher;
-        }else{
+        } else {
             System.out.println("No such teacher.");
         }
         return null;
@@ -45,7 +47,7 @@ public class TeacherDAOImpl implements TeacherDAO {
                 em.getTransaction().begin();
                 em.merge(teacher);
                 em.getTransaction().commit();
-            }else{
+            } else {
                 System.out.println("No such teacher.");
             }
         } catch (PersistenceException ex) {
@@ -61,7 +63,7 @@ public class TeacherDAOImpl implements TeacherDAO {
                 em.getTransaction().begin();
                 em.remove(teacher);
                 em.getTransaction().commit();
-            }else{
+            } else {
                 System.out.println("No such teacher.");
             }
         } catch (PersistenceException ex) {
@@ -72,5 +74,12 @@ public class TeacherDAOImpl implements TeacherDAO {
     @Override
     public List<Teacher> readAllTeachers() {
         return em.createQuery("Select t from Teacher t").getResultList();
+    }
+
+    @Override
+    public List<Course> readAllCourses(Teacher teacher) {
+        Query query = em.createQuery("SELECT t from Teacher t INNER JOIN t.courses c WHERE t = :teacher");
+        query.setParameter("teacher", teacher);
+        return query.getResultList();
     }
 }

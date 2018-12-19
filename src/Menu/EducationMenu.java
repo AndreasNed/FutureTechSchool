@@ -1,12 +1,8 @@
 package Menu;
 
-import DAO.EducationDAO;
-import DAO.EducationDAOImpl;
-import static Menu.MainMenu.menuEducation;
-import static Menu.MainMenu.printList;
+
 import Utilities.Utilities;
 import futuretechschool.domain.Education;
-import futuretechschool.domain.Student;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +10,7 @@ import java.util.Scanner;
 public class EducationMenu {
 
     static Scanner sc = new Scanner(System.in);
+    static List<MenuOption> menuEducation = new ArrayList<>();
 
     public EducationMenu() {
         educationMenu();
@@ -82,7 +79,7 @@ public class EducationMenu {
     }
 
     private static void addCourseToEducation() {
-        printList(Utilities.courseDAO.readAllCourses());
+        Utilities.printList(Utilities.courseDAO.readAllCourses());
 
         System.out.print("Course ID: ");
         int courseID = Utilities.readNumber();

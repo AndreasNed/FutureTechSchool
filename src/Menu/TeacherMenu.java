@@ -5,7 +5,7 @@
  */
 package Menu;
 
-import static Menu.MainMenu.courseDAO;
+
 import Utilities.Utilities;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Teacher;
@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -22,6 +23,7 @@ import java.util.List;
 public class TeacherMenu {
 
     static List<MenuOption> menuTeacher = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
 
     public TeacherMenu() {
         teacherMenu();
@@ -59,10 +61,10 @@ public class TeacherMenu {
     private static Teacher createTeacher() {
         Teacher teacher = new Teacher();
         System.out.print("Name: ");
-        String name = Utilities.sc.nextLine();
+        String name = sc.nextLine();
         teacher.setName(name);
         System.out.print("Birthdate(yyyyMMdd): ");
-        String bday = Utilities.sc.nextLine();
+        String bday = sc.nextLine();
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
             LocalDate parsedDate = LocalDate.parse(bday, formatter);
@@ -86,10 +88,10 @@ public class TeacherMenu {
         } else {
             System.out.println("Current name: '" + teacher.getName() + "'. Leave 'New Name' empty to skip");
             System.out.print("New Name: ");
-            String newName = Utilities.sc.nextLine();
+            String newName = sc.nextLine();
             System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip");
             System.out.println("New Birthday(yyyyMMdd): ");
-            String newBday = Utilities.sc.nextLine();
+            String newBday = sc.nextLine();
             if (!newName.equals("")) {
                 teacher.setName(newName);
             }
@@ -117,12 +119,18 @@ public class TeacherMenu {
         if (teacher != null) {
             System.out.println("Available Courses: ");
             Utilities.printList(Utilities.courseDAO.readAllCourses());
+            System.out.print("Select Course ID: ");
             int courseID = Utilities.readNumber();
-            Course course = courseDAO.readCourse(courseID);
-            if (course != null) {
-                course.addTeacher(teacher);
-                courseDAO.updateCourse(course);
-                System.out.println(teacher.getName() + " added to course " + course.getName());
+            Course course = Utilities.courseDAO.readCourse(courseID);
+            List<Course> teacherCourses = Utilities.teacherDAO.readAllCourses(teacher);
+            if (!teacherCourses.contains(course)) {
+                if (course != null) {
+                    course.addTeacher(teacher);
+                    Utilities.courseDAO.updateCourse(course);
+                    System.out.println(teacher.getName() + " added to course " + course.getName());
+                }
+            }else{
+                System.out.println("Teacher " + teacher.getName() + " is already teaching course " + course.getName());
             }
         }
     }
