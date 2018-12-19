@@ -34,8 +34,10 @@ public class StudentDAOImpl implements StudentDAO {
         Student s = em.find(Student.class, id);
         if (s != null) {
             return s;
+        }else{
+            System.out.println("No such student.");
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -59,11 +61,12 @@ public class StudentDAOImpl implements StudentDAO {
                 em.getTransaction().begin();
                 em.remove(s);
                 em.getTransaction().commit();
+            }else{
+                System.out.println("No such student.");
             }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
         }
-
     }
 
     @Override

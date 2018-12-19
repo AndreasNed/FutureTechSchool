@@ -32,6 +32,8 @@ public class TeacherDAOImpl implements TeacherDAO {
         Teacher teacher = em.find(Teacher.class, id);
         if (teacher != null) {
             return teacher;
+        }else{
+            System.out.println("No such teacher.");
         }
         return null;
     }
@@ -43,6 +45,8 @@ public class TeacherDAOImpl implements TeacherDAO {
                 em.getTransaction().begin();
                 em.merge(teacher);
                 em.getTransaction().commit();
+            }else{
+                System.out.println("No such teacher.");
             }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
@@ -57,6 +61,8 @@ public class TeacherDAOImpl implements TeacherDAO {
                 em.getTransaction().begin();
                 em.remove(teacher);
                 em.getTransaction().commit();
+            }else{
+                System.out.println("No such teacher.");
             }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();

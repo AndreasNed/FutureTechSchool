@@ -33,6 +33,7 @@ public class CourseDAOImpl implements CourseDAO {
         if (c != null) {
             return c;
         } else {
+            System.out.println("No such course.");
             return null;
         }
     }
@@ -58,6 +59,8 @@ public class CourseDAOImpl implements CourseDAO {
                 em.getTransaction().begin();
                 em.remove(course);
                 em.getTransaction().commit();
+            } else{
+                System.out.println("No such course.");
             }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();

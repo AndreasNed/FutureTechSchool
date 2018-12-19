@@ -32,7 +32,7 @@ public class EducationDAOImpl implements EducationDAO {
         if (education != null) {
             return education;
         } else {
-            System.out.println("No such education");
+            System.out.println("No such education.");
             return null;
         }
     }
@@ -61,7 +61,7 @@ public class EducationDAOImpl implements EducationDAO {
                 em.remove(em.find(Education.class, id));
                 em.getTransaction().commit();
             } else {
-                System.out.println("No such education");
+                System.out.println("No such education.");
             }
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
