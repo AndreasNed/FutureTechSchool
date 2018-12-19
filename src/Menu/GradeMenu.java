@@ -70,7 +70,6 @@ public class GradeMenu {
             System.out.println("Invalid grade. Enter a valid Grade(IG / G / VG)");
         }
         return grade;
-
     }
 
     private static Grade updateGrade() {
@@ -88,8 +87,6 @@ public class GradeMenu {
         } catch (IllegalArgumentException ex) {
             System.out.println("Invalid grade. Enter a valid Grade(IG / G / VG)");
         }
-
         return grade;
-
     }
 }
