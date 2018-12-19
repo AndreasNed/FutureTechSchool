@@ -55,7 +55,7 @@ public class CourseMenu {
     }
 
     private static Course updateCourse() {
-        System.out.print("ID of course to Update(0 to cancel): "); //TODOD        
+        System.out.print("ID of course to Update(0 to cancel): ");      
         int id = Utilities.readNumber();
         if (id == 0) {
             return null;
