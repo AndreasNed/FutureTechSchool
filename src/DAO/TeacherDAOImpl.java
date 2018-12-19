@@ -78,7 +78,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public List<Course> readAllCourses(Teacher teacher) {
-        Query query = em.createQuery("SELECT t from Teacher t INNER JOIN t.courses c WHERE t = :teacher");
+        Query query = em.createQuery("SELECT c from Teacher t INNER JOIN t.courses c WHERE t = :teacher");
         query.setParameter("teacher", teacher);
         return query.getResultList();
     }

@@ -11,7 +11,6 @@ import DAO.StudentDAO;
 import DAO.StudentDAOImpl;
 import DAO.TeacherDAO;
 import DAO.TeacherDAOImpl;
-import static Menu.MainMenu.readNumber;
 import java.util.List;
 import java.util.Scanner;
 
