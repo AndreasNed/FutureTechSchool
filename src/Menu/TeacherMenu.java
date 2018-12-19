@@ -136,7 +136,7 @@ public class TeacherMenu {
                 System.out.println("Invalid Course ID");
             }
         } else {
-            System.out.println("Invalid Student ID");
+            System.out.println("Invalid Teacher ID");
         }
     }
 }

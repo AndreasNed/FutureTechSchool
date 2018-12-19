@@ -1,4 +1,3 @@
-
 package Menu;
 
 import DAO.CourseDAO;
@@ -11,14 +10,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CourseMenu {
-  
+
     static List<MenuOption> menuCourse = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
-    
-    public CourseMenu(){
+
+    public CourseMenu() {
         courseMenu();
     }
-    
+
     private static void courseMenu() {
         menuCourse.clear();
         boolean run = true;
@@ -46,7 +45,8 @@ public class CourseMenu {
             }
         }
     }
-        private static Course createCourse() {
+
+    private static Course createCourse() {
         Course course = new Course();
         System.out.print("Name: ");
         String name = sc.nextLine();
@@ -61,11 +61,16 @@ public class CourseMenu {
             return null;
         }
         Course course = Utilities.courseDAO.readCourse(id);
-        System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");
-        System.out.print("New Name: ");
-        String newName = sc.nextLine();
-        if (!newName.equals("")) {
-            course.setName(newName);
+        if (course == null) {
+            System.out.println("Invalid Course ID");
+            return null;
+        } else {
+            System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");
+            System.out.print("New Name: ");
+            String newName = sc.nextLine();
+            if (!newName.equals("")) {
+                course.setName(newName);
+            }
         }
         return course;
     }
