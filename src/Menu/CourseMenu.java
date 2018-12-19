@@ -1,8 +1,5 @@
 package Menu;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOImpl;
-import static Menu.MainMenu.menuCourse;
 import Utilities.Utilities;
 import futuretechschool.domain.Course;
 import java.util.ArrayList;

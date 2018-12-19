@@ -1,7 +1,5 @@
 package Menu;
 
-import DAO.GradeDAO;
-import DAO.GradeDAOImpl;
 import Utilities.Utilities;
 import futuretechschool.GradeEnum;
 import futuretechschool.domain.Course;
@@ -12,7 +10,6 @@ import java.util.Scanner;
 
 public class GradeMenu {
 
-    static GradeDAO gradeDAO = new GradeDAOImpl();
     static List<MenuOption> menuGrade = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
@@ -24,11 +21,11 @@ public class GradeMenu {
         menuGrade.clear();
         boolean run = true;
         menuGrade.add(new MenuOption("0) Back", () -> System.out.println("back")));
-        menuGrade.add(new MenuOption("1) Create Grade", () -> gradeDAO.createGrade(createGrade())));
+        menuGrade.add(new MenuOption("1) Create Grade", () -> Utilities.gradeDAO.createGrade(createGrade())));
         menuGrade.add(new MenuOption("2) Read Grades by Student", () -> readGrades()));
-        menuGrade.add(new MenuOption("3) Update Grade", () -> gradeDAO.updateGrade(updateGrade())));
-        menuGrade.add(new MenuOption("4) Delete Grade", () -> gradeDAO.deleteGrade(Utilities.readId())));
-        menuGrade.add(new MenuOption("5) List all Grades", () -> Utilities.printList(gradeDAO.readAllGrade())));
+        menuGrade.add(new MenuOption("3) Update Grade", () -> Utilities.gradeDAO.updateGrade(updateGrade())));
+        menuGrade.add(new MenuOption("4) Delete Grade", () -> Utilities.gradeDAO.deleteGrade(Utilities.readId())));
+        menuGrade.add(new MenuOption("5) List all Grades", () -> Utilities.printList(Utilities.gradeDAO.readAllGrade())));
         while (run) {
             System.out.println("--GRADE MENU--");
             for (MenuOption menuOption : menuGrade) {
@@ -50,7 +47,7 @@ public class GradeMenu {
 
     private static void readGrades() {
         Utilities.printList(Utilities.studentDAO.readAllStudents());
-        Utilities.printList(gradeDAO.readGradesByStudent(Utilities.studentDAO.readStudent(Utilities.readId())));
+        Utilities.printList(Utilities.gradeDAO.readGradesByStudent(Utilities.studentDAO.readStudent(Utilities.readId())));
     }
 
     private static Grade createGrade() {
@@ -62,14 +59,16 @@ public class GradeMenu {
         int courseId = Utilities.readNumber();
         System.out.print("Grade (IG / G / VG): ");
         String gradeString = sc.nextLine();
-
         Course course = Utilities.courseDAO.readCourse(courseId);
         course.removeStudent(Utilities.studentDAO.readStudent(studentId));
-
         Grade grade = new Grade();
         grade.setCourse(Utilities.courseDAO.readCourse(courseId));
         grade.setStudent(Utilities.studentDAO.readStudent(studentId));
-        grade.setGrade(GradeEnum.valueOf(gradeString));
+        try {
+            grade.setGrade(GradeEnum.valueOf(gradeString));
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Invalid grade. Enter a valid Grade(IG / G / VG)");
+        }
         return grade;
 
     }
@@ -78,13 +77,17 @@ public class GradeMenu {
         Utilities.printList(Utilities.studentDAO.readAllStudents());
         System.out.print("Student ID: ");
         int studentId = Utilities.readNumber();
-        Utilities.printList(gradeDAO.readGradesByStudent(Utilities.studentDAO.readStudent(studentId)));
+        Utilities.printList(Utilities.gradeDAO.readGradesByStudent(Utilities.studentDAO.readStudent(studentId)));
         System.out.print("ID of Grade to Update: ");
         int gradeId = Utilities.readNumber();
-        System.out.println("New Grade (IG / G / VG): ");
-        String gradeString = sc.next();
-        Grade grade = gradeDAO.readGrade(gradeId);
-        grade.setGrade(GradeEnum.valueOf(gradeString));
+        System.out.print("New Grade (IG / G / VG): ");
+        String gradeString = sc.nextLine();
+        Grade grade = Utilities.gradeDAO.readGrade(gradeId);
+        try {
+            grade.setGrade(GradeEnum.valueOf(gradeString));
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Invalid grade. Enter a valid Grade(IG / G / VG)");
+        }
 
         return grade;
 

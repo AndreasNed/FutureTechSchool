@@ -1,7 +1,6 @@
 
 package DAO;
 
-import futuretechschool.domain.Course;
 import futuretechschool.domain.Grade;
 import futuretechschool.domain.Student;
 import java.util.List;

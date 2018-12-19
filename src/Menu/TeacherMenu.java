@@ -34,7 +34,7 @@ public class TeacherMenu {
         boolean run = true;
         menuTeacher.add(new MenuOption("0) Back", () -> System.out.println("back")));
         menuTeacher.add(new MenuOption("1) Create New Teacher", () -> Utilities.teacherDAO.createTeacher(createTeacher())));
-        menuTeacher.add(new MenuOption("2) Read Teacher", () -> System.out.println(Utilities.teacherDAO.readTeacher(Utilities.readId()))));
+        menuTeacher.add(new MenuOption("2) Read Teacher", () -> readTeacher()));
         menuTeacher.add(new MenuOption("3) Update Teacher", () -> Utilities.teacherDAO.updateTeacher(updateTeacher())));
         menuTeacher.add(new MenuOption("4) Delete Teacher", () -> Utilities.teacherDAO.deleteTeacher(Utilities.readId())));
         menuTeacher.add(new MenuOption("5) Add Teacher To Course", () -> addTeacherToCourse()));
