@@ -1,6 +1,6 @@
 package Menu;
 
-import Utilities.Utilities;
+import Utilities.Util;
 import futuretechschool.domain.Course;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +18,19 @@ public class CourseMenu {
     private static void courseMenu() {
         menuCourse.clear();
         boolean run = true;
-        menuCourse.add(new MenuOption("0) Back", () -> System.out.println("back")));
-        menuCourse.add(new MenuOption("1) Create New Course", () -> Utilities.courseDAO.createCourse(createCourse())));
+        menuCourse.add(new MenuOption("0) Back", () -> System.out.println("")));
+        menuCourse.add(new MenuOption("1) Create New Course", () -> Util.courseDAO.createCourse(createCourse())));
         menuCourse.add(new MenuOption("2) Read Course", () -> readCourse()));
-        menuCourse.add(new MenuOption("3) Update Course", () -> Utilities.courseDAO.updateCourse(updateCourse())));
-        menuCourse.add(new MenuOption("4) Delete Course", () -> Utilities.courseDAO.deleteCourse(Utilities.readId())));
-        menuCourse.add(new MenuOption("5) List all Courses", () -> Utilities.printList(Utilities.courseDAO.readAllCourses())));
+        menuCourse.add(new MenuOption("3) Update Course", () -> Util.courseDAO.updateCourse(updateCourse())));
+        menuCourse.add(new MenuOption("4) Delete Course", () -> Util.courseDAO.deleteCourse(Util.readId())));
+        menuCourse.add(new MenuOption("5) List all Courses", () -> Util.printList(Util.courseDAO.readAllCourses())));
         while (run) {
             System.out.println("--COURSE MENU--");
-            for (MenuOption menuOption : menuCourse) {
+            menuCourse.forEach((menuOption) -> {
                 System.out.println(menuOption.getString());
-            }
+            });
             System.out.print("Input: ");
-            int input = Utilities.readNumber();
+            int input = Util.readNumber();
             if (input == 0) {
                 run = false;
             } else {
@@ -52,16 +52,16 @@ public class CourseMenu {
     }
 
     private static Course updateCourse() {
-        System.out.print("ID of course to Update(0 to cancel): ");      
-        int id = Utilities.readNumber();
+        System.out.print("ID of course to Update(0 to cancel): ");
+        int id = Util.readNumber();
         if (id == 0) {
             return null;
         }
-        Course course = Utilities.courseDAO.readCourse(id);
+        Course course = Util.courseDAO.readCourse(id);
         if (course == null) {
             return null;
         } else {
-            System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip");
+            System.out.println("Current name: '" + course.getName() + "'. Leave 'New Name' empty to skip.");
             System.out.print("New Name: ");
             String newName = sc.nextLine();
             if (!newName.equals("")) {
@@ -70,9 +70,10 @@ public class CourseMenu {
         }
         return course;
     }
-    private static void readCourse(){
-        Course course = Utilities.courseDAO.readCourse(Utilities.readId());
-        if(course != null){
+
+    private static void readCourse() {
+        Course course = Util.courseDAO.readCourse(Util.readId());
+        if (course != null) {
             System.out.println(course);
         }
     }

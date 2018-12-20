@@ -1,13 +1,7 @@
 package futuretechschool;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOImpl;
-import DAO.EducationDAO;
-import DAO.EducationDAOImpl;
-import DAO.StudentDAO;
-import DAO.StudentDAOImpl;
-import DAO.TeacherDAO;
-import DAO.TeacherDAOImpl;
+
+import Utilities.Util;
 import Menu.MainMenu;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Teacher;
@@ -17,47 +11,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PontusMain {
+public class Main {
 
-    static EducationDAO educationDAO = new EducationDAOImpl();
-    static CourseDAO courseDAO = new CourseDAOImpl();
-    static StudentDAO studentDAO = new StudentDAOImpl();
-    static TeacherDAO teacherDAO = new TeacherDAOImpl();
 
     public static void main(String[] args) {
-
-//        andreasDeBugg();
-
+        //debug();
         MainMenu.menu();
-
-//        debugAddEducation(); // funkar
-//        debugAddCourse(); // funkar
-//        debugAddStudent(); // funkar
-//        debugAddTeacher(); // funkar
-//
-//        debugAddCourseToEducation(); // funkar
-//        debugAddStudentToEducation(); // funkar
-//        debugAddStudentToCourse(); // funkar
-//        debugAddTeacherToCourse(); // funkar
-//        debugRemoveCourse(); // funkar
-//        debugRemoveStudent(); // funkar
-//        debugRemoveTeacher(); // funkar
-//        debugRemoveEducation(); // funkar inte. Går inte ta bort education då den är FK i Student-tabellen.
-//        debugUpdateCourse();
-//        debugUpdateEducation();
-//        debugRemoveStudentCourse();
-//        debugRemoveTeacherCourse(); //funkar
     }
 
     public static void debugAddEducation() {
 
         Education education1 = new Education();
         education1.setName("Java Utvecklare");
-        educationDAO.createEducation(education1);
+        Util.educationDAO.createEducation(education1);
 
         Education education2 = new Education();
         education2.setName("Java Testare");
-        educationDAO.createEducation(education2);
+        Util.educationDAO.createEducation(education2);
     }
 
     public static void debugAddCourse() {
@@ -71,8 +41,8 @@ public class PontusMain {
         course1.setPoints(100);
         course2.setPoints(200);
 
-        courseDAO.createCourse(course1);
-        courseDAO.createCourse(course2);
+        Util.courseDAO.createCourse(course1);
+        Util.courseDAO.createCourse(course2);
 
     }
 
@@ -85,8 +55,8 @@ public class PontusMain {
         student2.setName("Pontus P Paulsson");
         student2.setBirthdate(LocalDate.now());
 
-        studentDAO.createStudent(student1);
-        studentDAO.createStudent(student2);
+        Util.studentDAO.createStudent(student1);
+        Util.studentDAO.createStudent(student2);
 
     }
 
@@ -98,99 +68,79 @@ public class PontusMain {
         teacher1.setName("Ulf Bilting");
         teacher2.setName("Bita Jibbari");
 
-        teacherDAO.createTeacher(teacher1);
-        teacherDAO.createTeacher(teacher2);
+        Util.teacherDAO.createTeacher(teacher1);
+        Util.teacherDAO.createTeacher(teacher2);
     }
 
     public static void debugAddCourseToEducation() {
-//        educationDAO.addCourseToEducation(1, 3);
-//        educationDAO.addCourseToEducation(2, 4);
-        Course course = courseDAO.readCourse(3);
-        Course course2 = courseDAO.readCourse(4);
+        Course course = Util.courseDAO.readCourse(3);
+        Course course2 = Util.courseDAO.readCourse(4);
         System.out.println(course.getId());
         List<Course> courseList = new ArrayList<Course>();
         courseList.add(course);
         courseList.add(course2);
-        Education education = educationDAO.readEducation(1);
+        Education education = Util.educationDAO.readEducation(1);
         System.out.println(education.getId());
         education.setCourses(courseList);
         System.out.println(education.getCourses());
-        education.setName("Pontus PaulzZON");
-        educationDAO.updateEducation(education);
+        education.setName("Pontus Paulsson");
+        Util.educationDAO.updateEducation(education);
 
     }
 
     public static void debugAddStudentToEducation() {
-//        educationDAO.addStudentToEducation(5, 1);
-//        educationDAO.addStudentToEducation(6, 2);
-//        Education education = educationDAO.readEducation(1);
-//        Education education1 = educationDAO.readEducation(2);
-//        education.addStudent(studentDAO.readStudent(5));
-//        education.addStudent(studentDAO.readStudent(6));
-//        educationDAO.updateEducation(education);
-//        educationDAO.updateEducation(education1);
-        Student s = studentDAO.readStudent(5);
-        s.setEducation(educationDAO.readEducation(1));
-        studentDAO.updateStudent(s);
+        Student s = Util.studentDAO.readStudent(5);
+        s.setEducation(Util.educationDAO.readEducation(1));
+        Util.studentDAO.updateStudent(s);
 
     }
 
     public static void debugAddTeacherToCourse() {
-        Teacher t1 = teacherDAO.readTeacher(7);
-        Teacher t2 = teacherDAO.readTeacher(8);
+        Teacher t1 = Util.teacherDAO.readTeacher(7);
+        Teacher t2 = Util.teacherDAO.readTeacher(8);
 
-        Course c1 = courseDAO.readCourse(3);
-        Course c2 = courseDAO.readCourse(4);
+        Course c1 = Util.courseDAO.readCourse(3);
+        Course c2 = Util.courseDAO.readCourse(4);
 
-        //c1.addTeacher(t1);
-        //c2.addTeacher(t2);
         List<Teacher> teacherList = new ArrayList<>();
         teacherList.add(t1);
         c1.setTeachers(teacherList);
+        
+        Util.courseDAO.updateCourse(c1);
 
-        courseDAO.updateCourse(c1);
-//        courseDAO.addTeacherToCourse(7, 3);
-//        courseDAO.addTeacherToCourse(8, 4);
     }
 
     public static void debugAddStudentToCourse() {
-        Student s1 = studentDAO.readStudent(5);
-        Student s2 = studentDAO.readStudent(6);
-        Course course = courseDAO.readCourse(3);
-        //Course course2 = courseDAO.readCourse(4);
-
-//        course.addStudent(s1);
-//        course.addStudent(s2);
+        Student s1 = Util.studentDAO.readStudent(5);
+        Student s2 = Util.studentDAO.readStudent(6);
+        Course course = Util.courseDAO.readCourse(3);
         List<Student> studentList = new ArrayList<>();
         studentList.add(s1);
         studentList.add(s2);
         course.setStudents(studentList);
-
-        courseDAO.updateCourse(course);
-        //courseDAO.updateCourse(course2);
+        Util.courseDAO.updateCourse(course);
     }
 
     public static void debugRemoveCourse() {
-        courseDAO.deleteCourse(3);
+        Util.courseDAO.deleteCourse(3);
     }
 
     public static void debugRemoveStudent() {
-        studentDAO.deleteStudent(5);
+        Util.studentDAO.deleteStudent(5);
     }
 
     public static void debugRemoveTeacher() {
-        teacherDAO.deleteTeacher(7);
+        Util.teacherDAO.deleteTeacher(7);
     }
 
     public static void debugRemoveEducation() {
-        educationDAO.deleteEducation(1);
+        Util.educationDAO.deleteEducation(1);
     }
 
     public static void debugUpdateCourse() {
         Course course = new Course();
         course.setName("Java Programmering 2.0");
         course.setPoints(100);
-        //courseDAO.updateCourse(course, 3);
     }
 
     public static void debugUpdateEducation() {
@@ -198,31 +148,27 @@ public class PontusMain {
         edu.setName("ITHS Äger2");
         edu.setId(2);
         System.out.println(edu.getCourses());
-        //educationDAO.updateEducation(edu, 1);
     }
 
     public static void debugRemoveStudentCourse() {
-        Course course = courseDAO.readCourse(3);
-        Student student = studentDAO.readStudent(5);
-
+        Course course = Util.courseDAO.readCourse(3);
+        Student student = Util.studentDAO.readStudent(5);
         System.out.println(course.getStudents());
         System.out.println(student);
         course.removeStudent(student);
         System.out.println(course.getStudents());
-        courseDAO.updateCourse(course);
-
+        Util.courseDAO.updateCourse(course);
     }
 
     public static void debugRemoveTeacherCourse() {
-        Course course = courseDAO.readCourse(3);
-        Teacher teacher = teacherDAO.readTeacher(7);
-
+        Course course = Util.courseDAO.readCourse(3);
+        Teacher teacher = Util.teacherDAO.readTeacher(7);
         course.removeTeacher(teacher);
-        courseDAO.updateCourse(course);
+        Util.courseDAO.updateCourse(course);
 
     }
 
-    private static void andreasDeBugg() {
+    private static void debug() {
         Student student1 = new Student();
         student1.setName("Andreas Nedbal");
         student1.setBirthdate(LocalDate.now());
@@ -251,7 +197,7 @@ public class PontusMain {
         education1.setName("Java Education");
 
         Education education2 = new Education();
-        education2.setName("Cockstudy Education");
+        education2.setName("Anatomy Education");
 
         Education education3 = new Education();
         education3.setName("Spelling Education");
@@ -268,49 +214,49 @@ public class PontusMain {
         course3.setName("Spelling 1-0-1 Course");
         course3.setPoints(200);
 
-        educationDAO.createEducation(education1);
-        educationDAO.createEducation(education2);
-        educationDAO.createEducation(education3);
+        Util.educationDAO.createEducation(education1);
+        Util.educationDAO.createEducation(education2);
+        Util.educationDAO.createEducation(education3);
 
-        courseDAO.createCourse(course1);
-        courseDAO.createCourse(course2);
-        courseDAO.createCourse(course3);
+        Util.courseDAO.createCourse(course1);
+        Util.courseDAO.createCourse(course2);
+        Util.courseDAO.createCourse(course3);
 
-        teacherDAO.createTeacher(teacher1);
-        teacherDAO.createTeacher(teacher2);
-        teacherDAO.createTeacher(teacher3);
+        Util.teacherDAO.createTeacher(teacher1);
+        Util.teacherDAO.createTeacher(teacher2);
+        Util.teacherDAO.createTeacher(teacher3);
 
-        studentDAO.createStudent(student1);
-        studentDAO.createStudent(student2);
-        studentDAO.createStudent(student3);
+        Util.studentDAO.createStudent(student1);
+        Util.studentDAO.createStudent(student2);
+        Util.studentDAO.createStudent(student3);
 
         education1.addCourse(course1);
-        educationDAO.updateEducation(education1);
+        Util.educationDAO.updateEducation(education1);
 
         education2.addCourse(course2);
-        educationDAO.updateEducation(education2);
+        Util.educationDAO.updateEducation(education2);
 
         education3.addCourse(course3);
-        educationDAO.updateEducation(education3);
+        Util.educationDAO.updateEducation(education3);
 
         course1.addTeacher(teacher1);
-        courseDAO.updateCourse(course1);
+        Util.courseDAO.updateCourse(course1);
 
         course2.addTeacher(teacher2);
-        courseDAO.updateCourse(course1);
+        Util.courseDAO.updateCourse(course1);
 
         course3.addTeacher(teacher3);
-        courseDAO.updateCourse(course3);
+        Util.courseDAO.updateCourse(course3);
 
         student1.setEducation(education1);
-        studentDAO.updateStudent(student1);
+        Util.studentDAO.updateStudent(student1);
 
         student2.setEducation(education2);
         student2.addCourse(course3);
-        studentDAO.updateStudent(student2);
+        Util.studentDAO.updateStudent(student2);
 
         student3.addCourse(course2);
-        studentDAO.updateStudent(student3);
+        Util.studentDAO.updateStudent(student3);
 
     }
 }

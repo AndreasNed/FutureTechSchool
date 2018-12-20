@@ -22,5 +22,4 @@ public class MenuOption {
         return string;
 
     }
-
 }

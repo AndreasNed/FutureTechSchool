@@ -14,7 +14,6 @@ public class TeacherDAOImpl implements TeacherDAO {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
     EntityManager em = emf.createEntityManager();
 
-    //TEACHER
     @Override
     public void createTeacher(Teacher teacher) {
         try {

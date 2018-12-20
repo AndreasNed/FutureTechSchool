@@ -1,7 +1,6 @@
 package Menu;
 
-
-import Utilities.Utilities;
+import Utilities.Util;
 import futuretechschool.domain.Education;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +18,20 @@ public class EducationMenu {
     private static void educationMenu() {
         menuEducation.clear();
         boolean run = true;
-        menuEducation.add(new MenuOption("0) Back", () -> System.out.println("back")));
-        menuEducation.add(new MenuOption("1) Create Education", () -> Utilities.educationDAO.createEducation(createEducation())));
+        menuEducation.add(new MenuOption("0) Back", () -> System.out.println("")));
+        menuEducation.add(new MenuOption("1) Create Education", () -> Util.educationDAO.createEducation(createEducation())));
         menuEducation.add(new MenuOption("2) Read Education", () -> readEducation()));
-        menuEducation.add(new MenuOption("3) Update Education", () -> Utilities.educationDAO.updateEducation(updateEducation())));
-        menuEducation.add(new MenuOption("4) Delete Education", () -> Utilities.educationDAO.deleteEducation(Utilities.readId())));
+        menuEducation.add(new MenuOption("3) Update Education", () -> Util.educationDAO.updateEducation(updateEducation())));
+        menuEducation.add(new MenuOption("4) Delete Education", () -> Util.educationDAO.deleteEducation(Util.readId())));
         menuEducation.add(new MenuOption("5) Add Course To Education", () -> addCourseToEducation()));
-        menuEducation.add(new MenuOption("6) List all Educations", () -> Utilities.printList(Utilities.educationDAO.readAllEducations())));
+        menuEducation.add(new MenuOption("6) List all Educations", () -> Util.printList(Util.educationDAO.readAllEducations())));
         while (run) {
             System.out.println("--EDUCATION MENU--");
-            for (MenuOption menuOption : menuEducation) {
+            menuEducation.forEach((menuOption) -> {
                 System.out.println(menuOption.getString());
-            }
+            });
             System.out.print("Input: ");
-            int input = Utilities.readNumber();
+            int input = Util.readNumber();
             if (input == 0) {
                 run = false;
             } else {
@@ -53,22 +52,22 @@ public class EducationMenu {
         if (!name.equals("")) {
             return education;
         } else {
-            System.out.println("Must input proper name");
+            System.out.println("Must input proper name.");
         }
         return null;
     }
 
     private static Education updateEducation() {
-        System.out.print("ID of education to Update(0 to cancel): ");        
-        int id = Utilities.readNumber();
+        System.out.print("ID of education to Update(0 to cancel): ");
+        int id = Util.readNumber();
         if (id == 0) {
             return null;
         }
-        Education education = Utilities.educationDAO.readEducation(id);
+        Education education = Util.educationDAO.readEducation(id);
         if (education == null) {
             return null;
         } else {
-            System.out.println("Current name: '" + education.getName() + "'. Leave 'New Name' empty to skip");
+            System.out.println("Current name: '" + education.getName() + "'. Leave 'New Name' empty to skip.");
             System.out.print("New Name: ");
             String newName = sc.nextLine();
             if (!newName.equals("")) {
@@ -79,23 +78,23 @@ public class EducationMenu {
     }
 
     private static void addCourseToEducation() {
-        Utilities.printList(Utilities.courseDAO.readAllCourses());
+        Util.printList(Util.courseDAO.readAllCourses());
 
         System.out.print("Course ID: ");
-        int courseID = Utilities.readNumber();
+        int courseID = Util.readNumber();
 
-        System.out.println(Utilities.educationDAO.readAllEducations());
+        System.out.println(Util.educationDAO.readAllEducations());
         System.out.print("Add course #" + courseID + " to Education ID: ");
-        int educationID = Utilities.readNumber();
-        Education education = Utilities.educationDAO.readEducation(educationID);
+        int educationID = Util.readNumber();
+        Education education = Util.educationDAO.readEducation(educationID);
 
-        education.addCourse(Utilities.courseDAO.readCourse(courseID));
-        Utilities.educationDAO.updateEducation(education);
+        education.addCourse(Util.courseDAO.readCourse(courseID));
+        Util.educationDAO.updateEducation(education);
     }
-    
-    private static void readEducation(){
-        Education education = Utilities.educationDAO.readEducation(Utilities.readId());
-        if(education != null){
+
+    private static void readEducation() {
+        Education education = Util.educationDAO.readEducation(Util.readId());
+        if (education != null) {
             System.out.println(education);
         }
     }

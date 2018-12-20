@@ -1,7 +1,6 @@
 package Menu;
 
-import static Menu.MainMenu.menuStudent;
-import Utilities.Utilities;
+import Utilities.Util;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Education;
 import futuretechschool.domain.Student;
@@ -15,6 +14,7 @@ import java.util.Scanner;
 public class StudentMenu {
 
     static Scanner sc = new Scanner(System.in);
+    static List<MenuOption> menuStudent = new ArrayList<>();
 
     public StudentMenu() {
         studentMenu();
@@ -23,23 +23,23 @@ public class StudentMenu {
     private static void studentMenu() {
         menuStudent.clear();
         boolean run = true;
-        menuStudent.add(new MenuOption("0) Back", () -> System.out.println("back")));
-        menuStudent.add(new MenuOption("1) Create New Student", () -> Utilities.studentDAO.createStudent(createStudent())));
+        menuStudent.add(new MenuOption("0) Back", () -> System.out.println("")));
+        menuStudent.add(new MenuOption("1) Create New Student", () -> Util.studentDAO.createStudent(createStudent())));
         menuStudent.add(new MenuOption("2) Read Student", () -> readStudent()));
-        menuStudent.add(new MenuOption("3) Update Student", () -> Utilities.studentDAO.updateStudent(updateStudent())));
-        menuStudent.add(new MenuOption("4) Delete Student", () -> Utilities.studentDAO.deleteStudent(Utilities.readId())));
+        menuStudent.add(new MenuOption("3) Update Student", () -> Util.studentDAO.updateStudent(updateStudent())));
+        menuStudent.add(new MenuOption("4) Delete Student", () -> Util.studentDAO.deleteStudent(Util.readId())));
         menuStudent.add(new MenuOption("5) Add Student to Education", () -> addStudentToEducation()));
         menuStudent.add(new MenuOption("6) Add Student to Course", () -> addStudentToCourse()));
-        menuStudent.add(new MenuOption("7) List all Students", () -> Utilities.printList(Utilities.studentDAO.readAllStudents())));
-        menuStudent.add(new MenuOption("8) List all Courses by StudentID", () -> Utilities.printList(Utilities.studentDAO.readAllCourses(Utilities.studentDAO.readStudent(Utilities.readId())))));
+        menuStudent.add(new MenuOption("7) List all Students", () -> Util.printList(Util.studentDAO.readAllStudents())));
+        menuStudent.add(new MenuOption("8) List all Courses by StudentID", () -> Util.printList(Util.studentDAO.readAllCourses(Util.studentDAO.readStudent(Util.readId())))));
 
         while (run) {
             System.out.println("--STUDENT MENU--");
-            for (MenuOption menuOption : menuStudent) {
+            menuStudent.forEach((menuOption) -> {
                 System.out.println(menuOption.getString());
-            }
+            });
             System.out.print("Input: ");
-            int input = Utilities.readNumber();
+            int input = Util.readNumber();
             if (input == 0) {
                 run = false;
             } else {
@@ -71,19 +71,19 @@ public class StudentMenu {
 
     private static Student updateStudent() {
         System.out.print("ID of student to Update(0 to cancel): ");
-        int id = Utilities.readNumber();
+        int id = Util.readNumber();
         if (id == 0) {
             return null;
         }
-        Student student = Utilities.studentDAO.readStudent(id);
+        Student student = Util.studentDAO.readStudent(id);
         if (student == null) {
             System.out.println("Invalid Student ID");
             return null;
         } else {
-            System.out.println("Current name: '" + student.getName() + "'. Leave 'New Name' empty to skip");
+            System.out.println("Current name: '" + student.getName() + "'. Leave 'New Name' empty to skip.");
             System.out.print("New Name: ");
             String newName = sc.nextLine();
-            System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip");
+            System.out.println("Current Birthday: '" + student.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip.");
             System.out.println("New Birthday(yyyyMMdd): ");
             String newBday = sc.nextLine();
             if (!newName.equals("")) {
@@ -103,30 +103,26 @@ public class StudentMenu {
     }
 
     private static void addStudentToEducation() {
-        List<Student> students = new ArrayList<>();
-        List<Education> educations = new ArrayList<>();
-        students = Utilities.studentDAO.readAllStudents();
-        educations = Utilities.educationDAO.readAllEducations();
         System.out.println("List of Students: ");
-        for (Student student : students) {
+        Util.studentDAO.readAllStudents().forEach((student) -> {
             System.out.println(student);
-        }
+        });
         System.out.print("Select Student ID: ");
-        int studentID = Utilities.readNumber();
-        Student student = Utilities.studentDAO.readStudent(studentID);
+        int studentID = Util.readNumber();
+        Student student = Util.studentDAO.readStudent(studentID);
         if (student.getEducation() == null) {
             if (student != null) {
                 System.out.println("Available Educations: ");
-                for (Education education : educations) {
+                Util.educationDAO.readAllEducations().forEach((education) -> {
                     System.out.println(education);
-                }
+                });
                 System.out.print("Select Education ID: ");
-                int educationID = Utilities.readNumber();
-                Education education = Utilities.educationDAO.readEducation(educationID);
+                int educationID = Util.readNumber();
+                Education education = Util.educationDAO.readEducation(educationID);
                 if (education != null) {
                     student.setEducation(education);
-                    Utilities.studentDAO.updateStudent(student);
-                    System.out.println(student.getName() + " added to education " + education.getName());
+                    Util.studentDAO.updateStudent(student);
+                    System.out.println(student.getName() + " added to Education " + education.getName());
                 }
             }
         } else {
@@ -135,35 +131,32 @@ public class StudentMenu {
     }
 
     private static void addStudentToCourse() {
-        List<Student> students = new ArrayList<>();
-        List<Course> courses = new ArrayList<>();
-        students = Utilities.studentDAO.readAllStudents();
-        courses = Utilities.courseDAO.readAllCourses();
+
         System.out.println("List of Students: ");
-        for (Student student : students) {
+        Util.studentDAO.readAllStudents().forEach((student) -> {
             System.out.println(student);
-        }
+        });
         System.out.print("Select Student ID: ");
-        int studentID = Utilities.readNumber();
-        Student student = Utilities.studentDAO.readStudent(studentID);
+        int studentID = Util.readNumber();
+        Student student = Util.studentDAO.readStudent(studentID);
         if (student != null) {
             System.out.println("Available Courses: ");
-            for (Course course : courses) {
+            Util.courseDAO.readAllCourses().forEach((course) -> {
                 System.out.println(course);
-            }
-            int courseID = Utilities.readNumber();
-            Course course = Utilities.courseDAO.readCourse(courseID);
-            List<Course> courseList = Utilities.studentDAO.readAllCourses(student);
+            });
+            int courseID = Util.readNumber();
+            Course course = Util.courseDAO.readCourse(courseID);
+            List<Course> courseList = Util.studentDAO.readAllCourses(student);
             if (!courseList.contains(course)) {
                 if (course != null) {
                     course.addStudent(student);
-                    Utilities.courseDAO.updateCourse(course);
-                    System.out.println(student.getName() + " added to course " + course.getName());
+                    Util.courseDAO.updateCourse(course);
+                    System.out.println(student.getName() + " added to Course " + course.getName());
                 } else {
                     System.out.println("Invalid Course ID");
                 }
             } else {
-                System.out.println("Student " + student.getName() + " is already in course " + course.getName());
+                System.out.println("Student " + student.getName() + " is already in Course " + course.getName());
             }
         } else {
             System.out.println("Invalid Student ID");
@@ -171,7 +164,7 @@ public class StudentMenu {
     }
 
     private static void readStudent() {
-        Student student = Utilities.studentDAO.readStudent(Utilities.readId());
+        Student student = Util.studentDAO.readStudent(Util.readId());
         if (student != null) {
             System.out.println(student);
         }

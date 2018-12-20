@@ -1,7 +1,7 @@
 package Menu;
 
-import Utilities.Utilities;
-import futuretechschool.GradeEnum;
+import Utilities.Util;
+import Utilities.GradeEnum;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Grade;
 import java.util.ArrayList;
@@ -20,19 +20,19 @@ public class GradeMenu {
     private static void gradeMenu() {
         menuGrade.clear();
         boolean run = true;
-        menuGrade.add(new MenuOption("0) Back", () -> System.out.println("back")));
-        menuGrade.add(new MenuOption("1) Create Grade", () -> Utilities.gradeDAO.createGrade(createGrade())));
+        menuGrade.add(new MenuOption("0) Back", () -> System.out.println("")));
+        menuGrade.add(new MenuOption("1) Create Grade", () -> Util.gradeDAO.createGrade(createGrade())));
         menuGrade.add(new MenuOption("2) Read Grades by Student", () -> readGrades()));
-        menuGrade.add(new MenuOption("3) Update Grade", () -> Utilities.gradeDAO.updateGrade(updateGrade())));
-        menuGrade.add(new MenuOption("4) Delete Grade", () -> Utilities.gradeDAO.deleteGrade(Utilities.readId())));
-        menuGrade.add(new MenuOption("5) List all Grades", () -> Utilities.printList(Utilities.gradeDAO.readAllGrade())));
+        menuGrade.add(new MenuOption("3) Update Grade", () -> Util.gradeDAO.updateGrade(updateGrade())));
+        menuGrade.add(new MenuOption("4) Delete Grade", () -> Util.gradeDAO.deleteGrade(Util.readId())));
+        menuGrade.add(new MenuOption("5) List all Grades", () -> Util.printList(Util.gradeDAO.readAllGrade())));
         while (run) {
             System.out.println("--GRADE MENU--");
-            for (MenuOption menuOption : menuGrade) {
+            menuGrade.forEach((menuOption) -> {
                 System.out.println(menuOption.getString());
-            }
+            });
             System.out.print("Input: ");
-            int input = Utilities.readNumber();
+            int input = Util.readNumber();
             if (input == 0) {
                 run = false;
             } else {
@@ -46,24 +46,24 @@ public class GradeMenu {
     }
 
     private static void readGrades() {
-        Utilities.printList(Utilities.studentDAO.readAllStudents());
-        Utilities.printList(Utilities.gradeDAO.readGradesByStudent(Utilities.studentDAO.readStudent(Utilities.readId())));
+        Util.printList(Util.studentDAO.readAllStudents());
+        Util.printList(Util.gradeDAO.readGradesByStudent(Util.studentDAO.readStudent(Util.readId())));
     }
 
     private static Grade createGrade() {
-        Utilities.printList(Utilities.studentDAO.readAllStudents());
+        Util.printList(Util.studentDAO.readAllStudents());
         System.out.print("Student ID: ");
-        int studentId = Utilities.readNumber();
-        Utilities.printList(Utilities.studentDAO.readAllCourses(Utilities.studentDAO.readStudent(studentId)));
+        int studentId = Util.readNumber();
+        Util.printList(Util.studentDAO.readAllCourses(Util.studentDAO.readStudent(studentId)));
         System.out.print("Course ID: ");
-        int courseId = Utilities.readNumber();
+        int courseId = Util.readNumber();
         System.out.print("Grade (IG / G / VG): ");
         String gradeString = sc.nextLine();
-        Course course = Utilities.courseDAO.readCourse(courseId);
-        course.removeStudent(Utilities.studentDAO.readStudent(studentId));
+        Course course = Util.courseDAO.readCourse(courseId);
+        course.removeStudent(Util.studentDAO.readStudent(studentId));
         Grade grade = new Grade();
-        grade.setCourse(Utilities.courseDAO.readCourse(courseId));
-        grade.setStudent(Utilities.studentDAO.readStudent(studentId));
+        grade.setCourse(Util.courseDAO.readCourse(courseId));
+        grade.setStudent(Util.studentDAO.readStudent(studentId));
         try {
             grade.setGrade(GradeEnum.valueOf(gradeString));
         } catch (IllegalArgumentException ex) {
@@ -73,15 +73,15 @@ public class GradeMenu {
     }
 
     private static Grade updateGrade() {
-        Utilities.printList(Utilities.studentDAO.readAllStudents());
+        Util.printList(Util.studentDAO.readAllStudents());
         System.out.print("Student ID: ");
-        int studentId = Utilities.readNumber();
-        Utilities.printList(Utilities.gradeDAO.readGradesByStudent(Utilities.studentDAO.readStudent(studentId)));
+        int studentId = Util.readNumber();
+        Util.printList(Util.gradeDAO.readGradesByStudent(Util.studentDAO.readStudent(studentId)));
         System.out.print("ID of Grade to Update: ");
-        int gradeId = Utilities.readNumber();
+        int gradeId = Util.readNumber();
         System.out.print("New Grade (IG / G / VG): ");
         String gradeString = sc.nextLine();
-        Grade grade = Utilities.gradeDAO.readGrade(gradeId);
+        Grade grade = Util.gradeDAO.readGrade(gradeId);
         try {
             grade.setGrade(GradeEnum.valueOf(gradeString));
         } catch (IllegalArgumentException ex) {

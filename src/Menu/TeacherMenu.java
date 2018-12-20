@@ -1,8 +1,6 @@
-
 package Menu;
 
-
-import Utilities.Utilities;
+import Utilities.Util;
 import futuretechschool.domain.Course;
 import futuretechschool.domain.Teacher;
 import java.time.LocalDate;
@@ -24,20 +22,20 @@ public class TeacherMenu {
     private static void teacherMenu() {
         menuTeacher.clear();
         boolean run = true;
-        menuTeacher.add(new MenuOption("0) Back", () -> System.out.println("back")));
-        menuTeacher.add(new MenuOption("1) Create New Teacher", () -> Utilities.teacherDAO.createTeacher(createTeacher())));
+        menuTeacher.add(new MenuOption("0) Back", () -> System.out.println("")));
+        menuTeacher.add(new MenuOption("1) Create New Teacher", () -> Util.teacherDAO.createTeacher(createTeacher())));
         menuTeacher.add(new MenuOption("2) Read Teacher", () -> readTeacher()));
-        menuTeacher.add(new MenuOption("3) Update Teacher", () -> Utilities.teacherDAO.updateTeacher(updateTeacher())));
-        menuTeacher.add(new MenuOption("4) Delete Teacher", () -> Utilities.teacherDAO.deleteTeacher(Utilities.readId())));
+        menuTeacher.add(new MenuOption("3) Update Teacher", () -> Util.teacherDAO.updateTeacher(updateTeacher())));
+        menuTeacher.add(new MenuOption("4) Delete Teacher", () -> Util.teacherDAO.deleteTeacher(Util.readId())));
         menuTeacher.add(new MenuOption("5) Add Teacher To Course", () -> addTeacherToCourse()));
-        menuTeacher.add(new MenuOption("6) List all Teachers", () -> Utilities.printList(Utilities.teacherDAO.readAllTeachers())));
+        menuTeacher.add(new MenuOption("6) List all Teachers", () -> Util.printList(Util.teacherDAO.readAllTeachers())));
         while (run) {
             System.out.println("--TEACHER MENU--");
-            for (MenuOption menuOption : menuTeacher) {
+            menuTeacher.forEach((menuOption) -> {
                 System.out.println(menuOption.getString());
-            }
+            });
             System.out.print("Input: ");
-            int input = Utilities.readNumber();
+            int input = Util.readNumber();
             if (input == 0) {
                 run = false;
             } else {
@@ -69,19 +67,19 @@ public class TeacherMenu {
     }
 
     private static Teacher updateTeacher() {
-        System.out.print("ID of teacher to Update(0 to cancel): "); //TODOD        
-        int id = Utilities.readNumber();
+        System.out.print("ID of teacher to Update(0 to cancel): ");
+        int id = Util.readNumber();
         if (id == 0) {
             return null;
         }
-        Teacher teacher = Utilities.teacherDAO.readTeacher(id);
+        Teacher teacher = Util.teacherDAO.readTeacher(id);
         if (teacher == null) {
             return null;
         } else {
-            System.out.println("Current name: '" + teacher.getName() + "'. Leave 'New Name' empty to skip");
+            System.out.println("Current name: '" + teacher.getName() + "'. Leave 'New Name' empty to skip.");
             System.out.print("New Name: ");
             String newName = sc.nextLine();
-            System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip");
+            System.out.println("Current Birthday: '" + teacher.getBirthdate().toString() + "'. Leave 'New Birthday' empty to skip.");
             System.out.println("New Birthday(yyyyMMdd): ");
             String newBday = sc.nextLine();
             if (!newName.equals("")) {
@@ -102,33 +100,33 @@ public class TeacherMenu {
 
     private static void addTeacherToCourse() {
         System.out.println("List of teachers: ");
-        Utilities.printList(Utilities.teacherDAO.readAllTeachers());
+        Util.printList(Util.teacherDAO.readAllTeachers());
 
         System.out.print("Select teacher ID: ");
-        int teacherID = Utilities.readNumber();
-        Teacher teacher = Utilities.teacherDAO.readTeacher(teacherID);
+        int teacherID = Util.readNumber();
+        Teacher teacher = Util.teacherDAO.readTeacher(teacherID);
 
         if (teacher != null) {
             System.out.println("Available Courses: ");
-            Utilities.printList(Utilities.courseDAO.readAllCourses());
+            Util.printList(Util.courseDAO.readAllCourses());
             System.out.print("Select Course ID: ");
-            int courseID = Utilities.readNumber();
-            Course course = Utilities.courseDAO.readCourse(courseID);
-            List<Course> teacherCourses = Utilities.teacherDAO.readAllCourses(teacher);
+            int courseID = Util.readNumber();
+            Course course = Util.courseDAO.readCourse(courseID);
+            List<Course> teacherCourses = Util.teacherDAO.readAllCourses(teacher);
             if (!teacherCourses.contains(course)) {
                 if (course != null) {
                     course.addTeacher(teacher);
-                    Utilities.courseDAO.updateCourse(course);
+                    Util.courseDAO.updateCourse(course);
                     System.out.println(teacher.getName() + " added to course " + course.getName());
                 }
-            }else{
+            } else {
                 System.out.println("Teacher " + teacher.getName() + " is already teaching course " + course.getName());
             }
         }
     }
 
     private static void readTeacher() {
-        Teacher teacher = Utilities.teacherDAO.readTeacher(Utilities.readId());
+        Teacher teacher = Util.teacherDAO.readTeacher(Util.readId());
         if (teacher != null) {
             System.out.println(teacher);
         }

@@ -1,6 +1,6 @@
-
 package DAO;
 
+import futuretechschool.domain.Education;
 import futuretechschool.domain.Grade;
 import futuretechschool.domain.Student;
 import java.util.List;
@@ -25,10 +25,16 @@ public class GradeDAOImpl implements GradeDAO {
             em.getTransaction().rollback();
         }
     }
-    
+
     @Override
-    public Grade readGrade(int id){
-        return em.find(Grade.class, id);
+    public Grade readGrade(int id) {
+        Grade grade = em.find(Grade.class, id);
+        if (grade != null) {
+            return grade;
+        } else {
+            System.out.println("No such grade.");
+            return null;
+        }
     }
 
     @Override
@@ -63,7 +69,7 @@ public class GradeDAOImpl implements GradeDAO {
 
     @Override
     public List<Grade> readAllGrade() {
-       return em.createQuery("Select g from Grade g").getResultList();
+        return em.createQuery("Select g from Grade g").getResultList();
     }
 
 }

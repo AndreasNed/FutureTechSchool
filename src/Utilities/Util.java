@@ -11,10 +11,11 @@ import DAO.StudentDAO;
 import DAO.StudentDAOImpl;
 import DAO.TeacherDAO;
 import DAO.TeacherDAOImpl;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Utilities {
+public class Util {
     
     public static Scanner sc = new Scanner(System.in);
         
@@ -35,7 +36,7 @@ public class Utilities {
         try {
             strNum = sc.nextLine();
             num = Integer.parseInt(strNum);
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
             num = -1;
         }
         return num;

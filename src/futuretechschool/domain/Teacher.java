@@ -1,4 +1,3 @@
-
 package futuretechschool.domain;
 
 import java.io.Serializable;
@@ -14,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Teacher implements Serializable{
+public class Teacher implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -79,12 +78,8 @@ public class Teacher implements Serializable{
         return this.getId() == ((Teacher) obj).getId();
     }
 
-    public String toStringSimple() {
-        return "Teacher " + " | id:  " + id + " | name: " + name + " | courses: " + "\n" + courses;
-    }
-
     public String toString() {
-        return String.format("%7s|%-3s|%-20s", "Teacher", "#"+this.getId(), this.getName()).toUpperCase();
+        return String.format("%7s|%-3s|%-20s", "Teacher", "#" + this.getId(), this.getName()).toUpperCase();
     }
 
 }

@@ -1,4 +1,3 @@
-
 package futuretechschool.domain;
 
 import DAO.StudentDAO;
@@ -18,7 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Student implements Serializable{
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -94,12 +93,8 @@ public class Student implements Serializable{
         return this.getId() == ((Student) obj).getId();
     }
 
-    public String toStringSimple() {
-        return "Student" + " | id: " + id + " | name: " + name + " | birthdate: " + birthdate + " | education: " + education + " | courses: " + "\n" + courses;
-    }
-
     public String toString() {
         StudentDAO studentDAO = new StudentDAOImpl();
-        return String.format("%6s|%-4s|%-20s|%-20s", "Student", "#"+this.getId(), this.getName(), "Points: " + studentDAO.getTotalPoints(this)).toUpperCase();
+        return String.format("%6s|%-4s|%-20s|%-20s", "Student", "#" + this.getId(), this.getName(), "Points: " + studentDAO.getTotalPoints(this)).toUpperCase();
     }
 }

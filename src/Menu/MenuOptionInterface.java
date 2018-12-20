@@ -1,4 +1,3 @@
-
 package Menu;
 
 public interface MenuOptionInterface {

@@ -1,4 +1,3 @@
-
 package DAO;
 
 import futuretechschool.domain.Education;
@@ -21,7 +20,7 @@ public class EducationDAOImpl implements EducationDAO {
             em.getTransaction().commit();
         } catch (PersistenceException ex) {
             em.getTransaction().rollback();
-        } catch(IllegalStateException e) {
+        } catch (IllegalStateException e) {
         } catch (IllegalArgumentException ex) {
             System.out.println("Could not insert education to database. Exception: " + ex);
         }
